@@ -50,7 +50,12 @@ class App extends React.Component {
 
       .then((result) => {
         this.setState({ message: result.message, redirect: true});
-        <Redirect to="/" />;
+        if(this.redirect === true) {
+          <Redirect to="/" />;
+        } else {
+          <Redirect to="/signup" />
+        }
+        
       })
       .catch((err) => {
         console.log(err);
@@ -72,12 +77,20 @@ class App extends React.Component {
       .login(this.state.loggingUser.email, this.state.loggingUser.password)
       .then((result) => {
         this.setState({ message: result.message, redirect: true });
-        <Redirect to="/" />;
+   
+        // if(this.state.redirect === true) {
+        //   <Redirect to="/" />;
+        // } else {
+        //   <Redirect to="/login" />
+        // }
+  
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+
 
   changeHandlerLogIn = (_eventTarget) => {
     this.setState({
@@ -118,6 +131,15 @@ class App extends React.Component {
   }
 
   render() {
+
+        if(this.state.redirect) {
+          return(
+            <Redirect to="/" />
+      
+          )
+          } 
+
+
     return (
       <div className="App">
         <MyNavBar
@@ -130,7 +152,7 @@ class App extends React.Component {
         <p>{this.state.searchURL}</p>
         <Route
           path="/signup"
-          render={() => (
+                  render={() => (
             <SignUp
               submitSignUp={this.submitSignUp}
               newUser={this.state.newUser}
@@ -143,15 +165,20 @@ class App extends React.Component {
 
         <Route
           path="/login"
+          
           render={() => (
+            
             <LogIn
               submitLogIn={this.submitLogIn}
               newUser={this.state.newUser}
               isLogged={this.state.isLogged}
               loggingUser={this.state.loggingUser}
               changeHandlerLogIn={this.changeHandlerLogIn}
+                 
             />
+            
           )}
+        
         />
 
         <Route
