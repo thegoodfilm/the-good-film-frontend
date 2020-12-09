@@ -9,7 +9,7 @@ class Details extends React.Component {
     key: "",
     genre: "",
     videoName: "",
-    cast: []
+    cast: [],
   };
 
   componentDidMount() {
@@ -20,14 +20,21 @@ class Details extends React.Component {
         return data.json();
       })
       .then((dataJSON) => {
-        this.setState({
-          details: dataJSON,
-          key: dataJSON.videos.results[0].key,
-          genre: dataJSON.genres[0].name,
-          videoName: dataJSON.videos.results[0].name,
-        });
-
-        // console.log(this.state.details.videos.results[0].id);
+        if (dataJSON.genres.length === 0) {
+          this.setState({
+            details: dataJSON,
+            key: dataJSON.videos.results[0].key,
+            genre: "other",
+            videoName: dataJSON.videos.results[0].name,
+          });
+        } else {
+          this.setState({
+            details: dataJSON,
+            key: dataJSON.videos.results[0].key,
+            genre: dataJSON.genres[0].name,
+            videoName: dataJSON.videos.results[0].name,
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -39,18 +46,14 @@ class Details extends React.Component {
       .then((dataCast) => {
         //console.log(dataCast.json())
         return dataCast.json();
-      
       })
       .then((dataJSON) => {
- 
-        this.setState({cast: dataJSON.cast,
-        });
+        this.setState({ cast: dataJSON.cast });
       })
       .catch((err) => {
         console.log(err);
       });
-      console.log(this.state.details);
-
+    console.log(this.state.details);
   }
 
   renderCast = () => {
@@ -65,7 +68,7 @@ class Details extends React.Component {
               <img src={poster} alt={cast.name} />
             </div>
           </div>
-       </Link>
+        </Link>
       );
     });
   };
