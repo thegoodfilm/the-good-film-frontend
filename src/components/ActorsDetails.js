@@ -64,42 +64,6 @@ class ActorsDetails extends React.Component {
     });
   };
 
-  //   renderActorsBio = () => {
-  //     return this.state.actorsBio.map((actorsBio) => {
-  //       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${actorsBio.profile_path}`;
-  //       return (
-  //         <div>
-  //           <div>
-  //             <h3>Name: {actorsBio.name}</h3>
-  //             <p>Bithday: {actorsBio.birthday}</p>
-  //             <p>Place of birth: {actorsBio.place_of_birth}</p>
-  //             <p>Score: {actorsBio.biography}</p>
-  //             <img src={poster} alt={actorsBio.name} />
-  //           </div>
-  //         </div>
-  //       );
-  //     });
-  //   };
-
-  //   renderActorsBio = () => {
-  //     return this.state.actorsBio.map((actorsBio) => {
-  //       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${actorsBio.profile_path}`;
-  //       return (
-
-  //           <div>
-  //             <div>
-  //             <h3>Name: {actorsBio.name}</h3>
-  //             <p>Bithday: {actorsBio.birthday}</p>
-  //             <p>Place of birth: {actorsBio.place_of_birth}</p>
-  //             <p>Score: {actorsBio.biography}</p>
-  //             <img src={poster} alt={actorsBio.name} />
-  //             </div>
-  //           </div>
-
-  //       );
-  //     });
-  //   };
-
   render() {
     return (
       <div>
@@ -107,8 +71,7 @@ class ActorsDetails extends React.Component {
         <img
           src={`${process.env.REACT_APP_BASEURLPOSTER}${this.state.actorsBio.profile_path}`}
           alt={this.state.actorsBio.name}
-        />
-
+        /> 
         <p>Bithday: {this.state.actorsBio.birthday}</p>
         <p>Place of birth: {this.state.actorsBio.place_of_birth}</p>
         <p>Biography: {this.state.actorsBio.biography}</p>
