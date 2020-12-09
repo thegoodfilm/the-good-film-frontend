@@ -13,6 +13,7 @@ import TopRated from "./components/TopRated";
 import Details from "./components/Details";
 import UserService from "./services/UserService";
 import Trendings from "./components/Trendings";
+import ActorsDetails from "./components/ActorsDetails";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -228,6 +229,14 @@ class App extends React.Component {
 
         <Route exact path="/toprated" component={TopRated} />
         <Route exact path="/trendings" component={Trendings} />
+
+        <Route exact path="/details/actors/:id" component={ActorsDetails} />
+        <Route exact path="/details/actors/:id/:title" component={Details} />
+
+       
+
+
+
       </div>
     );
   }
