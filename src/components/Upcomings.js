@@ -25,7 +25,7 @@ class Upcomings extends React.Component {
     return this.state.upcomings.map((upcoming, index)=>{
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${upcoming.poster_path}`
       return(
-        <Link to={`/upcomings/${upcoming.id}`} key={index}>
+        <Link to={`/upcomings/${upcoming.id}`} key={index} name="top">
           <div>
           
             <div>
@@ -43,7 +43,7 @@ class Upcomings extends React.Component {
 
   render(){
     return(
-      <div>
+      <div name="top">
         <h2>Upcomings</h2>
         <div>
           {this.renderUpcomings()}          

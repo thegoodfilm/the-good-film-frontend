@@ -26,7 +26,7 @@ class Trendings extends React.Component {
       console.log(this.state.trendings[0].original_title)
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${trendings.poster_path}`
       return(
-        <Link to={`/trendings/${trendings.id}`} key={index}>
+        <Link to={`/trendings/${trendings.id}`} key={index} name="top">
           <div>
           
             <div>
@@ -44,7 +44,7 @@ class Trendings extends React.Component {
 
   render(){
     return(
-      <div>
+      <div name="top">
         <h2>Trendings</h2>
         <div>
           {this.renderTrendings()}          

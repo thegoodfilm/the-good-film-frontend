@@ -48,6 +48,7 @@ class ActorsDetails extends React.Component {
         <Link
           to={`/details/actors/${actorsDetails.id}/${actorsDetails.title}`}
           key={index}
+          name="top"
         >
           <div>
             <div>
@@ -66,7 +67,7 @@ class ActorsDetails extends React.Component {
 
   render() {
     return (
-      <div>
+      <div name="top">
         <p>Name: {this.state.actorsBio.name}</p>
         <img
           src={`${process.env.REACT_APP_BASEURLPOSTER}${this.state.actorsBio.profile_path}`}

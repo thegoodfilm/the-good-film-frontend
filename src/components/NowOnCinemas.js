@@ -26,7 +26,7 @@ class NowOnCinemas extends React.Component {
     return this.state.nowOnCinemas.map((nowOnCinemas, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${nowOnCinemas.poster_path}`;
       return (
-        <Link to={`/nowoncinemas/${nowOnCinemas.id}`} key={index}>
+        <Link to={`/nowoncinemas/${nowOnCinemas.id}`} key={index} name="top">
           <div>
             <h3>{nowOnCinemas.original_title}</h3>
             <p>{nowOnCinemas.release_date}</p>
@@ -39,7 +39,7 @@ class NowOnCinemas extends React.Component {
 
   render() {
     return (
-      <div>
+      <div name="top">
         <h2>Now on cinemas</h2>
         <div>{this.renderNowOnCinemas()}</div>
       </div>

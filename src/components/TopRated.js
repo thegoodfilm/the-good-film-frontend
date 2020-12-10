@@ -26,7 +26,7 @@ class TopRated extends React.Component {
     return this.state.topRated.map((topRated, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${topRated.poster_path}`;
       return (
-        <Link to={`/toprated/${topRated.id}`} key={index}>
+        <Link to={`/toprated/${topRated.id}`} key={index} name="top">
           <div>
             <div>
               <h3>{topRated.original_title}</h3>
@@ -41,7 +41,7 @@ class TopRated extends React.Component {
 
   render() {
     return (
-      <div>
+      <div name="top">
         <h2>Top rated</h2>
         <div>{this.renderTopRated()}</div>
       </div>

@@ -36,7 +36,7 @@ const MyNavBar = (props) => {
               <NavDropdown.Item href="/trendings">
                 Trending this week{" "}
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.4">Trailers</NavDropdown.Item>
+            
             </NavDropdown>
             {props.isLogged.username && (
               <NavDropdown title="My account" id="basic-nav-dropdown">
