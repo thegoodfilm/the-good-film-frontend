@@ -11,11 +11,7 @@ import {
   Form,
 } from "react-bootstrap";
 
-
 const MyNavBar = (props) => {
-
-
-
   const welcome = `Welcome, ${props.isLogged.name}`;
   return (
     <div>
@@ -36,7 +32,6 @@ const MyNavBar = (props) => {
               <NavDropdown.Item href="/trendings">
                 Trending this week{" "}
               </NavDropdown.Item>
-            
             </NavDropdown>
             {props.isLogged.username && (
               <NavDropdown title="My account" id="basic-nav-dropdown">
@@ -60,11 +55,16 @@ const MyNavBar = (props) => {
                 type="text"
                 placeholder="Search movie"
                 className="mr-sm-2"
-                onChange={(event)=>props.changeSearchedWord(event.target.value)}
-               
-      
+                onChange={(event) =>
+                  props.changeSearchedWord(event.target.value)
+                }
               />
-              <Button variant="outline-success">Search</Button>
+              <Button
+                onClick={() => props.searchInit()}
+                variant="outline-success"
+              >
+                Search
+              </Button>
             </Form>
           </Nav>
           <Nav>
@@ -96,7 +96,5 @@ const MyNavBar = (props) => {
     </div>
   );
 };
-
-
 
 export default MyNavBar;

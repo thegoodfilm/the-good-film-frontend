@@ -1,91 +1,90 @@
-import React from 'react'
+import React from "react";
+import App from "../App";
 
-import { Link } from 'react-router-dom';
-
+// import { Link } from "react-router-dom";
 
 class SearchResult extends React.Component {
-    constructor(props){
-        super(props)
+  constructor(props){
+    super(props)
+    this.state = {
+      pages: [],
+      searchResults: [],
+  
+  }
+  };
 
-        this.state = {
-          searchResult: [],
-          word: props.searchedWord,
-          URL: props.searchURL
-          
-        }
 
-    }
+ 
 
-    componentDidMount(){
+  componentDidMount =()=>{
 
-      fetch(this.state.URL)
-      .then((data)=>{
-
-              return data.json()
-            })
-            .then((dataJSON)=>{
-              this.setState({searchResult: dataJSON.results})
-            })
-            .catch((err)=>{
-              console.log(err)
+    fetch(
+      `${process.env.REACT_APP_MULTISEARCH}${process.env.REACT_APP_KEY}&language=en-US&query=${this.props.match.params.id}&page=1:2`)
+      .then((data) => {
+        return data.json();
+      
       })
-    }
-
-    // componentDidUpdate(prevProps, prevState) {
-    //   if (this.state.URL !== prevProps.URL) {
-    //      fetch(this.state.URL)
-    //   .then((data)=>{
-
-    //           return data.json()
-    //         })
-    //         .then((dataJSON)=>{
-    //           this.setState({searchResult: dataJSON.results})
-    //         })
-    //         .catch((err)=>{
-    //           console.log(err)
-    //   })
-    //   }
-    // }
-
-
-
-  renderSearchResult = ()=>{
-    return this.state.searchResult.map((searchResult, index)=>{
-      const poster = `https://image.tmdb.org/t/p/w500${searchResult.poster_path}`
-      return(
-        <Link to={`/searchresult/:movie`} key={index}>
-          <div>
+      .then((dataJSON) => {
+        console.log(dataJSON)
+        this.setState({
+          pages: dataJSON
           
-            <div>
-              <h3>{searchResult.original_title}</h3>
-              <p>{searchResult.release_date}</p>
-                <img src={poster}alt={searchResult.original_title}/>
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+for(let i = 0; i=this.state.pages; i++){
+  fetch(
+    `${process.env.REACT_APP_MULTISEARCH}${process.env.REACT_APP_KEY}&language=en-US&query=${this.props.match.params.id}&page=${i}`)
+    .then((data) => {
+      return data.json();
+    
+    })
+    .then((dataJSON) => {
+      console.log(dataJSON)
+      this.setState({
+        searchResults: dataJSON.results
+        
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+  }
+  rendersearchResults = () => {
+    return this.state.searchResults.map((searchResults, index) => {
+      const poster = `${process.env.REACT_APP_BASEURLPOSTER}${searchResults.profile_path}`;
+      return (
+   
+          <div>
+            <div key={index}>
+              <h3>{searchResults.id}</h3>
+            
+              <img src={poster} alt={searchResults.id} />
             </div>
           </div>
-        </Link>
-      )
-    })
-  }
+
+      );
+    });
+  };
+
+  render() {
+    
+    return (
 
 
-
-  render(){
-    return(
-      
-      <div>
-        <h2>Search Results</h2>
-        <h3>{this.state.URL}</h3>
-
-
-        <p>Hola soy {this.state.word}</p>
-
-        <div>
-          {this.renderSearchResult()}          
-        </div>
+      <div name="top">
+   
+      <p>Hola soy busqueda</p>
+      <div>{this.rendersearchResults()}</div>
+       
+       
       </div>
-    )    
+    );
   }
 }
 
-export default SearchResult
-
+export default SearchResult;

@@ -7,13 +7,15 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Home from "./components/Home";
 import Upcomings from "./components/Upcomings";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Link} from "react-router-dom";
 import NowOnCinemas from "./components/NowOnCinemas";
 import TopRated from "./components/TopRated";
 import Details from "./components/Details";
 import UserService from "./services/UserService";
 import Trendings from "./components/Trendings";
 import ActorsDetails from "./components/ActorsDetails";
+import SearchResult from "./components/SearchResult";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +34,8 @@ class App extends React.Component {
       message: "",
       searchURL: "",
       searchResult: [],
-      redirect: false
+      redirect: false,
+   
     };
     this.service = new UserService();
   }
@@ -78,6 +81,7 @@ class App extends React.Component {
       .login(this.state.loggingUser.email, this.state.loggingUser.password)
       .then((result) => {
         this.setState({ message: result.message, redirect: true });
+      
    
         // if(this.state.redirect === true) {
         //   <Redirect to="/" />;
@@ -123,9 +127,24 @@ class App extends React.Component {
   changeSearchedWord = (_value) => {
     this.setState({
       searchedWord: _value,
-      searchURL: `https://api.themoviedb.org/3/search/movie?api_key=${process.env.KEY}&query=${_value}`,
-    });
-  };
+    })
+   
+
+
+
+  }
+
+
+  searchInit = (_value) => {
+    window.location.href=`/search/${this.state.searchedWord}/results`
+ 
+  }
+
+  
+
+
+
+
 
   componentDidMount() {
     this.checkIfLoggedIn();
@@ -135,7 +154,7 @@ class App extends React.Component {
 
         if(this.state.redirect) {
           return(
-            <Redirect to="/" />
+            window.location.href="/"
       
           )
           } 
@@ -146,11 +165,12 @@ class App extends React.Component {
         <MyNavBar
           isLogged={this.state.isLogged}
           logOut={this.logOut}
-          changeSearchedWord={this.changeSearchedWord}
           goToSearchResults={this.goToSearchResults}
-        />
-        <p>{this.state.searchedWord}</p>
-        <p>{this.state.searchURL}</p>
+          changeSearchedWord={this.changeSearchedWord}        
+          searchInit={this.searchInit}
+       
+          />
+
         <Route
           path="/signup"
                   render={() => (
@@ -234,7 +254,25 @@ class App extends React.Component {
         <Route exact path="/details/actors/:id/:title" component={Details} />
 
        
+        {/* <Route
+          path="/search/:value/results"
+                  render={() => (
+            <SearchResult
+            searchedWord={this.state.searchedWord}
+   
+            />
+          )}
+        /> */}
 
+
+
+<Route
+          exact
+          path="/search/:id/results"
+          render={(props) => {
+            return <SearchResult {...props}  searchedWord={this.state.searchedWord} />;
+          }}
+        />
 
 
       </div>

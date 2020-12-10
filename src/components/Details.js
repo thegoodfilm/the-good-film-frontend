@@ -20,6 +20,8 @@ class Details extends React.Component {
       `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
     )
       .then((data) => {
+        console.log(this.props.match.params.id)
+
         return data.json();
       })
       .then((dataJSON) => {
