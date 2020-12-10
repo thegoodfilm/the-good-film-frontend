@@ -10,6 +10,7 @@ class Details extends React.Component {
     genre: "",
     videoName: "",
     cast: [],
+    providers: []
   };
 
   componentDidMount() {
@@ -53,7 +54,21 @@ class Details extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-    console.log(this.state.details);
+
+      fetch(
+        `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}/providers?api_key=${process.env.REACT_APP_KEY}`
+      )
+        .then((dataProvider) => {
+          //console.log(dataCast.json())
+          return dataProvider.json();
+        })
+        .then((dataJSON) => {
+          this.setState({ providers: dataJSON.ES.flatrate});
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
   }
 
   renderCast = () => {
@@ -73,6 +88,23 @@ class Details extends React.Component {
     });
   };
 
+  renderProviders = () => {
+    return this.state.providers.map((providers) => {
+      const poster = `${process.env.REACT_APP_BASEURLPOSTER}${providers.logo_path}`;
+      return (
+        // <Link to={`/details/actors/${cast.id}`} key={index}>
+          <div>
+            <div>
+              <h3>{providers.provider_name}</h3>
+             
+              <img src={poster} alt={providers.name} />
+            </div>
+          </div>
+        // </Link>
+      );
+    });
+  };
+
   render() {
     const poster = `${process.env.REACT_APP_BASEURLPOSTER}${this.state.details.poster_path}`;
 
@@ -86,7 +118,7 @@ class Details extends React.Component {
         <p>Score: {this.state.details.vote_average}</p>
         <p>Homepage: {this.state.details.homepage}</p>
         <p>Genre: {this.state.genre}</p>
-
+        {this.renderProviders()}
         <img src={poster} alt={this.state.details.production_companies} />
 
         <p>{this.state.videoName}</p>
