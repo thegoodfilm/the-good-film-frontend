@@ -116,8 +116,11 @@ class MyList extends React.Component {
       <div>
         {this.renderMyFavourites()}
         <h2>Welcome, {this.props.isLogged.username}</h2>
+        <h2>Favourites:</h2>
         {this.state.allFavourites.length > 0 && this.renderMyFavourites()}
+        <h2>Watchlist:</h2>
         {this.state.allWatchlist.length > 0 && this.renderMyWatchlist()}
+        <h2>Activity:</h2>
         {this.state.allActivity.length > 0 && this.renderMyActivity()}
       </div>
     );

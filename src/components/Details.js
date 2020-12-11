@@ -14,6 +14,7 @@ class Details extends React.Component {
     providers: [],
     providerDefaultURL: "",
     defaultMessage: "No information available",
+    message: ""
   };
 
   service = new MyAccountService();
@@ -22,6 +23,8 @@ class Details extends React.Component {
     this.service
       .favourites(this.props.match.params.id, this.props.isLogged._id)
       .then((result) => {
+        this.setState({ message: result.message });
+
         console.log(result);
       })
       .catch((err) => {
@@ -33,6 +36,8 @@ class Details extends React.Component {
     this.service
       .activity(this.props.match.params.id, this.props.isLogged._id)
       .then((result) => {
+        this.setState({ message: result.message });
+
         console.log(result);
       })
       .catch((err) => {
@@ -44,6 +49,8 @@ class Details extends React.Component {
     this.service
       .watchlist(this.props.match.params.id, this.props.isLogged._id)
       .then((result) => {
+        this.setState({ message: result.message });
+
         console.log(result);
       })
       .catch((err) => {
@@ -397,6 +404,8 @@ class Details extends React.Component {
         {this.renderDetailsScore()}
 
         {this.renderDetailsGenre()}
+        <span>{this.state.message}</span>
+
         {this.renderButtons()}
         {this.renderProvidersLogo()}
 
