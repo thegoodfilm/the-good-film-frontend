@@ -1,5 +1,3 @@
-
-
 import "./styles/App.css";
 import React from "react";
 import MyNavBar from "./components/Navbar";
@@ -7,7 +5,7 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Home from "./components/Home";
 import Upcomings from "./components/Upcomings";
-import { Route, Redirect, Link} from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import NowOnCinemas from "./components/NowOnCinemas";
 import TopRated from "./components/TopRated";
 import Details from "./components/Details";
@@ -34,8 +32,7 @@ class App extends React.Component {
       message: "",
       searchURL: "",
       searchResult: [],
-      redirect: false,
-   
+      loginResult: "",
     };
     this.service = new UserService();
   }
@@ -53,13 +50,13 @@ class App extends React.Component {
       )
 
       .then((result) => {
-        this.setState({ message: result.message, redirect: true});
-        if(this.redirect === true) {
-          <Redirect to="/" />;
+        this.setState({ message: result.message, loginResult: "ok" });
+        if (this.loginResult === "ok") {
+          console.log(this.loginResult);
+          // window.location.href="/"
         } else {
-          <Redirect to="/signup" />
+          <Redirect to="/signup" />;
         }
-        
       })
       .catch((err) => {
         console.log(err);
@@ -80,22 +77,18 @@ class App extends React.Component {
     this.service
       .login(this.state.loggingUser.email, this.state.loggingUser.password)
       .then((result) => {
-        this.setState({ message: result.message, redirect: true });
-      
-   
+        this.setState({ message: result.message});
+
         // if(this.state.redirect === true) {
         //   <Redirect to="/" />;
         // } else {
         //   <Redirect to="/login" />
         // }
-  
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-
 
   changeHandlerLogIn = (_eventTarget) => {
     this.setState({
@@ -127,38 +120,24 @@ class App extends React.Component {
   changeSearchedWord = (_value) => {
     this.setState({
       searchedWord: _value,
-    })
-   
+    });
+  };
 
-
-
-  }
-
-
-  searchInit = (_value) => {
-    window.location.href=`/search/${this.state.searchedWord}/results`
- 
-  }
-
-  
-
-
-
-
+  searchInit = () => {
+    window.location.href = `/search/${this.state.searchedWord}/results`;
+  };
 
   componentDidMount() {
     this.checkIfLoggedIn();
   }
 
   render() {
+    // if(this.state.redirect === true) {
+    //   return(
+    //     window.location.href="/"
 
-        if(this.state.redirect) {
-          return(
-            window.location.href="/"
-      
-          )
-          } 
-
+    //   )
+    //   }
 
     return (
       <div className="App">
@@ -166,14 +145,13 @@ class App extends React.Component {
           isLogged={this.state.isLogged}
           logOut={this.logOut}
           goToSearchResults={this.goToSearchResults}
-          changeSearchedWord={this.changeSearchedWord}        
+          changeSearchedWord={this.changeSearchedWord}
           searchInit={this.searchInit}
-       
-          />
+        />
 
         <Route
           path="/signup"
-                  render={() => (
+          render={() => (
             <SignUp
               submitSignUp={this.submitSignUp}
               newUser={this.state.newUser}
@@ -186,20 +164,15 @@ class App extends React.Component {
 
         <Route
           path="/login"
-          
           render={() => (
-            
             <LogIn
               submitLogIn={this.submitLogIn}
               newUser={this.state.newUser}
               isLogged={this.state.isLogged}
               loggingUser={this.state.loggingUser}
               changeHandlerLogIn={this.changeHandlerLogIn}
-                 
             />
-            
           )}
-        
         />
 
         <Route
@@ -231,6 +204,7 @@ class App extends React.Component {
             return <Details {...props} />;
           }}
         />
+
         <Route
           exact
           path="/"
@@ -253,7 +227,9 @@ class App extends React.Component {
         <Route exact path="/details/actors/:id" component={ActorsDetails} />
         <Route exact path="/details/actors/:id/:title" component={Details} />
 
-       
+        <Route exact path="/search/:id/details" component={Details} />
+        <Route exact path="/search/:id/results/:page" component={SearchResult} />
+
         {/* <Route
           path="/search/:value/results"
                   render={() => (
@@ -264,17 +240,15 @@ class App extends React.Component {
           )}
         /> */}
 
-
-
-<Route
+        <Route
           exact
           path="/search/:id/results"
           render={(props) => {
-            return <SearchResult {...props}  searchedWord={this.state.searchedWord} />;
+            return (
+              <SearchResult {...props} searchedWord={this.state.searchedWord} />
+            );
           }}
         />
-
-
       </div>
     );
   }

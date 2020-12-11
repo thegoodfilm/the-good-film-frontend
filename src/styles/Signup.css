@@ -1,4 +1,10 @@
-.signup-container {
-    width: 400px;
+@media all and (min-width: 480px) {
+  .signup-container {
+    padding: 80px 0;
   }
-  
+
+  .signup-container form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}

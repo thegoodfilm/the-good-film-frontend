@@ -12,14 +12,32 @@ class UserService {
   signup = (name, lastName, username, email, password) => {
     return this.service
       .post("/signup", { name, lastName, username, email, password })
-      .then((response) => response.data);
+      .then((response) => {
+      console.log(response.data)
+       } );
+      
   };
 
   login = (email, password) => {
     return this.service
       .post("/login", { email, password })
-      .then((response) => console.log(response.data));
-   
+      .then((response) => {
+        console.log(response.data)
+        window.location.href="/"
+      })
+  };
+
+
+  logOut = () => {
+    this.service
+      .logout()
+      .then((result) => {
+        console.log(result);
+        this.checkIfLoggedIn();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   loggedin = () => {

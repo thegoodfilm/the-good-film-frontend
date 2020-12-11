@@ -2,29 +2,38 @@ import React from "react";
 
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+
 
 class Details extends React.Component {
-  state = {
-    details: [],
-    key: "",
-    genre: "",
-    videoName: "",
-    cast: [],
-    providers: [],
-    providerDefaultURL: "",
-    defaultMessage: "No information available",
-  };
+
+  
+   state = {
+      details: [],
+      key: "",
+      genre: "",
+      videoName: "",
+      cast: [],
+      providers: [],
+      providerDefaultURL: "",
+      defaultMessage: "No information available",
+  
+  }
+
+  
 
   componentDidMount() {
     fetch(
       `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
     )
       .then((data) => {
-        console.log(this.props.match.params.id)
+        console.log(this.props.match.params.id);
 
         return data.json();
       })
       .then((dataJSON) => {
+        console.log(dataJSON)
+
         this.setState({
           details: dataJSON,
         });
@@ -261,6 +270,10 @@ class Details extends React.Component {
     });
   };
 
+
+
+
+
   render() {
     return (
       <div name="top">
@@ -331,7 +344,9 @@ class Details extends React.Component {
         {this.renderCastName()}
 
         {this.renderCastCharacter()}
-
+        <div>
+    
+        </div>
       </div>
     );
   }
