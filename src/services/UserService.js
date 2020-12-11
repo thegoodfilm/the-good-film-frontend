@@ -10,21 +10,13 @@ class UserService {
   }
 
   signup = (name, lastName, username, email, password) => {
-    return this.service
-      .post("/signup", { name, lastName, username, email, password })
-      .then((response) => {
-      console.log(response.data)
-       } );
-      
+    return this.service.post("/signup", { name, lastName, username, email, password })
+    .then(response => response.data)     
   };
 
   login = (email, password) => {
-    return this.service
-      .post("/login", { email, password })
-      .then((response) => {
-        console.log(response.data)
-        // window.location.href="/"
-      })
+    return this.service.post("/login", { email, password })
+    .then(response => response.data)     
   };
 
 
@@ -41,7 +33,8 @@ class UserService {
   };
 
   loggedin = () => {
-    return this.service.get("/loggedin").then((response) => response.data);
+    return this.service.get("/loggedin")
+    .then(response => response.data)     
   };
 
   logout = () => {

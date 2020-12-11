@@ -13,6 +13,8 @@ import UserService from "./services/UserService";
 import Trendings from "./components/Trendings";
 import ActorsDetails from "./components/ActorsDetails";
 import SearchResult from "./components/SearchResult";
+import MyAccount from "./components/MyAccount";
+import MyList from "./components/MyList";
 
 class App extends React.Component {
   constructor(props) {
@@ -50,7 +52,7 @@ class App extends React.Component {
       )
 
       .then((result) => {
-        this.setState({ message: result.message, loginResult: "ok" });
+        this.setState({ message: result.message});
         if (this.loginResult === "ok") {
           console.log(this.loginResult);
           // window.location.href="/"
@@ -152,7 +154,9 @@ class App extends React.Component {
         <Route
           path="/signup"
           render={() => (
-            <SignUp
+            this.state.isLogged._id
+            ?<Redirect to = '/' />
+            :<SignUp
               submitSignUp={this.submitSignUp}
               newUser={this.state.newUser}
               changeHandlerSignUp={this.changeHandlerSignUp}
@@ -162,15 +166,35 @@ class App extends React.Component {
           )}
         />
 
-        <Route
+        {/* <Route
           path="/login"
           render={() => (
-            <LogIn
+            this.state.isLogged._id
+            ?<Redirect to = '/' />
+            :<LogIn
               submitLogIn={this.submitLogIn}
               newUser={this.state.newUser}
               isLogged={this.state.isLogged}
               loggingUser={this.state.loggingUser}
               changeHandlerLogIn={this.changeHandlerLogIn}
+              message={this.state.message}
+            />
+          )}
+        /> */}
+
+
+        <Route
+          path="/login"
+          render={() => (
+          this.state.isLogged._id
+            ?<Redirect to = '/' />
+            :<LogIn
+              submitLogIn={this.submitLogIn}
+              newUser={this.state.newUser}
+              isLogged={this.state.isLogged}
+              loggingUser={this.state.loggingUser}
+              changeHandlerLogIn={this.changeHandlerLogIn}
+              message={this.state.message}
             />
           )}
         />
@@ -239,6 +263,24 @@ class App extends React.Component {
             />
           )}
         /> */}
+        {this.state.isLogged._id && (
+          <Route
+            path="/myaccount/myprofile"
+            render={() => 
+            <MyAccount 
+            isLogged={this.state.isLogged}
+               />}
+          />
+        )}
+        {this.state.isLogged._id && (
+        <Route
+            path="/myaccount/mylists"
+            render={() => 
+            <MyList 
+            isLogged={this.state.isLogged}
+               />}
+          />
+        )}
 
         <Route
           exact

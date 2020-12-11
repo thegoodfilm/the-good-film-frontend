@@ -6,6 +6,7 @@ import { Form, Button } from "react-bootstrap";
 const LogIn = (props) => {
   return (
     <div className="login-container">
+     <span>{props.message}</span>
       <Form onSubmit={props.submitLogIn}>
         <Form.Group controlId="username">
           <Form.Label>Email</Form.Label>

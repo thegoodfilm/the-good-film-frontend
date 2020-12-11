@@ -6,7 +6,6 @@ import { Form, Button } from "react-bootstrap";
 const SignUp = (props) => {
   return (
     <div className="signup-container">
-      <p>{props.newUser.name}</p>
       <span>{props.message}</span>
       <Form onSubmit={props.submitSignUp}>
         <Form.Group controlId="name">

@@ -2,7 +2,6 @@ import React from "react";
 
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import MyAccountService from '../services/MyAccountService';
 
 
@@ -54,15 +53,6 @@ class Details extends React.Component {
     });
   }
 
-  addToMyRatings = ()=>{
-    this.service.ratings(this.props.match.params.id, this.props.isLogged._id)
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
 
   renderButtons = ()=>{
     if(this.props.isLogged.username ){
@@ -72,7 +62,6 @@ class Details extends React.Component {
           <button onClick={()=>this.addToMyActivity()}>Activity</button>
           <button onClick={()=>this.addToMyWatchlist()}>Watchlist</button>
 
-          <button onClick={()=>this.addToMyRatings()}>Ratings</button>          
         </div>
       )
     } else {

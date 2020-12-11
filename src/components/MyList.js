@@ -1,7 +1,7 @@
 import React from 'react'
 import MyAccountService from '../services/MyAccountService'
 
-class MyAccount extends React.Component{
+class MyList extends React.Component{
 
 
  state = {
@@ -21,6 +21,7 @@ class MyAccount extends React.Component{
   componentDidMount(){
     this.service.myProfile(this.props.isLogged._id)
     .then((response)=>{
+    console.log(response)
       this.setState({favourites: [...response.favourites], watchlist: [...response.watchlist], activity: [...response.activity]})
       this.myFavourites()
       this.myWatchlist()
@@ -34,14 +35,15 @@ class MyAccount extends React.Component{
 
   myFavourites = ()=>{
     const favouritesMap = this.state.favourites.map((_id)=>{
-
+console.log(favouritesMap)
       return fetch(`https://api.themoviedb.org/3/movie/${_id}?api_key=cd5560ea6332b9e45f30dbb9cbc39139&language=en-US
       `)
       .then((data)=>{
+          console.log(data)
         return data.json()
       })
       .then((dataJSON)=>{
-        return dataJSON
+        return dataJSON.results
       })
     })
 
@@ -126,4 +128,4 @@ class MyAccount extends React.Component{
   }
 }
 
-export default MyAccount
+export default MyList

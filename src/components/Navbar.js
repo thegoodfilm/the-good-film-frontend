@@ -42,12 +42,13 @@ const MyNavBar = (props) => {
                 <NavDropdown.Item href="#action/3.3">
                   Activity
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.4">
-                  Ratings
+                <NavDropdown.Item href="/myaccount/mylists">
+                  My lists
                 </NavDropdown.Item>
+  
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.5">
-                  Account
+                <NavDropdown.Item href="/myaccount/myprofile">
+                  My profile
                 </NavDropdown.Item>
               </NavDropdown>
             )}
