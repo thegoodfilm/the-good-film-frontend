@@ -2,82 +2,77 @@ import React from "react";
 
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
-import MyAccountService from '../services/MyAccountService';
-
+import MyAccountService from "../services/MyAccountService";
 
 class Details extends React.Component {
+  state = {
+    details: [],
+    key: "",
+    genre: "",
+    videoName: "",
+    cast: [],
+    providers: [],
+    providerDefaultURL: "",
+    defaultMessage: "No information available",
+  };
 
-  
-   state = {
-      details: [],
-      key: "",
-      genre: "",
-      videoName: "",
-      cast: [],
-      providers: [],
-      providerDefaultURL: "",
-      defaultMessage: "No information available",
-  
-  }
+  service = new MyAccountService();
 
-  service = new MyAccountService()
+  addToMyFavourites = () => {
+    this.service
+      .favourites(this.props.match.params.id, this.props.isLogged._id)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  addToMyActivity = () => {
+    this.service
+      .activity(this.props.match.params.id, this.props.isLogged._id)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  addToMyFavourites = ()=>{
-    this.service.favourites(this.props.match.params.id, this.props.isLogged._id)
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
+  addToMyWatchlist = () => {
+    this.service
+      .watchlist(this.props.match.params.id, this.props.isLogged._id)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  addToMyActivity = ()=>{
-    this.service.activity(this.props.match.params.id, this.props.isLogged._id)
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-
-  addToMyWatchlist = ()=>{
-    this.service.watchlist(this.props.match.params.id, this.props.isLogged._id)
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-
-
-  renderButtons = ()=>{
-    if(this.props.isLogged.username ){
-      return(
+  renderButtons = () => {
+    if (this.props.isLogged.username) {
+      return (
         <div>
-          <button onClick={()=>this.addToMyFavourites()}>Favourites</button>
-          <button onClick={()=>this.addToMyActivity()}>Activity</button>
-          <button onClick={()=>this.addToMyWatchlist()}>Watchlist</button>
-
+          <button onClick={() => this.addToMyFavourites()}>Favourites</button>
+          <button onClick={() => this.addToMyActivity()}>Activity</button>
+          <button onClick={() => this.addToMyWatchlist()}>Watchlist</button>
         </div>
-      )
+      );
     } else {
-      return(
+      return (
         <div>
-          <Link to="/signup"><button>Sign Up</button></Link>
-          <Link to='/login'><button>Log In</button>    </Link>
-                
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link>
+          <Link to="/login">
+            <button>Log In</button>{" "}
+          </Link>
         </div>
-      )
+      );
     }
-  }
-
-
-
-
+  };
 
   componentDidMount() {
     fetch(
@@ -89,7 +84,7 @@ class Details extends React.Component {
         return data.json();
       })
       .then((dataJSON) => {
-        console.log(dataJSON)
+        console.log(dataJSON);
 
         this.setState({
           details: dataJSON,
@@ -141,6 +136,8 @@ class Details extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+
+ 
     fetch(
       `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
     )
@@ -231,6 +228,17 @@ class Details extends React.Component {
       </div>
     );
   };
+
+  renderDetailsPoster = () => {
+    const poster = `${process.env.REACT_APP_BASEURLPOSTER}${this.state.details.poster_path}`;
+
+    return (
+      <div>
+      <img src={poster} alt={this.state.details.original_title} />
+      </div>
+    );
+  };
+
 
   renderDetailsReleaseDate = () => {
     return (
@@ -327,10 +335,6 @@ class Details extends React.Component {
     });
   };
 
-
-
-
-
   render() {
     return (
       <div name="top">
@@ -384,6 +388,8 @@ class Details extends React.Component {
 
         {this.renderDetailsTitle()}
 
+        {this.renderDetailsPoster()}
+
         {this.renderDetailsReleaseDate()}
 
         {this.renderDetailsOverview()}
@@ -401,9 +407,7 @@ class Details extends React.Component {
         {this.renderCastName()}
 
         {this.renderCastCharacter()}
-        <div>
-    
-        </div>
+        <div></div>
       </div>
     );
   }

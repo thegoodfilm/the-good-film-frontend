@@ -17,7 +17,7 @@ class NowOnCinemas extends React.Component {
       .then((dataJSON) => {
         this.setState({ nowOnCinemas: dataJSON.results });
       })
-      .catch((err) => {  
+      .catch((err) => {
         console.log(err);
       });
   }

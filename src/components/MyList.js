@@ -1,131 +1,127 @@
-import React from 'react'
-import MyAccountService from '../services/MyAccountService'
+import React from "react";
+import MyAccountService from "../services/MyAccountService";
 
-class MyList extends React.Component{
+class MyList extends React.Component {
+  state = {
+    favourites: [],
+    watchlist: [],
+    activity: [],
+    allFavourites: [],
+    allWatchlist: [],
+    allActivity: [],
+  };
 
+  service = new MyAccountService();
 
- state = {
-        favourites: [],
-        watchlist: [],
-        activity: [],
-         allFavourites: [],
-        allWatchlist: [],
-        allActivity: []
-
-
-   
-  }
-
-  service = new MyAccountService()
-
-  componentDidMount(){
-    this.service.myProfile(this.props.isLogged._id)
-    .then((response)=>{
-    console.log(response)
-      this.setState({favourites: [...response.favourites], watchlist: [...response.watchlist], activity: [...response.activity]})
-      this.myFavourites()
-      this.myWatchlist()
-      this.myActivity()
-    
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
-
-  myFavourites = ()=>{
-    const favouritesMap = this.state.favourites.map((_id)=>{
-console.log(favouritesMap)
-      return fetch(`https://api.themoviedb.org/3/movie/${_id}?api_key=cd5560ea6332b9e45f30dbb9cbc39139&language=en-US
-      `)
-      .then((data)=>{
-          console.log(data)
-        return data.json()
+  componentDidMount() {
+    this.service
+      .myProfile(this.props.isLogged._id)
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          favourites: [...response.favourites],
+          watchlist: [...response.watchlist],
+          activity: [...response.activity],
+        });
+        this.myFavourites();
+        this.myWatchlist();
+        this.myActivity();
       })
-      .then((dataJSON)=>{
-        return dataJSON.results
-      })
-    })
-
-    Promise.all(favouritesMap)
-    .then((result)=>{
-      this.setState({allFavourites : result})
-    })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  myWatchlist = ()=>{
-    const watchlistMap = this.state.watchlist.map((_id)=>{
+  myFavourites = () => {
+    const favouritesMap = this.state.favourites.map((_id) => {
+      console.log(favouritesMap);
+      return fetch(
+        `${process.env.REACT_APP_BASEURL}/${_id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
+      )
+        .then((data) => {
+          console.log(data);
+          return data.json();
+        })
+        .then((dataJSON) => {
+          return dataJSON.results;
+        });
+    });
 
-      return fetch(`${process.env.REACT_APP_BASEURL}/${_id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`)
-      .then((data)=>{
-        return data.json()
-      })
-      .then((dataJSON)=>{
-        return dataJSON
-      })
-    })
+    Promise.all(favouritesMap).then((result) => {
+      this.setState({ allFavourites: result });
+    });
+  };
 
-    Promise.all(watchlistMap)
-    .then((result)=>{
-      this.setState({allWatchlist : result})
-    })
-  }
+  myWatchlist = () => {
+    const watchlistMap = this.state.watchlist.map((_id) => {
+      return fetch(
+        `${process.env.REACT_APP_BASEURL}/${_id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
+      )
+        .then((data) => {
+          return data.json();
+        })
+        .then((dataJSON) => {
+          return dataJSON;
+        });
+    });
 
-  myActivity = ()=>{
-    const activityMap = this.state.activity.map((_id)=>{
+    Promise.all(watchlistMap).then((result) => {
+      this.setState({ allWatchlist: result });
+    });
+  };
 
-      return fetch(`${process.env.REACT_APP_BASEURL}/${_id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`)
-      .then((data)=>{
-        return data.json()
-      })
-      .then((dataJSON)=>{
-        return dataJSON
-      })
-    })
+  myActivity = () => {
+    const activityMap = this.state.activity.map((_id) => {
+      return fetch(
+        `${process.env.REACT_APP_BASEURL}/${_id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
+      )
+        .then((data) => {
+          return data.json();
+        })
+        .then((dataJSON) => {
+          return dataJSON;
+        });
+    });
 
-    Promise.all(activityMap)
-    .then((result)=>{
-      this.setState({allActivity : result})
-    })
-  }
+    Promise.all(activityMap).then((result) => {
+      this.setState({ allActivity: result });
+    });
+  };
 
+  renderMyFavourites = () => {
+    return this.state.allFavourites.map((movie) => {
+      return (
+        <h3>
+          {movie.title}
+          <p>hola</p>
+        </h3>
+      );
+    });
+  };
 
+  renderMyWatchlist = () => {
+    return this.state.allWatchlist.map((movie) => {
+      return <h3>{movie.title}</h3>;
+    });
+  };
 
-  renderMyFavourites = ()=>{
+  renderMyActivity = () => {
+    return this.state.allActivity.map((movie) => {
+      return <h3>{movie.title}</h3>;
+    });
+  };
 
-    return this.state.allFavourites.map((movie)=>{
-      return <h3>{movie.title}<p>hola</p></h3>
-    })
-  }
-
-  renderMyWatchlist = ()=>{
-
-    return this.state.allWatchlist.map((movie)=>{
-      return <h3>{movie.title}</h3>
-    })
-  }
-
-  renderMyActivity = ()=>{
-
-    return this.state.allActivity.map((movie)=>{
-      return <h3>{movie.title}</h3>
-    })
-  }
-
- 
-
-
-  render(){
-    return(
+  render() {
+    return (
       <div>
-      {this.renderMyFavourites()}
+        {this.renderMyFavourites()}
         <h2>Welcome, {this.props.isLogged.username}</h2>
         {this.state.allFavourites.length > 0 && this.renderMyFavourites()}
         {this.state.allWatchlist.length > 0 && this.renderMyWatchlist()}
         {this.state.allActivity.length > 0 && this.renderMyActivity()}
       </div>
-    )    
+    );
   }
 }
 
-export default MyList
+export default MyList;

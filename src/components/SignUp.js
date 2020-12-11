@@ -63,7 +63,6 @@ const SignUp = (props) => {
             onChange={(event) => props.changeHandlerSignUp(event.target)}
           />
         </Form.Group>
-    
         <Button variant="secondary" type="submit">
           Sign up
         </Button>{" "}

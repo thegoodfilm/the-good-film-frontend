@@ -1,56 +1,52 @@
-import React from 'react'
+import React from "react";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 class Upcomings extends React.Component {
-
   state = {
-    upcomings: []
+    upcomings: [],
+  };
+
+  componentDidMount() {
+    fetch(
+      `${process.env.REACT_APP_BASEURL}/upcoming?api_key=${process.env.REACT_APP_KEY}&language=en-US&page=1`
+    )
+      .then((data) => {
+        return data.json();
+      })
+      .then((dataJSON) => {
+        this.setState({ upcomings: dataJSON.results });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  componentDidMount(){
-    fetch(`${process.env.REACT_APP_BASEURL}/upcoming?api_key=${process.env.REACT_APP_KEY}&language=en-US&page=1`)
-    .then((data)=>{
-      return data.json()
-    })
-    .then((dataJSON)=>{
-      this.setState({upcomings: dataJSON.results})
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
-
-  renderUpcomings = ()=>{
-    return this.state.upcomings.map((upcoming, index)=>{
-      const poster = `${process.env.REACT_APP_BASEURLPOSTER}${upcoming.poster_path}`
-      return(
+  renderUpcomings = () => {
+    return this.state.upcomings.map((upcoming, index) => {
+      const poster = `${process.env.REACT_APP_BASEURLPOSTER}${upcoming.poster_path}`;
+      return (
         <Link to={`/upcomings/${upcoming.id}`} key={index} name="top">
           <div>
-          
             <div>
               <h3>{upcoming.original_title}</h3>
               <p>{upcoming.release_date}</p>
-                <img src={poster}alt={upcoming.original_title}/>
+              <img src={poster} alt={upcoming.original_title} />
             </div>
           </div>
         </Link>
-      )
-    })
-  }
+      );
+    });
+  };
 
-  
-
-  render(){
-    return(
+  render() {
+    return (
       <div name="top">
         <h2>Upcomings</h2>
-        <div>
-          {this.renderUpcomings()}          
-        </div>
+        <div>{this.renderUpcomings()}</div>
       </div>
-    )    
+    );
   }
 }
 
-export default Upcomings
+export default Upcomings;

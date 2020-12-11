@@ -6,7 +6,7 @@ import { Form, Button } from "react-bootstrap";
 const LogIn = (props) => {
   return (
     <div className="login-container">
-     <span>{props.message}</span>
+      <span>{props.message}</span>
       <Form onSubmit={props.submitLogIn}>
         <Form.Group controlId="username">
           <Form.Label>Email</Form.Label>
@@ -15,8 +15,8 @@ const LogIn = (props) => {
             name="email"
             placeholder="janedoe@example.com"
             size="Small text"
-            value={props.loggingUser.email} 
-          onChange={(event)=>props.changeHandlerLogIn(event.target)}
+            value={props.loggingUser.email}
+            onChange={(event) => props.changeHandlerLogIn(event.target)}
           />
         </Form.Group>
         <Form.Group controlId="password">
@@ -26,15 +26,16 @@ const LogIn = (props) => {
             name="password"
             placeholder="*******"
             size="Small text"
-            value={props.loggingUser.password} 
-          onChange={(event)=>props.changeHandlerLogIn(event.target)}
+            value={props.loggingUser.password}
+            onChange={(event) => props.changeHandlerLogIn(event.target)}
           />
         </Form.Group>
-        <Button variant="secondary" type="submit">Log in</Button>{' '}
+        <Button variant="secondary" type="submit">
+          Log in
+        </Button>{" "}
       </Form>
     </div>
   );
 };
 
 export default LogIn;
-

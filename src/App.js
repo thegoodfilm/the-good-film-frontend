@@ -52,7 +52,7 @@ class App extends React.Component {
       )
 
       .then((result) => {
-        this.setState({ message: result.message});
+        this.setState({ message: result.message });
         if (this.loginResult === "ok") {
           console.log(this.loginResult);
           // window.location.href="/"
@@ -79,7 +79,7 @@ class App extends React.Component {
     this.service
       .login(this.state.loggingUser.email, this.state.loggingUser.password)
       .then((result) => {
-        this.setState({ message: result.message});
+        this.setState({ message: result.message });
 
         // if(this.state.redirect === true) {
         //   <Redirect to="/" />;
@@ -153,57 +153,44 @@ class App extends React.Component {
 
         <Route
           path="/signup"
-          render={() => (
-            this.state.isLogged._id
-            ?<Redirect to = '/' />
-            :<SignUp
-              submitSignUp={this.submitSignUp}
-              newUser={this.state.newUser}
-              changeHandlerSignUp={this.changeHandlerSignUp}
-              isLogged={this.state.isLogged}
-              message={this.state.message}
-            />
-          )}
+          render={() =>
+            this.state.isLogged._id ? (
+              <Redirect to="/" />
+            ) : (
+              <SignUp
+                submitSignUp={this.submitSignUp}
+                newUser={this.state.newUser}
+                changeHandlerSignUp={this.changeHandlerSignUp}
+                isLogged={this.state.isLogged}
+                message={this.state.message}
+              />
+            )
+          }
         />
-
-        {/* <Route
-          path="/login"
-          render={() => (
-            this.state.isLogged._id
-            ?<Redirect to = '/' />
-            :<LogIn
-              submitLogIn={this.submitLogIn}
-              newUser={this.state.newUser}
-              isLogged={this.state.isLogged}
-              loggingUser={this.state.loggingUser}
-              changeHandlerLogIn={this.changeHandlerLogIn}
-              message={this.state.message}
-            />
-          )}
-        /> */}
-
 
         <Route
           path="/login"
-          render={() => (
-          this.state.isLogged._id
-            ?<Redirect to = '/' />
-            :<LogIn
-              submitLogIn={this.submitLogIn}
-              newUser={this.state.newUser}
-              isLogged={this.state.isLogged}
-              loggingUser={this.state.loggingUser}
-              changeHandlerLogIn={this.changeHandlerLogIn}
-              message={this.state.message}
-            />
-          )}
+          render={() =>
+            this.state.isLogged._id ? (
+              <Redirect to="/" />
+            ) : (
+              <LogIn
+                submitLogIn={this.submitLogIn}
+                newUser={this.state.newUser}
+                isLogged={this.state.isLogged}
+                loggingUser={this.state.loggingUser}
+                changeHandlerLogIn={this.changeHandlerLogIn}
+                message={this.state.message}
+              />
+            )
+          }
         />
 
         <Route
           exact
           path="/nowoncinemas/:id"
           render={(props) => {
-            return <Details {...props}   isLogged={this.state.isLogged}/>;
+            return <Details {...props} isLogged={this.state.isLogged} />;
           }}
         />
 
@@ -211,21 +198,21 @@ class App extends React.Component {
           exact
           path="/toprated/:id"
           render={(props) => {
-            return <Details {...props}   isLogged={this.state.isLogged}/>;
+            return <Details {...props} isLogged={this.state.isLogged} />;
           }}
         />
         <Route
           exact
           path="/trendings/:id"
           render={(props) => {
-            return <Details {...props}  isLogged={this.state.isLogged} />;
+            return <Details {...props} isLogged={this.state.isLogged} />;
           }}
         />
         <Route
           exact
           path="/upcomings/:id"
           render={(props) => {
-            return <Details {...props}   isLogged={this.state.isLogged}/>;
+            return <Details {...props} isLogged={this.state.isLogged} />;
           }}
         />
 
@@ -252,7 +239,11 @@ class App extends React.Component {
         <Route exact path="/details/actors/:id/:title" component={Details} />
 
         <Route exact path="/search/:id/details" component={Details} />
-        <Route exact path="/search/:id/results/:page" component={SearchResult} />
+        <Route
+          exact
+          path="/search/:id/results/:page"
+          component={SearchResult}
+        />
 
         {/* <Route
           path="/search/:value/results"
@@ -266,19 +257,13 @@ class App extends React.Component {
         {this.state.isLogged._id && (
           <Route
             path="/myaccount/myprofile"
-            render={() => 
-            <MyAccount 
-            isLogged={this.state.isLogged}
-               />}
+            render={() => <MyAccount isLogged={this.state.isLogged} />}
           />
         )}
         {this.state.isLogged._id && (
-        <Route
+          <Route
             path="/myaccount/mylists"
-            render={() => 
-            <MyList 
-            isLogged={this.state.isLogged}
-               />}
+            render={() => <MyList isLogged={this.state.isLogged} />}
           />
         )}
 

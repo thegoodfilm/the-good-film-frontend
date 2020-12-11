@@ -1,9 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Button
-  
-} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 class SearchResult extends React.Component {
   constructor(props) {
     super(props);
@@ -11,31 +8,32 @@ class SearchResult extends React.Component {
       searchResults: [],
       currentPage: 1,
       totalPages: [],
-      callFromNextBtn: false
+      callFromNextBtn: false,
     };
-
   }
 
   componentDidMount = () => {
-    console.log(this.state)
-    if(this.state.callFromNextBtn === false) {fetch(
-      `
+    console.log(this.state);
+    if (this.state.callFromNextBtn === false) {
+      fetch(
+        `
      ${process.env.REACT_APP_SEARCH}${process.env.REACT_APP_KEY}&language=en-US&query=${this.props.match.params.id}&${this.state.currentPage}`
-    )
-      .then((data) => {
-        console.log('if fetch')
-        return data.json();
-      })
-      .then((dataJSON) => {
-        console.log(dataJSON.total_pages);
-        this.setState({
-          totalPages: dataJSON.total_pages,
+      )
+        .then((data) => {
+          console.log("if fetch");
+          return data.json();
+        })
+        .then((dataJSON) => {
+          console.log(dataJSON.total_pages);
+          this.setState({
+            totalPages: dataJSON.total_pages,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });}
-    
+    }
+
     fetch(
       `
      ${process.env.REACT_APP_SEARCH}${process.env.REACT_APP_KEY}&language=en-US&query=${this.props.match.params.id}&page=${this.state.currentPage}`
@@ -55,9 +53,9 @@ class SearchResult extends React.Component {
         console.log(err);
       });
 
-      this.setState({
-        callFromNextBtn: false
-      });
+    this.setState({
+      callFromNextBtn: false,
+    });
   };
 
   rendersearchResults = () => {
@@ -79,38 +77,26 @@ class SearchResult extends React.Component {
     });
   };
 
+  //   previousPage = () => {
+  //     if(this.state.currentPage >2){
+  //       this.setState({
+  //         currentPage: this.state.currentPage - 1,
+  //     })
+  //     console.log(this.state.currentPage)
 
-
-
-
-//   previousPage = () => {
-//     if(this.state.currentPage >2){
-//       this.setState({
-//         currentPage: this.state.currentPage - 1,
-//     })
-//     console.log(this.state.currentPage)
-
-
-//   }
-// };
+  //   }
+  // };
   nextPage = () => {
-   if(this.state.currentPage <= this.state.totalPages){
+    if (this.state.currentPage <= this.state.totalPages) {
+      this.setState({
+        currentPage: this.state.currentPage + 1,
+        callFromNextBtn: true,
+      });
+      console.log(this.state);
 
-        this.setState({currentPage: this.state.currentPage + 1, callFromNextBtn: true})
-        console.log(this.state)
-
-        return(
-
-      window.location.href=`/search/${this.state.searchedWord}/results/${this.state.currentPage}`
-   
-
-        )
-    
-
+      return (window.location.href = `/search/${this.state.searchedWord}/results/${this.state.currentPage}`);
     }
   };
-
- 
 
   render() {
     return (
