@@ -179,7 +179,7 @@ class App extends React.Component {
           exact
           path="/nowoncinemas/:id"
           render={(props) => {
-            return <Details {...props} />;
+            return <Details {...props}   isLogged={this.state.isLogged}/>;
           }}
         />
 
@@ -187,21 +187,21 @@ class App extends React.Component {
           exact
           path="/toprated/:id"
           render={(props) => {
-            return <Details {...props} />;
+            return <Details {...props}   isLogged={this.state.isLogged}/>;
           }}
         />
         <Route
           exact
           path="/trendings/:id"
           render={(props) => {
-            return <Details {...props} />;
+            return <Details {...props}  isLogged={this.state.isLogged} />;
           }}
         />
         <Route
           exact
           path="/upcomings/:id"
           render={(props) => {
-            return <Details {...props} />;
+            return <Details {...props}   isLogged={this.state.isLogged}/>;
           }}
         />
 

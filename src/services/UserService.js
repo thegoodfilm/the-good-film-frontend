@@ -23,7 +23,7 @@ class UserService {
       .post("/login", { email, password })
       .then((response) => {
         console.log(response.data)
-        window.location.href="/"
+        // window.location.href="/"
       })
   };
 

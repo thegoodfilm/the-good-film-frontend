@@ -3,6 +3,7 @@ import React from "react";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import MyAccountService from '../services/MyAccountService';
 
 
 class Details extends React.Component {
@@ -20,7 +21,74 @@ class Details extends React.Component {
   
   }
 
-  
+  service = new MyAccountService()
+
+
+  addToMyFavourites = ()=>{
+    this.service.favourites(this.props.match.params.id, this.props.isLogged._id)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  addToMyActivity = ()=>{
+    this.service.activity(this.props.match.params.id, this.props.isLogged._id)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  addToMyWatchlist = ()=>{
+    this.service.watchlist(this.props.match.params.id, this.props.isLogged._id)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  addToMyRatings = ()=>{
+    this.service.ratings(this.props.match.params.id, this.props.isLogged._id)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  renderButtons = ()=>{
+    if(this.props.isLogged.username ){
+      return(
+        <div>
+          <button onClick={()=>this.addToMyFavourites()}>Favourites</button>
+          <button onClick={()=>this.addToMyActivity()}>Activity</button>
+          <button onClick={()=>this.addToMyWatchlist()}>Watchlist</button>
+
+          <button onClick={()=>this.addToMyRatings()}>Ratings</button>          
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <Link to="/signup"><button>Sign Up</button></Link>
+          <Link to='/login'><button>Log In</button>    </Link>
+                
+        </div>
+      )
+    }
+  }
+
+
+
+
 
   componentDidMount() {
     fetch(
@@ -334,7 +402,7 @@ class Details extends React.Component {
         {this.renderDetailsScore()}
 
         {this.renderDetailsGenre()}
-
+        {this.renderButtons()}
         {this.renderProvidersLogo()}
 
         {this.renderDetailsVideoName()}

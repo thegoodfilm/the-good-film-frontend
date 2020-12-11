@@ -35,16 +35,19 @@ const MyNavBar = (props) => {
             </NavDropdown>
             {props.isLogged.username && (
               <NavDropdown title="My account" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.1">Favourites</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
-                  Another action
+                  Watchlist
                 </NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">
-                  Something
+                  Activity
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.4">
+                  Ratings
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
+                <NavDropdown.Item href="#action/3.5">
+                  Account
                 </NavDropdown.Item>
               </NavDropdown>
             )}
