@@ -59,42 +59,42 @@ class Details extends React.Component {
   };
 
 
+  remove = () => {
+    this.service
+      .remove(this.props.match.params.id, this.props.isLogged._id)
+      .then((result) => {
+        this.setState({ message: result.message });
+  
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   renderButtons = () => {
-    if (this.props.isLogged._id) {
+   
       return (
         <div>
-          <button onClick={() => this.addToMyFavourites()}>Favourites</button>
-          <button onClick={() => this.addToMyActivity()}>Activity</button>
-          <button onClick={() => this.addToMyWatchlist()}>Watchlist</button>
+         
+          <button onClick={() => this.remove()}>Remove</button>
 
         </div>
       );
-    } else {
-      return (
-        <div>
-          <Link to="/signup">
-            <button>Sign Up</button>
-          </Link>
-          <Link to="/login">
-            <button>Log In</button>{" "}
-          </Link>
-        </div>
-      );
+    
+  
     }
-  };
+  
 
   componentDidMount() {
     fetch(
       `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
     )
       .then((data) => {
-        console.log(this.props.match.params.id);
 
         return data.json();
       })
       .then((dataJSON) => {
-        console.log(dataJSON);
 
         this.setState({
           details: dataJSON,

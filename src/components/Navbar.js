@@ -21,7 +21,6 @@ const MyNavBar = (props) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="#link">Movies</Nav.Link>
             <NavDropdown title="Movies" id="basic-nav-dropdown">
               <NavDropdown.Item href="/nowoncinemas">
                 Now on cinemas
@@ -35,16 +34,14 @@ const MyNavBar = (props) => {
             </NavDropdown>
             {props.isLogged.username && (
               <NavDropdown title="My account" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Favourites</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
+                <NavDropdown.Item href="/myaccount/favourites">Favourites</NavDropdown.Item>
+                <NavDropdown.Item href="/myaccount/watchlist">
                   Watchlist
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
+                <NavDropdown.Item href="/myaccount/activity">
                   Activity
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/myaccount/mylists">
-                  My lists
-                </NavDropdown.Item>
+              
   
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/myaccount/myprofile">

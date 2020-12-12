@@ -34,11 +34,22 @@ class MyAccountServices {
       .then((response) => response.data);
   };
 
-  myProfile = (userID) => {
+  remove =  (movieID, userID) => {
     return this.service
-      .get(`/myaccount/myprofile/`, { userID })
+      .post(`/myaccount/activity/${movieID}/remove`, {movieID, userID})
       .then((response) => response.data);
   };
+
+
+
+ 
+
+
+
+  getUser = (userID) => {
+    return this.service.get(`/getUser/${userID}`, {userID})
+    .then(response => response.data)
+  }
 }
 
 export default MyAccountServices;

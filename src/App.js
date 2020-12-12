@@ -15,6 +15,10 @@ import ActorsDetails from "./components/ActorsDetails";
 import SearchResult from "./components/SearchResult";
 import MyAccount from "./components/MyAccount";
 import MyList from "./components/MyList";
+import Favourites from "./components/Favourites";
+import Watchlist from "./components/Watchlist";
+import Activity from "./components/Activity";
+import DetailsProf from "./components/DetailsProf";
 
 class App extends React.Component {
   constructor(props) {
@@ -152,6 +156,18 @@ class App extends React.Component {
         />
 
         <Route
+          exact
+          path="/"
+          render={() => (
+            <Home
+              logOut={this.logOut}
+              isLogged={this.state.isLogged}
+              title={this.state.title}
+            />
+          )}
+        />
+
+        <Route
           path="/signup"
           render={() =>
             this.state.isLogged._id ? (
@@ -186,6 +202,8 @@ class App extends React.Component {
           }
         />
 
+        <Route exact path="/nowoncinemas" component={NowOnCinemas} />
+
         <Route
           exact
           path="/nowoncinemas/:id"
@@ -193,6 +211,7 @@ class App extends React.Component {
             return <Details {...props} isLogged={this.state.isLogged} />;
           }}
         />
+        <Route exact path="/toprated" component={TopRated} />
 
         <Route
           exact
@@ -208,6 +227,9 @@ class App extends React.Component {
             return <Details {...props} isLogged={this.state.isLogged} />;
           }}
         />
+
+        <Route exact path="/upcomings" component={Upcomings} />
+
         <Route
           exact
           path="/upcomings/:id"
@@ -216,50 +238,121 @@ class App extends React.Component {
           }}
         />
 
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <Home
-              logOut={this.logOut}
-              isLogged={this.state.isLogged}
-              title={this.state.title}
-            />
-          )}
-        />
-
-        <Route exact path="/upcomings" component={Upcomings} />
-
-        <Route exact path="/nowoncinemas" component={NowOnCinemas} />
-
-        <Route exact path="/toprated" component={TopRated} />
         <Route exact path="/trendings" component={Trendings} />
 
         <Route exact path="/details/actors/:id" component={ActorsDetails} />
-        <Route exact path="/details/actors/:id/:title" component={Details} />
+        {/* <Route exact path="/details/actors/:id/:title" component={Details} isLogged={this.state.isLogged}/> */}
 
-        <Route exact path="/search/:id/details" component={Details} />
+        {/* <Route exact path="/search/:id/details" component={Details} isLogged={this.state.isLogged}/> */}
+
+        <Route
+          exact
+          path="/details/actors/:id/:title"
+          render={(props) => {
+            return <Details {...props} isLogged={this.state.isLogged} />;
+          }}
+        />
+
+        <Route
+          exact
+          path="/search/:id/details"
+          render={(props) => {
+            return <Details {...props} isLogged={this.state.isLogged} />;
+          }}
+        />
+
+        <Route
+          exact
+          path="/search/:id/results"
+          render={(props) => {
+            return (
+              <SearchResult
+                {...props}
+                searchedWord={this.state.searchedWord}
+                isLogged={this.state.isLogged}
+              />
+            );
+          }}
+        />
         <Route
           exact
           path="/search/:id/results/:page"
           component={SearchResult}
+          isLogged={this.state.isLogged}
         />
 
-        {/* <Route
-          path="/search/:value/results"
-                  render={() => (
-            <SearchResult
-            searchedWord={this.state.searchedWord}
-   
-            />
-          )}
-        /> */}
+        <Route
+          exact
+          path="/search/:id/details"
+          render={(props) => {
+            return <Details {...props} isLogged={this.state.isLogged} />;
+          }}
+        />
+
         {this.state.isLogged._id && (
           <Route
             path="/myaccount/myprofile"
             render={() => <MyAccount isLogged={this.state.isLogged} />}
           />
         )}
+
+        {this.state.isLogged._id && (
+          <Route
+            exact
+            path="/myaccount/favourites"
+            render={() => <Favourites isLogged={this.state.isLogged} />}
+          />
+        )}
+
+        <Route
+          exact
+          path="/myaccount/favourites/:id"
+          render={(props) => {
+            return <DetailsProf {...props} isLogged={this.state.isLogged} />;
+          }}
+        />
+
+        {this.state.isLogged._id && (
+          <Route
+            exact
+            path="/myaccount/watchlist"
+            render={() => <Watchlist isLogged={this.state.isLogged} />}
+          />
+        )}
+
+        <Route
+          exact
+          path="/myaccount/watchlist/:id"
+          render={(props) => {
+            return <DetailsProf {...props} isLogged={this.state.isLogged} />;
+          }}
+        />
+
+        {this.state.isLogged._id && (
+          <Route
+            exact
+            path="/myaccount/activity"
+            render={(props) => {
+              return <Activity {...props} isLogged={this.state.isLogged} />;
+            }}
+          />
+        )}
+        <Route
+          exact
+          path="/myaccount/activity/:id"
+          render={(props) => {
+            return <DetailsProf {...props} isLogged={this.state.isLogged} />;
+          }}
+        />
+
+        <Route
+          exact
+          path="/myaccount/activity/:id/delete"
+          render={(props) => {
+            return <Details {...props} isLogged={this.state.isLogged} />;
+          }}
+        />
+
         {this.state.isLogged._id && (
           <Route
             path="/myaccount/mylists"
@@ -267,15 +360,7 @@ class App extends React.Component {
           />
         )}
 
-        <Route
-          exact
-          path="/search/:id/results"
-          render={(props) => {
-            return (
-              <SearchResult {...props} searchedWord={this.state.searchedWord} />
-            );
-          }}
-        />
+        {/* <Route exact path="/search/:id/details" component={Details} isLogged={this.state.isLogged}/> */}
       </div>
     );
   }
