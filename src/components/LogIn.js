@@ -1,11 +1,11 @@
 import React from "react";
-import "../styles/Login.css";
+import "../styles/Forms.css";
 
 import { Form, Button } from "react-bootstrap";
 
 const LogIn = (props) => {
   return (
-    <div className="login-container">
+    <div className="form-container">
       <span>{props.message}</span>
       <Form onSubmit={props.submitLogIn}>
         <Form.Group controlId="username">
@@ -30,7 +30,7 @@ const LogIn = (props) => {
             onChange={(event) => props.changeHandlerLogIn(event.target)}
           />
         </Form.Group>
-        <Button variant="secondary" type="submit">
+        <Button variant="secondary" type="submit" >
           Log in
         </Button>{" "}
       </Form>

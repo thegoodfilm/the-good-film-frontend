@@ -28,9 +28,9 @@ class MyAccountServices {
       .then((response) => response.data);
   };
 
-  myList = (movieID, userID) => {
+  diary = (movieID, userID, titleID) => {
     return this.service
-      .post("/myaccount/mylists", { movieID, userID })
+      .post(`/account/mydiary/${movieID}?${titleID}`, { movieID, userID, titleID })
       .then((response) => response.data);
   };
 

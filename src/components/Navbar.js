@@ -34,6 +34,8 @@ const MyNavBar = (props) => {
             </NavDropdown>
             {props.isLogged.username && (
               <NavDropdown title="My account" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/myaccount/diary">Diary</NavDropdown.Item>
+
                 <NavDropdown.Item href="/myaccount/favourites">Favourites</NavDropdown.Item>
                 <NavDropdown.Item href="/myaccount/watchlist">
                   Watchlist

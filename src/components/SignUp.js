@@ -1,11 +1,11 @@
 import React from "react";
-import "../styles/Signup.css";
+import "../styles/Forms.css";
 
 import { Form, Button } from "react-bootstrap";
 
 const SignUp = (props) => {
   return (
-    <div className="signup-container">
+    <div className="form-container">
       <span>{props.message}</span>
       <Form onSubmit={props.submitSignUp}>
         <Form.Group controlId="name">

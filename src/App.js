@@ -5,7 +5,8 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Home from "./components/Home";
 import Upcomings from "./components/Upcomings";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
+
 import NowOnCinemas from "./components/NowOnCinemas";
 import TopRated from "./components/TopRated";
 import Details from "./components/Details";
@@ -19,6 +20,9 @@ import Favourites from "./components/Favourites";
 import Watchlist from "./components/Watchlist";
 import Activity from "./components/Activity";
 import DetailsProf from "./components/DetailsProf";
+import Diary from "./components/Diary";
+
+// export const browserHistory = createBrowserHistory();
 
 class App extends React.Component {
   constructor(props) {
@@ -26,6 +30,8 @@ class App extends React.Component {
 
     this.state = {
       isLogged: {},
+      isLoggedIn: false,
+
       newUser: {
         name: "",
         lastName: "",
@@ -57,12 +63,7 @@ class App extends React.Component {
 
       .then((result) => {
         this.setState({ message: result.message });
-        if (this.loginResult === "ok") {
-          console.log(this.loginResult);
-          // window.location.href="/"
-        } else {
-          <Redirect to="/signup" />;
-        }
+        this.checkIfLoggedIn();
       })
       .catch((err) => {
         console.log(err);
@@ -83,14 +84,10 @@ class App extends React.Component {
     this.service
       .login(this.state.loggingUser.email, this.state.loggingUser.password)
       .then((result) => {
-        this.setState({ message: result.message });
-
-        // if(this.state.redirect === true) {
-        //   <Redirect to="/" />;
-        // } else {
-        //   <Redirect to="/login" />
-        // }
+        this.setState({ message: result.message, isLoggedIn: true });
+        this.checkIfLoggedIn();
       })
+
       .catch((err) => {
         console.log(err);
       });
@@ -138,13 +135,6 @@ class App extends React.Component {
   }
 
   render() {
-    // if(this.state.redirect === true) {
-    //   return(
-    //     window.location.href="/"
-
-    //   )
-    //   }
-
     return (
       <div className="App">
         <MyNavBar
@@ -169,37 +159,29 @@ class App extends React.Component {
 
         <Route
           path="/signup"
-          render={() =>
-            this.state.isLogged._id ? (
-              <Redirect to="/" />
-            ) : (
-              <SignUp
-                submitSignUp={this.submitSignUp}
-                newUser={this.state.newUser}
-                changeHandlerSignUp={this.changeHandlerSignUp}
-                isLogged={this.state.isLogged}
-                message={this.state.message}
-              />
-            )
-          }
+          render={() => (
+            <SignUp
+              submitSignUp={this.submitSignUp}
+              newUser={this.state.newUser}
+              changeHandlerSignUp={this.changeHandlerSignUp}
+              isLogged={this.state.isLogged}
+              message={this.state.message}
+            />
+          )}
         />
 
         <Route
           path="/login"
-          render={() =>
-            this.state.isLogged._id ? (
-              <Redirect to="/" />
-            ) : (
-              <LogIn
-                submitLogIn={this.submitLogIn}
-                newUser={this.state.newUser}
-                isLogged={this.state.isLogged}
-                loggingUser={this.state.loggingUser}
-                changeHandlerLogIn={this.changeHandlerLogIn}
-                message={this.state.message}
-              />
-            )
-          }
+          render={() => (
+            <LogIn
+              submitLogIn={this.submitLogIn}
+              newUser={this.state.newUser}
+              isLogged={this.state.isLogged}
+              loggingUser={this.state.loggingUser}
+              changeHandlerLogIn={this.changeHandlerLogIn}
+              message={this.state.message}
+            />
+          )}
         />
 
         <Route exact path="/nowoncinemas" component={NowOnCinemas} />
@@ -293,6 +275,14 @@ class App extends React.Component {
           <Route
             path="/myaccount/myprofile"
             render={() => <MyAccount isLogged={this.state.isLogged} />}
+          />
+        )}
+
+        {this.state.isLogged._id && (
+          <Route
+            exact
+            path="/myaccount/diary"
+            render={() => <Diary isLogged={this.state.isLogged} />}
           />
         )}
 

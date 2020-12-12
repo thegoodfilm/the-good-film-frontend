@@ -60,6 +60,23 @@ class Details extends React.Component {
 
 
 
+  addToMyDiary = () => {
+    this.service
+      .diary(this.props.match.params.id, this.props.isLogged._id)
+      .then((result) => {
+        this.setState({ message: result.message });
+
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  
+
+
+
   renderButtons = () => {
     if (this.props.isLogged._id) {
       return (
@@ -67,6 +84,7 @@ class Details extends React.Component {
           <button onClick={() => this.addToMyFavourites()}>Favourites</button>
           <button onClick={() => this.addToMyActivity()}>Activity</button>
           <button onClick={() => this.addToMyWatchlist()}>Watchlist</button>
+          <button onClick={() => this.addToMyDiary()}>Add to Diary</button>
 
         </div>
       );
