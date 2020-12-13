@@ -20,6 +20,7 @@ import Watchlist from "./components/Watchlist";
 import Activity from "./components/Activity";
 import DetailsProf from "./components/DetailsProf";
 import DiaryForm from "./components/DiaryForm";
+import Diary from "./components/Diary";
 
 // export const browserHistory = createBrowserHistory();
 
@@ -137,7 +138,6 @@ class App extends React.Component {
         this.state.newDiary.date,
         this.state.newDiary.place,
         this.state.newDiary.people,
-        // this.state.newDiary.mood,
         this.state.newDiary.notes,
         this.state.newDiary.userID
       )
@@ -348,10 +348,30 @@ class App extends React.Component {
             render={() => <Diary isLogged={this.state.isLogged} />}
           />
         )} */}
+
+
+
         {this.state.isLogged._id && (
           <Route
             exact
-            path="/myaccount/diary/:id"
+            path="/myaccount/diary"
+            render={(props) => {
+              return (
+                <Diary
+                  {...props}
+                  newDiary={this.state.newDiary}
+                  changeHandlerDiary={this.changeHandlerDiary}
+                  message={this.state.message}
+                  isLogged={this.state.isLogged}
+                />
+              );
+            }}
+          />
+        )}
+        {this.state.isLogged._id && (
+          <Route
+            exact
+            path="/myaccount/diary/:id/form"
             render={(props) => (
               <DiaryForm
                 {...props}
@@ -360,7 +380,6 @@ class App extends React.Component {
                 changeHandlerDiary={this.changeHandlerDiary}
                 isLogged={this.state.isLogged}
                 message={this.state.message}
-                sara={this.state.sara}
               />
             )}
           />
@@ -382,6 +401,9 @@ class App extends React.Component {
             }}
           />
         )}
+
+
+
         {/* {this.state.isLogged._id && (
           <Route
             exact
@@ -416,13 +438,15 @@ class App extends React.Component {
           }}
         />
 
-        <Route
+{/* <Route
           exact
-          path="/myaccount/activity/:id/delete"
+          path="/myaccount/diary/:id"
           render={(props) => {
-            return <Details {...props} isLogged={this.state.isLogged} />;
+            return <DetailsProf {...props} isLogged={this.state.isLogged} />;
           }}
-        />
+        /> */}
+
+
 
         {this.state.isLogged._id && (
           <Route

@@ -31,7 +31,10 @@ class UserService {
   diary = (movieID, date, place, people, notes, userID) => {
     console.log('soy service diary')
     return this.service
-      .post(`/myaccount/diary/${movieID}`, { movieID, date, place, people, notes, userID })
+
+
+  
+      .post(`/myaccount/diary/:id/form`, { movieID, date, place, people, notes, userID })
       .then((response) => response.data)
       .catch(err => console.error(err))
 
@@ -56,6 +59,17 @@ class UserService {
   logout = () => {
     return this.service.post("/logout", {}).then((response) => response.data);
   };
+
+
+  getUser = (userID) => {
+    return this.service.get(`/getUser/${userID}`, {userID})
+    .then(response => response.data)
+    .catch(err => console.error(err))
+
 }
+
+
+}
+
 
 export default UserService;

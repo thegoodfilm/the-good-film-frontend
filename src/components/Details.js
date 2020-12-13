@@ -88,8 +88,7 @@ class Details extends React.Component {
           <button onClick={() => this.addToMyFavourites()}>Favourites</button>
           <button onClick={() => this.addToMyActivity()}>Activity</button>
           <button onClick={() => this.addToMyWatchlist()}>Watchlist</button>
-          <Button href= {`/myaccount/diary/${this.state.details.id}`}>Add to Diary</Button>
-          
+          <Button href= {`/myaccount/diary/${this.state.details.id}/form`}>Add to Diary</Button>
         </div>
       );
     } else {

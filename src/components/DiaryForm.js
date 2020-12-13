@@ -7,7 +7,16 @@ const DiaryForm = (props) => {
   return (
     <div className="form-container">
       <span>{props.message}</span>
-      <Form>
+      <Form onSubmit={props.submitDiaryForm}>
+      <Form.Group controlId="formGridAddress2">
+          <Form.Label>Movie ID:</Form.Label>
+          <Form.Control
+            value={props.match.params.id}
+            name="movieID"
+            // onChange={(event) => props.changeHandlerDiary(event.target)}
+            // placeholder="Where did you see this movie?"
+          />
+        </Form.Group>
         <Form.Row>
           <Form.Group as={Col} controlId="formGridPassword">
             <Form.Label>Date:</Form.Label>
