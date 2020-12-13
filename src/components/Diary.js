@@ -4,12 +4,22 @@ import { Link } from "react-router-dom";
 import MyAccountService from "../services/MyAccountService";
 
 class Diary extends React.Component {
-  state = {
-    movieID: [],
-    movieIDAll: [],
+    constructor(props){
+        super(props)
+       this.state = {
+            movieID: [],
+            movieIDAll: [],
+           
+    
+ 
   };
 
-  service = new MyAccountService();
+  this.service = new MyAccountService();
+
+    }
+  
+
+
 
   componentDidMount() {
     this.service
@@ -54,7 +64,7 @@ renderMyDiary = () => {
     return this.state.movieIDAll.map((movieIDAll, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${movieIDAll.poster_path}`;
       return (
- <Link to={`/myaccount/favourites/${movieIDAll.id}`} key={index} name="top">
+ <Link to={`/myaccount/diary/${movieIDAll.id}`} key={index} name="top">
           <div>
             <div key={index}>
               <h3>{movieIDAll.original_title}</h3>
@@ -66,18 +76,6 @@ renderMyDiary = () => {
       );
     });
   };
-
-//   renderMyWatchlist = () => {
-//     return this.state.allWatchlist.map((movie) => {
-//       return <h3>{movie.title}</h3>;
-//     });
-//   };
-
-//   renderMyActivity = () => {
-//     return this.state.allActivity.map((movie) => {
-//       return <h3>{movie.title}</h3>;
-//     });
-//   };
 
   render() {
     return (

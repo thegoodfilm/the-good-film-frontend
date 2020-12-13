@@ -3,68 +3,80 @@ import "../styles/Forms.css";
 
 import { Form, Button, Col } from "react-bootstrap";
 
-const Diary = (props) => {
+const DiaryForm = (props) => {
   return (
     <div className="form-container">
       <span>{props.message}</span>
       <Form>
-  <Form.Row>
-    <Form.Group as={Col} controlId="formGridEmail">
-      <Form.Label>Email</Form.Label>
-      <Form.Control type="email" placeholder="Enter email" />
-    </Form.Group>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formGridPassword">
+            <Form.Label>Date:</Form.Label>
+            <Form.Control
+              type="date"
+              name="date"
+              value={props.newDiary.date}
+              onChange={(event) => props.changeHandlerDiary(event.target)}
+            />
+          </Form.Group>
+        </Form.Row>
 
-    <Form.Group as={Col} controlId="formGridPassword">
-      <Form.Label>Password</Form.Label>
-      <Form.Control type="password" placeholder="Password" />
-    </Form.Group>
-  </Form.Row>
+        <Form.Group controlId="formGridAddress2">
+          <Form.Label>Place:</Form.Label>
+          <Form.Control
+            value={props.newDiary.place}
+            name="place"
+            onChange={(event) => props.changeHandlerDiary(event.target)}
+            placeholder="Where did you see this movie?"
+          />
+        </Form.Group>
 
-  <Form.Group controlId="formGridAddress1">
-    <Form.Label>Address</Form.Label>
-    <Form.Control placeholder="1234 Main St" />
-  </Form.Group>
+        <Form.Group controlId="formGridAddress2">
+          <Form.Label>People:</Form.Label>
+          <Form.Control
+            value={props.newDiary.people}
+            name="people"
+            onChange={(event) => props.changeHandlerDiary(event.target)}
+            placeholder="Who was with you? maybe alone?"
+          />
+        </Form.Group>
 
-  <Form.Group controlId="formGridAddress2">
-    <Form.Label>Address 2</Form.Label>
-    <Form.Control placeholder="Apartment, studio, or floor" />
-  </Form.Group>
+        {/* <Form.Row>
+          <Form.Group as={Col} controlId="formGridState">
+            <Form.Label>Mood:</Form.Label>
+            <Form.Control
+              as="select"
+              name="mood"
+              value={props.newDiary.mood}
+              onChange={(event) => props.changeHandlerDiary(event.target)}
+              defaultValue="Choose..."
+            >
+              <option>Angry</option>
+              <option>Excited</option>
+              <option>Happy</option>
+              <option>Sad</option>
+              <option>Tender</option>
+              <option>Scared</option>
+            </Form.Control>
+          </Form.Group>
+        </Form.Row> */}
 
-  <Form.Row>
-    <Form.Group as={Col} controlId="formGridCity">
-      <Form.Label>City</Form.Label>
-      <Form.Control />
-    </Form.Group>
+        <Form.Group controlId="formGridAddress2">
+          <Form.Label>Notes:</Form.Label>
+          <Form.Control
+            type="textarea"
+            name="notes"
+            value={props.newDiary.notes}
+            onChange={(event) => props.changeHandlerDiary(event.target)}
+            placeholder="Insert some notes here"
+          />
+        </Form.Group>
 
-    <Form.Group as={Col} controlId="formGridState">
-      <Form.Label>State</Form.Label>
-      <Form.Control as="select" defaultValue="Choose...">
-        <option>Choose...</option>
-        <option>...</option>
-      </Form.Control>
-    </Form.Group>
-
-    <Form.Group as={Col} controlId="formGridZip">
-      <Form.Label>Zip</Form.Label>
-      <Form.Control />
-    </Form.Group>
-  </Form.Row>
-
-  <Form.Group id="formGridCheckbox">
-    <Form.Check type="checkbox" label="Check me out" />
-  </Form.Group>
-
-  <Button variant="primary" type="submit">
-    Submit
-  </Button>
-</Form>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
     </div>
   );
 };
 
-export default Diary;
-
-
-
-
-
+export default DiaryForm;

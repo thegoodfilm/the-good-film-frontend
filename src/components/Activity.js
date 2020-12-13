@@ -1,13 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Form, Button, Col } from "react-bootstrap";
 
 import MyAccountService from "../services/MyAccountService";
 
 class Activity extends React.Component {
-  state = {
-    activity: [],
-    allActivity: [],
-  };
+
+   state = {
+      activity: [],
+      allActivity: [],
+    };
+  
+
 
   service = new MyAccountService();
 
@@ -49,15 +53,15 @@ class Activity extends React.Component {
 
 
 
-  deleteActivity = (movieID) => {
-    console.log('burro')
-    console.log(this.state.allActivity)
-    const activityCopy = [...this.state.allActivity]; // <== notice the spread operator here!
-    activityCopy.splice(movieID, 1);
-    this.setState({
-      allActivity: activityCopy
-    })
-  }
+  // deleteActivity = (movieID) => {
+  //   console.log('burro')
+  //   console.log(this.state.allActivity)
+  //   const activityCopy = [...this.state.allActivity]; // <== notice the spread operator here!
+  //   activityCopy.splice(movieID, 1);
+  //   this.setState({
+  //     allActivity: activityCopy
+  //   })
+  // }
 
   renderButton = () => {
    
@@ -72,7 +76,7 @@ class Activity extends React.Component {
 
   }
 
-renderMyActivity = () => {
+renderMyActivity = (props) => {
     return this.state.allActivity.map((allActivity, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${allActivity.poster_path}`;
       return (
@@ -84,7 +88,7 @@ renderMyActivity = () => {
            
               <p>{allActivity.release_date}</p>
               <img src={poster} alt={allActivity.title} />
-             
+              
 
             </div>
           </div>

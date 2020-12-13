@@ -3,6 +3,10 @@ import React from "react";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import MyAccountService from "../services/MyAccountService";
+import {
+  Button
+ 
+} from "react-bootstrap";
 
 class Details extends React.Component {
   state = {
@@ -84,8 +88,8 @@ class Details extends React.Component {
           <button onClick={() => this.addToMyFavourites()}>Favourites</button>
           <button onClick={() => this.addToMyActivity()}>Activity</button>
           <button onClick={() => this.addToMyWatchlist()}>Watchlist</button>
-          <button onClick={() => this.addToMyDiary()}>Add to Diary</button>
-
+          <Button href= {`/myaccount/diary/${this.state.details.id}`}>Add to Diary</Button>
+          
         </div>
       );
     } else {

@@ -6,7 +6,6 @@ import LogIn from "./components/LogIn";
 import Home from "./components/Home";
 import Upcomings from "./components/Upcomings";
 import { Route } from "react-router-dom";
-
 import NowOnCinemas from "./components/NowOnCinemas";
 import TopRated from "./components/TopRated";
 import Details from "./components/Details";
@@ -20,7 +19,7 @@ import Favourites from "./components/Favourites";
 import Watchlist from "./components/Watchlist";
 import Activity from "./components/Activity";
 import DetailsProf from "./components/DetailsProf";
-import Diary from "./components/Diary";
+import DiaryForm from "./components/DiaryForm";
 
 // export const browserHistory = createBrowserHistory();
 
@@ -38,6 +37,15 @@ class App extends React.Component {
         username: "",
         email: "",
         password: "",
+      },
+      newDiary: {
+        movieID: "",
+        date: "",
+        place: "",
+        people: "",
+        // mood: "",
+        notes: "",
+        userId: "",
       },
       loggingUser: { email: "", password: "" },
       searchedWord: "",
@@ -118,6 +126,37 @@ class App extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  submitDiaryForm = (event) => {
+    event.preventDefault();
+
+    this.service
+      .diary(
+        this.state.newDiary.movieID,
+        this.state.newDiary.date,
+        this.state.newDiary.place,
+        this.state.newDiary.people,
+        // this.state.newDiary.mood,
+        this.state.newDiary.notes,
+        this.state.newDiary.userID
+      )
+      .then((result) => {
+        this.setState({ message: result.message });
+        this.checkIfLoggedIn();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  changeHandlerDiary = (_eventTarget) => {
+    this.setState({
+      newDiary: {
+        ...this.state.newDiary,
+        [_eventTarget.name]: _eventTarget.value,
+      },
+    });
   };
 
   changeSearchedWord = (_value) => {
@@ -227,13 +266,13 @@ class App extends React.Component {
 
         {/* <Route exact path="/search/:id/details" component={Details} isLogged={this.state.isLogged}/> */}
 
-        <Route
+        {/* <Route
           exact
           path="/details/actors/:id/:title"
           render={(props) => {
-            return <Details {...props} isLogged={this.state.isLogged} />;
+            return <DiaryForm {...props} isLogged={this.state.isLogged} submitDiaryForm={props.submitDiaryForm}/>;
           }}
-        />
+        /> */}
 
         <Route
           exact
@@ -281,14 +320,6 @@ class App extends React.Component {
         {this.state.isLogged._id && (
           <Route
             exact
-            path="/myaccount/diary"
-            render={() => <Diary isLogged={this.state.isLogged} />}
-          />
-        )}
-
-        {this.state.isLogged._id && (
-          <Route
-            exact
             path="/myaccount/favourites"
             render={() => <Favourites isLogged={this.state.isLogged} />}
           />
@@ -301,6 +332,65 @@ class App extends React.Component {
             return <DetailsProf {...props} isLogged={this.state.isLogged} />;
           }}
         />
+
+        {/* <Route
+          exact
+          path="/myaccount/diary/:id"
+          render={(props) => {
+            return <DetailsProf {...props} isLogged={this.state.isLogged} />;
+          }}
+        /> */}
+
+        {/* {this.state.isLogged._id && (
+          <Route
+            exact
+            path="/myaccount/diary"
+            render={() => <Diary isLogged={this.state.isLogged} />}
+          />
+        )} */}
+        {this.state.isLogged._id && (
+          <Route
+            exact
+            path="/myaccount/diary/:id"
+            render={(props) => (
+              <DiaryForm
+                {...props}
+                submitDiaryForm={this.submitDiaryForm}
+                newDiary={this.state.newDiary}
+                changeHandlerDiary={this.changeHandlerDiary}
+                isLogged={this.state.isLogged}
+                message={this.state.message}
+                sara={this.state.sara}
+              />
+            )}
+          />
+        )}
+        {this.state.isLogged._id && (
+          <Route
+            exact
+            path="/myaccount/activity"
+            render={(props) => {
+              return (
+                <Activity
+                  {...props}
+                  newDiary={this.state.newDiary}
+                  changeHandlerDiary={this.changeHandlerDiary}
+                  message={this.state.message}
+                  isLogged={this.state.isLogged}
+                />
+              );
+            }}
+          />
+        )}
+        {/* {this.state.isLogged._id && (
+          <Route
+            exact
+            path="/myaccount/activity"
+            render={(props) => {
+              return <Activity {...props} isLogged={this.state.isLogged} />;
+            }}
+          />
+        )} */}
 
         {this.state.isLogged._id && (
           <Route
@@ -318,15 +408,6 @@ class App extends React.Component {
           }}
         />
 
-        {this.state.isLogged._id && (
-          <Route
-            exact
-            path="/myaccount/activity"
-            render={(props) => {
-              return <Activity {...props} isLogged={this.state.isLogged} />;
-            }}
-          />
-        )}
         <Route
           exact
           path="/myaccount/activity/:id"
