@@ -26,22 +26,22 @@ class MyAccountServices {
 
   };
 
-  activity = (movieID, userID) => {
-    return this.service
-      .post("/myaccount/activity", { movieID, userID })
-      .then((response) => response.data)
-      .catch(err => console.error(err))
+  // activity = (movieID, userID) => {
+  //   return this.service
+  //     .post("/myaccount/activity", { movieID, userID })
+  //     .then((response) => response.data)
+  //     .catch(err => console.error(err))
 
-  };
+  // };
 
  
-  remove =  (movieID, userID) => {
-    return this.service
-      .post(`/myaccount/activity/${movieID}/remove`, {movieID, userID})
-      .then((response) => response.data)
-      .catch(err => console.error(err))
+  // remove =  (movieID, userID) => {
+  //   return this.service
+  //     .post(`/myaccount/activity/${movieID}/remove`, {movieID, userID})
+  //     .then((response) => response.data)
+  //     .catch(err => console.error(err))
 
-  };
+  // };
 
 
 

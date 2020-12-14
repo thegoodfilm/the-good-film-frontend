@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import MyAccountService from "../services/MyAccountService";
+import MyAccountService from "../../services/MyAccountService";
 
-class Favourites extends React.Component {
+class Watchlist extends React.Component {
   state = {
-    favourites: [],
-    allFavourites: [],
+    watchlist: [],
+    allWatchlist: [],
   };
 
   service = new MyAccountService();
@@ -16,10 +16,10 @@ class Favourites extends React.Component {
       .getUser(this.props.isLogged._id)
       .then((response) => {
         this.setState({
-          favourites: [...response.favourites]
+          watchlist: [...response.watchlist]
          
         });
-        this.myFavourites();
+        this.myWatchlist();
        
       })
       .catch((err) => {
@@ -27,8 +27,8 @@ class Favourites extends React.Component {
       });
   }
 
-  myFavourites = () => {
-    const favouritesMap = this.state.favourites.map((_id) => {
+  myWatchlist = () => {
+    const watchlistMap = this.state.watchlist.map((_id) => {
       return fetch(
         `${process.env.REACT_APP_BASEURL}/${_id}?api_key=${process.env.REACT_APP_KEY}&language=en-US`
       )
@@ -40,9 +40,9 @@ class Favourites extends React.Component {
       })
     })
 
-    Promise.all(favouritesMap).then((result) => {
+    Promise.all(watchlistMap).then((result) => {
         console.log(result)
-      this.setState({ allFavourites: result });
+      this.setState({ allWatchlist: result });
     });
   };
 
@@ -85,16 +85,17 @@ class Favourites extends React.Component {
 //     });
 //   };
 
-renderMyFavourites = () => {
-    return this.state.allFavourites.map((allFavourites, index) => {
-      const poster = `${process.env.REACT_APP_BASEURLPOSTER}${allFavourites.poster_path}`;
+renderMyWatchlist = () => {
+    return this.state.allWatchlist.map((allWatchlist, index) => {
+      const poster = `${process.env.REACT_APP_BASEURLPOSTER}${allWatchlist.poster_path}`;
       return (
- <Link to={`/myaccount/favourites/${allFavourites.id}`} key={index} name="top">
+ <Link to={`/myaccount/watchlist/${allWatchlist.id}`} key={index} name="top">
           <div>
             <div key={index}>
-              <h3>{allFavourites.original_title}</h3>
-              <p>{allFavourites.release_date}</p>
-              <img src={poster} alt={allFavourites.original_title} />
+              <h3>{allWatchlist.title}</h3>
+              <p>hola</p>
+              <p>{allWatchlist.release_date}</p>
+              <img src={poster} alt={allWatchlist.title} />
             </div>
           </div>
        </Link>
@@ -117,9 +118,8 @@ renderMyFavourites = () => {
   render() {
     return (
       <div>
-
-        <h2>Welcome, {this.props.isLogged.username}</h2>
-        {this.state.allFavourites.length > 0 && this.renderMyFavourites()}
+        <h2>{this.props.isLogged.username} watchlist</h2>
+        {this.state.allWatchlist.length > 0 && this.renderMyWatchlist()}
         {/* {this.state.allWatchlist.length > 0 && this.renderMyWatchlist()}
         {this.state.allActivity.length > 0 && this.renderMyActivity()} */}
       </div>
@@ -127,4 +127,4 @@ renderMyFavourites = () => {
   }
 }
 
-export default Favourites;
+export default Watchlist;

@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/Navbar.css";
+import "../../styles/Navbar.css";
 
 import {
   Button,
@@ -40,9 +40,7 @@ const MyNavBar = (props) => {
                 <NavDropdown.Item href="/myaccount/watchlist">
                   Watchlist
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/myaccount/activity">
-                  Activity
-                </NavDropdown.Item>
+               
               
   
                 <NavDropdown.Divider />

@@ -1,20 +1,23 @@
 import React from "react";
-import "../styles/Forms.css";
+import "../../styles/Forms.css";
 
 import { Form, Button, Col } from "react-bootstrap";
 
 const DiaryForm = (props) => {
+
   return (
     <div className="form-container">
       <span>{props.message}</span>
       <Form onSubmit={props.submitDiaryForm}>
+      <span>Please, type this code {props.match.params.id} in MovieID to confirm this movie</span>
       <Form.Group controlId="formGridAddress2">
           <Form.Label>Movie ID:</Form.Label>
           <Form.Control
-            value={props.match.params.id}
+           type="text"
+            value={props.newDiary.movieID}
             name="movieID"
-            // onChange={(event) => props.changeHandlerDiary(event.target)}
-            // placeholder="Where did you see this movie?"
+            onChange={(event) => props.changeHandlerDiary(event.target)}
+            placeholder="Type code"
           />
         </Form.Group>
         <Form.Row>

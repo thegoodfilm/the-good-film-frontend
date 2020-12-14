@@ -17,7 +17,7 @@ class ActorsDetails extends React.Component {
       })
       .then((dataJSON) => {
         this.setState({
-          actorsDetails: dataJSON.cast,
+          actorsDetails: dataJSON.cast
         });
       })
       .catch((err) => {
@@ -43,6 +43,8 @@ class ActorsDetails extends React.Component {
 
   renderActorsDetails = () => {
     return this.state.actorsDetails.map((actorsDetails, index) => {
+      console.log('renderActorsDetails')
+      console.log(actorsDetails)
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${actorsDetails.poster_path}`;
       return (
         <Link

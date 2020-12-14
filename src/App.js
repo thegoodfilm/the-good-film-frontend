@@ -1,28 +1,25 @@
 import "./styles/App.css";
 import React from "react";
-import MyNavBar from "./components/Navbar";
-import SignUp from "./components/SignUp";
-import LogIn from "./components/LogIn";
-import Home from "./components/Home";
-import Upcomings from "./components/Upcomings";
-import { Route } from "react-router-dom";
-import NowOnCinemas from "./components/NowOnCinemas";
-import TopRated from "./components/TopRated";
-import Details from "./components/Details";
-import UserService from "./services/UserService";
-import Trendings from "./components/Trendings";
-import ActorsDetails from "./components/ActorsDetails";
-import SearchResult from "./components/SearchResult";
-import MyAccount from "./components/MyAccount";
-import MyList from "./components/MyList";
-import Favourites from "./components/Favourites";
-import Watchlist from "./components/Watchlist";
-import Activity from "./components/Activity";
-import DetailsProf from "./components/DetailsProf";
-import DiaryForm from "./components/DiaryForm";
-import Diary from "./components/Diary";
+import { Route, Switch } from "react-router-dom";
 
-// export const browserHistory = createBrowserHistory();
+import MyNavBar from "./components/SearchbarComponent/Navbar";
+import SignUp from "./components/AuthComponent/SignUp";
+import LogIn from "./components/AuthComponent/LogIn";
+import Home from "./components/LayoutComponent/Home";
+import Upcomings from "./components/MovieComponent/Upcomings";
+import NowOnCinemas from "./components/MovieComponent/NowOnCinemas";
+import TopRated from "./components/MovieComponent/TopRated";
+import Details from "./components/MovieComponent/Details";
+import UserService from "./services/UserService";
+import Trendings from "./components/MovieComponent/Trendings";
+import ActorsDetails from "./components/MovieComponent/ActorsDetails";
+import SearchResult from "./components/SearchbarComponent/SearchResult";
+import MyAccount from "./components/MyAccountComponent/MyAccount";
+import Favourites from "./components/MyAccountComponent/Favourites";
+import Watchlist from "./components/MyAccountComponent/Watchlist";
+import DetailsProf from "./components/MyAccountComponent/DetailsProf";
+import DiaryForm from "./components/DiaryComponent/DiaryForm";
+import Diary from "./components/DiaryComponent/Diary";
 
 class App extends React.Component {
   constructor(props) {
@@ -31,7 +28,6 @@ class App extends React.Component {
     this.state = {
       isLogged: {},
       isLoggedIn: false,
-
       newUser: {
         name: "",
         lastName: "",
@@ -44,7 +40,6 @@ class App extends React.Component {
         date: "",
         place: "",
         people: "",
-        // mood: "",
         notes: "",
         userId: "",
       },
@@ -58,9 +53,11 @@ class App extends React.Component {
     this.service = new UserService();
   }
 
+  // AUTH CONFIG
+
+  // Sign up
   submitSignUp = (event) => {
     event.preventDefault();
-
     this.service
       .signup(
         this.state.newUser.name,
@@ -69,7 +66,6 @@ class App extends React.Component {
         this.state.newUser.email,
         this.state.newUser.password
       )
-
       .then((result) => {
         this.setState({ message: result.message });
         this.checkIfLoggedIn();
@@ -88,6 +84,7 @@ class App extends React.Component {
     });
   };
 
+  // Log in
   submitLogIn = (event) => {
     event.preventDefault();
     this.service
@@ -96,7 +93,6 @@ class App extends React.Component {
         this.setState({ message: result.message, isLoggedIn: true });
         this.checkIfLoggedIn();
       })
-
       .catch((err) => {
         console.log(err);
       });
@@ -112,11 +108,13 @@ class App extends React.Component {
   };
 
   checkIfLoggedIn = () => {
-    this.service.loggedin().then((result) => {
+    this.service.loggedin()
+    .then((result) => {
       this.setState({ isLogged: result });
     });
   };
 
+  // Log out
   logOut = () => {
     this.service
       .logout()
@@ -129,6 +127,7 @@ class App extends React.Component {
       });
   };
 
+  // DIARY FORM CONFIG
   submitDiaryForm = (event) => {
     event.preventDefault();
 
@@ -159,6 +158,7 @@ class App extends React.Component {
     });
   };
 
+  // SEARCHBAR CONFIG
   changeSearchedWord = (_value) => {
     this.setState({
       searchedWord: _value,
@@ -176,6 +176,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        {/* NAVBAR COMPONENT */}
+
         <MyNavBar
           isLogged={this.state.isLogged}
           logOut={this.logOut}
@@ -184,278 +186,227 @@ class App extends React.Component {
           searchInit={this.searchInit}
         />
 
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <Home
-              logOut={this.logOut}
-              isLogged={this.state.isLogged}
-              title={this.state.title}
-            />
-          )}
-        />
+        <Switch>
+          {/* AUTH ROUTES */}
 
-        <Route
-          path="/signup"
-          render={() => (
-            <SignUp
-              submitSignUp={this.submitSignUp}
-              newUser={this.state.newUser}
-              changeHandlerSignUp={this.changeHandlerSignUp}
-              isLogged={this.state.isLogged}
-              message={this.state.message}
-            />
-          )}
-        />
-
-        <Route
-          path="/login"
-          render={() => (
-            <LogIn
-              submitLogIn={this.submitLogIn}
-              newUser={this.state.newUser}
-              isLogged={this.state.isLogged}
-              loggingUser={this.state.loggingUser}
-              changeHandlerLogIn={this.changeHandlerLogIn}
-              message={this.state.message}
-            />
-          )}
-        />
-
-        <Route exact path="/nowoncinemas" component={NowOnCinemas} />
-
-        <Route
-          exact
-          path="/nowoncinemas/:id"
-          render={(props) => {
-            return <Details {...props} isLogged={this.state.isLogged} />;
-          }}
-        />
-        <Route exact path="/toprated" component={TopRated} />
-
-        <Route
-          exact
-          path="/toprated/:id"
-          render={(props) => {
-            return <Details {...props} isLogged={this.state.isLogged} />;
-          }}
-        />
-        <Route
-          exact
-          path="/trendings/:id"
-          render={(props) => {
-            return <Details {...props} isLogged={this.state.isLogged} />;
-          }}
-        />
-
-        <Route exact path="/upcomings" component={Upcomings} />
-
-        <Route
-          exact
-          path="/upcomings/:id"
-          render={(props) => {
-            return <Details {...props} isLogged={this.state.isLogged} />;
-          }}
-        />
-
-        <Route exact path="/trendings" component={Trendings} />
-
-        <Route exact path="/details/actors/:id" component={ActorsDetails} />
-        {/* <Route exact path="/details/actors/:id/:title" component={Details} isLogged={this.state.isLogged}/> */}
-
-        {/* <Route exact path="/search/:id/details" component={Details} isLogged={this.state.isLogged}/> */}
-
-        {/* <Route
-          exact
-          path="/details/actors/:id/:title"
-          render={(props) => {
-            return <DiaryForm {...props} isLogged={this.state.isLogged} submitDiaryForm={props.submitDiaryForm}/>;
-          }}
-        /> */}
-
-        <Route
-          exact
-          path="/search/:id/details"
-          render={(props) => {
-            return <Details {...props} isLogged={this.state.isLogged} />;
-          }}
-        />
-
-        <Route
-          exact
-          path="/search/:id/results"
-          render={(props) => {
-            return (
-              <SearchResult
-                {...props}
-                searchedWord={this.state.searchedWord}
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Home
+                logOut={this.logOut}
                 isLogged={this.state.isLogged}
+                title={this.state.title}
               />
-            );
-          }}
-        />
-        <Route
-          exact
-          path="/search/:id/results/:page"
-          component={SearchResult}
-          isLogged={this.state.isLogged}
-        />
-
-        <Route
-          exact
-          path="/search/:id/details"
-          render={(props) => {
-            return <Details {...props} isLogged={this.state.isLogged} />;
-          }}
-        />
-
-        {this.state.isLogged._id && (
-          <Route
-            path="/myaccount/myprofile"
-            render={() => <MyAccount isLogged={this.state.isLogged} />}
+            )}
           />
-        )}
 
-        {this.state.isLogged._id && (
           <Route
-            exact
-            path="/myaccount/favourites"
-            render={() => <Favourites isLogged={this.state.isLogged} />}
-          />
-        )}
-
-        <Route
-          exact
-          path="/myaccount/favourites/:id"
-          render={(props) => {
-            return <DetailsProf {...props} isLogged={this.state.isLogged} />;
-          }}
-        />
-
-        {/* <Route
-          exact
-          path="/myaccount/diary/:id"
-          render={(props) => {
-            return <DetailsProf {...props} isLogged={this.state.isLogged} />;
-          }}
-        /> */}
-
-        {/* {this.state.isLogged._id && (
-          <Route
-            exact
-            path="/myaccount/diary"
-            render={() => <Diary isLogged={this.state.isLogged} />}
-          />
-        )} */}
-
-
-
-        {this.state.isLogged._id && (
-          <Route
-            exact
-            path="/myaccount/diary"
-            render={(props) => {
-              return (
-                <Diary
-                  {...props}
-                  newDiary={this.state.newDiary}
-                  changeHandlerDiary={this.changeHandlerDiary}
-                  message={this.state.message}
-                  isLogged={this.state.isLogged}
-                />
-              );
-            }}
-          />
-        )}
-        {this.state.isLogged._id && (
-          <Route
-            exact
-            path="/myaccount/diary/:id/form"
-            render={(props) => (
-              <DiaryForm
-                {...props}
-                submitDiaryForm={this.submitDiaryForm}
-                newDiary={this.state.newDiary}
-                changeHandlerDiary={this.changeHandlerDiary}
+            path="/signup"
+            render={() => (
+              <SignUp
+                submitSignUp={this.submitSignUp}
+                newUser={this.state.newUser}
+                changeHandlerSignUp={this.changeHandlerSignUp}
                 isLogged={this.state.isLogged}
                 message={this.state.message}
               />
             )}
           />
-        )}
-        {this.state.isLogged._id && (
+
+          <Route
+            path="/login"
+            render={() => (
+              <LogIn
+                submitLogIn={this.submitLogIn}
+                newUser={this.state.newUser}
+                isLogged={this.state.isLogged}
+                loggingUser={this.state.loggingUser}
+                changeHandlerLogIn={this.changeHandlerLogIn}
+                message={this.state.message}
+              />
+            )}
+          />
+
+          {/* MOVIE ROUTES */}
+
+          <Route exact path="/nowoncinemas" component={NowOnCinemas} />
+
           <Route
             exact
-            path="/myaccount/activity"
+            path="/nowoncinemas/:id"
+            render={(props) => {
+              return <Details {...props} isLogged={this.state.isLogged} />;
+            }}
+          />
+
+          <Route exact path="/toprated" component={TopRated} />
+
+          <Route
+            exact
+            path="/toprated/:id"
+            render={(props) => {
+              return <Details {...props} isLogged={this.state.isLogged} />;
+            }}
+          />
+
+          <Route exact path="/trendings" component={Trendings} />
+
+          <Route
+            exact
+            path="/trendings/:id"
+            render={(props) => {
+              return <Details {...props} isLogged={this.state.isLogged} />;
+            }}
+          />
+
+          <Route exact path="/upcomings" component={Upcomings} />
+
+          <Route
+            exact
+            path="/upcomings/:id"
+            render={(props) => {
+              return <Details {...props} isLogged={this.state.isLogged} />;
+            }}
+          />
+
+          <Route exact path="/details/actors/:id" component={ActorsDetails} />
+
+          <Route
+            path="/details/actors/:id/:title"
+            render={(props) => (
+              <Details
+              {...props}
+                submitLogIn={this.submitLogIn}
+                newUser={this.state.newUser}
+                isLogged={this.state.isLogged}
+                loggingUser={this.state.loggingUser}
+                changeHandlerLogIn={this.changeHandlerLogIn}
+                message={this.state.message}
+              />
+            )}
+          />
+
+
+          {this.state.isLogged._id && (
+            <Route
+              exact
+              path="/myaccount/watchlist"
+              render={() => <Watchlist isLogged={this.state.isLogged} />}
+            />
+          )}
+          
+
+
+
+          <Route
+            exact
+            path="/myaccount/watchlist/:id"
+            render={(props) => {
+              return <DetailsProf {...props} isLogged={this.state.isLogged} />;
+            }}
+          />
+
+          {/* SEARCHBAR ROUTES */}
+
+          <Route
+            exact
+            path="/search/:id/details"
+            render={(props) => {
+              return <Details {...props} isLogged={this.state.isLogged} />;
+            }}
+          />
+
+          <Route
+            exact
+            path="/search/:id/results"
             render={(props) => {
               return (
-                <Activity
+                <SearchResult
                   {...props}
-                  newDiary={this.state.newDiary}
-                  changeHandlerDiary={this.changeHandlerDiary}
-                  message={this.state.message}
+                  searchedWord={this.state.searchedWord}
                   isLogged={this.state.isLogged}
                 />
               );
             }}
           />
-        )}
-
-
-
-        {/* {this.state.isLogged._id && (
           <Route
             exact
-            path="/myaccount/activity"
+            path="/search/:id/results/:page"
+            component={SearchResult}
+            isLogged={this.state.isLogged}
+          />
+
+          <Route
+            exact
+            path="/search/:id/details"
             render={(props) => {
-              return <Activity {...props} isLogged={this.state.isLogged} />;
+              return <Details {...props} isLogged={this.state.isLogged} />;
             }}
           />
-        )} */}
 
-        {this.state.isLogged._id && (
+          {/* MYACCOUNT ROUTES */}
+
+          {this.state.isLogged._id && (
+            <Route
+              path="/myaccount/myprofile"
+              render={() => <MyAccount isLogged={this.state.isLogged} />}
+            />
+          )}
+
+          {this.state.isLogged._id && (
+            <Route
+              exact
+              path="/myaccount/favourites"
+              render={() => <Favourites isLogged={this.state.isLogged} />}
+            />
+          )}
+
           <Route
             exact
-            path="/myaccount/watchlist"
-            render={() => <Watchlist isLogged={this.state.isLogged} />}
+            path="/myaccount/favourites/:id"
+            render={(props) => {
+              return <DetailsProf {...props} isLogged={this.state.isLogged} />;
+            }}
           />
-        )}
 
-        <Route
-          exact
-          path="/myaccount/watchlist/:id"
-          render={(props) => {
-            return <DetailsProf {...props} isLogged={this.state.isLogged} />;
-          }}
-        />
+          {/* DIARY ROUTES */}
 
-        <Route
-          exact
-          path="/myaccount/activity/:id"
-          render={(props) => {
-            return <DetailsProf {...props} isLogged={this.state.isLogged} />;
-          }}
-        />
+          {this.state.isLogged._id && (
+            <Route
+              exact
+              path="/myaccount/diary"
+              render={(props) => {
+                return (
+                  <Diary
+                    {...props}
+                    newDiary={this.state.newDiary}
+                    changeHandlerDiary={this.changeHandlerDiary}
+                    message={this.state.message}
+                    isLogged={this.state.isLogged}
+                  />
+                );
+              }}
+            />
+          )}
 
-{/* <Route
-          exact
-          path="/myaccount/diary/:id"
-          render={(props) => {
-            return <DetailsProf {...props} isLogged={this.state.isLogged} />;
-          }}
-        /> */}
-
-
-
-        {this.state.isLogged._id && (
-          <Route
-            path="/myaccount/mylists"
-            render={() => <MyList isLogged={this.state.isLogged} />}
-          />
-        )}
-
-        {/* <Route exact path="/search/:id/details" component={Details} isLogged={this.state.isLogged}/> */}
+          {this.state.isLogged._id && (
+            <Route
+              exact
+              path="/myaccount/diary/:id/form"
+              render={(props) => (
+                <DiaryForm
+                  {...props}
+                  submitDiaryForm={this.submitDiaryForm}
+                  newDiary={this.state.newDiary}
+                  changeHandlerDiary={this.changeHandlerDiary}
+                  isLogged={this.state.isLogged}
+                  message={this.state.message}
+                />
+              )}
+            />
+          )}
+        </Switch>
       </div>
     );
   }

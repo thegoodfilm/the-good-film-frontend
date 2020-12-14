@@ -28,17 +28,17 @@ class UserService {
       
   };
 
-  diary = (movieID, date, place, people, notes, userID) => {
-    console.log('soy service diary')
-    return this.service
+  // diary = (movieID, date, place, people, notes, userID) => {
+  //   console.log('soy service diary')
+  //   return this.service
 
 
   
-      .post(`/myaccount/diary/:id/form`, { movieID, date, place, people, notes, userID })
-      .then((response) => response.data)
-      .catch(err => console.error(err))
+  //     .post(`/myaccount/diary/:id/form`, { movieID, date, place, people, notes, userID })
+  //     .then((response) => response.data)
+  //     .catch(err => console.error(err))
 
-  };
+  // };
 
   logOut = () => {
     this.service

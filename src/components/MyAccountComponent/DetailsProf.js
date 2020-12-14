@@ -2,11 +2,7 @@ import React from "react";
 
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
-import MyAccountService from "../services/MyAccountService";
-import {
-  Button
- 
-} from "react-bootstrap";
+import MyAccountService from "../../services/MyAccountService";
 
 class Details extends React.Component {
   state = {
@@ -63,13 +59,12 @@ class Details extends React.Component {
   };
 
 
-
-  addToMyDiary = () => {
+  remove = () => {
     this.service
-      .diary(this.props.match.params.id, this.props.isLogged._id)
+      .remove(this.props.match.params.id, this.props.isLogged._id)
       .then((result) => {
         this.setState({ message: result.message });
-
+  
         console.log(result);
       })
       .catch((err) => {
@@ -77,45 +72,29 @@ class Details extends React.Component {
       });
   };
 
-  
-
-
-
   renderButtons = () => {
-    if (this.props.isLogged._id) {
+   
       return (
         <div>
-          <button onClick={() => this.addToMyFavourites()}>Favourites</button>
-          <button onClick={() => this.addToMyActivity()}>Activity</button>
-          <button onClick={() => this.addToMyWatchlist()}>Watchlist</button>
-          <Button href= {`/myaccount/diary/${this.state.details.id}/form`}>Add to Diary</Button>
+         
+          <button onClick={() => this.remove()}>Remove</button>
+
         </div>
       );
-    } else {
-      return (
-        <div>
-          <Link to="/signup">
-            <button>Sign Up</button>
-          </Link>
-          <Link to="/login">
-            <button>Log In</button>{" "}
-          </Link>
-        </div>
-      );
+    
+  
     }
-  };
+  
 
   componentDidMount() {
     fetch(
       `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
     )
       .then((data) => {
-        console.log(this.props.match.params.id);
 
         return data.json();
       })
       .then((dataJSON) => {
-        console.log(dataJSON);
 
         this.setState({
           details: dataJSON,
