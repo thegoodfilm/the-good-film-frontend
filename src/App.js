@@ -19,12 +19,11 @@ import Watchlist from "./components/MyAccountComponent/Watchlist";
 import DetailsProf from "./components/MyAccountComponent/DetailsProf";
 import DiaryForm from "./components/DiaryComponent/DiaryForm";
 import Diary from "./components/DiaryComponent/Diary";
-
-
+import ReviewForm from "./components/ReviewComponent/ReviewForm";
 
 import UserService from "./services/UserService";
 import DiaryService from "./services/DiaryService";
-
+import ReviewService from "./services/ReviewService";
 
 class App extends React.Component {
   constructor(props) {
@@ -48,6 +47,11 @@ class App extends React.Component {
         notes: "",
         userId: "",
       },
+      newReview: {
+        movieID: "",
+        reviewText: "",
+        userId: ""
+      },
       loggingUser: { email: "", password: "" },
       searchedWord: "",
       message: "",
@@ -56,7 +60,8 @@ class App extends React.Component {
       loginResult: "",
     };
     this.service = new UserService();
-    this.serviceDiary= new DiaryService
+    this.serviceDiary = new DiaryService();
+    this.serviceReview = new ReviewService();
   }
 
   // AUTH CONFIG
@@ -114,8 +119,7 @@ class App extends React.Component {
   };
 
   checkIfLoggedIn = () => {
-    this.service.loggedin()
-    .then((result) => {
+    this.service.loggedin().then((result) => {
       this.setState({ isLogged: result });
     });
   };
@@ -159,6 +163,37 @@ class App extends React.Component {
     this.setState({
       newDiary: {
         ...this.state.newDiary,
+        [_eventTarget.name]: _eventTarget.value,
+      },
+    });
+  };
+
+
+  // REVIEW FORM CONFIG
+  submitReviewForm = (event) => {
+    event.preventDefault();
+console.log('soy review submit')
+    this.serviceReview
+      .review(
+        this.state.newReview.movieID,
+        this.state.newReview.reviewText,
+        this.state.newReview.userID
+
+     
+      )
+      .then((result) => {
+        this.setState({ message: result.message });
+        this.checkIfLoggedIn();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  changeHandlerReview = (_eventTarget) => {
+    this.setState({
+      newReview: {
+        ...this.state.newReview,
         [_eventTarget.name]: _eventTarget.value,
       },
     });
@@ -282,7 +317,7 @@ class App extends React.Component {
             path="/details/actors/:id/:title"
             render={(props) => (
               <Details
-              {...props}
+                {...props}
                 submitLogIn={this.submitLogIn}
                 newUser={this.state.newUser}
                 isLogged={this.state.isLogged}
@@ -293,7 +328,6 @@ class App extends React.Component {
             )}
           />
 
-
           {this.state.isLogged._id && (
             <Route
               exact
@@ -301,9 +335,6 @@ class App extends React.Component {
               render={() => <Watchlist isLogged={this.state.isLogged} />}
             />
           )}
-          
-
-
 
           <Route
             exact
@@ -406,6 +437,42 @@ class App extends React.Component {
                   submitDiaryForm={this.submitDiaryForm}
                   newDiary={this.state.newDiary}
                   changeHandlerDiary={this.changeHandlerDiary}
+                  isLogged={this.state.isLogged}
+                  message={this.state.message}
+                />
+              )}
+            />
+          )}
+
+     
+          {/* REVIEW ROUTH */}
+
+          {this.state.isLogged._id && (
+            <Route
+              exact
+              path="/nowoncinemas/:id"
+              render={(props) => {
+                return (
+                  <Diary
+                    {...props}
+                    message={this.state.message}
+                    isLogged={this.state.isLogged}
+                  />
+                );
+              }}
+            />
+          )}
+
+          {this.state.isLogged._id && (
+            <Route
+              exact
+              path="/review/:id/form"
+              render={(props) => (
+                <ReviewForm
+                  {...props}
+                  submitReviewForm={this.submitReviewForm}
+                  newReview={this.state.newReview}
+                  changeHandlerReview={this.changeHandlerReview}
                   isLogged={this.state.isLogged}
                   message={this.state.message}
                 />

@@ -59,18 +59,7 @@ class Details extends React.Component {
   };
 
 
-  remove = () => {
-    this.service
-      .remove(this.props.match.params.id, this.props.isLogged._id)
-      .then((result) => {
-        this.setState({ message: result.message });
-  
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
 
   renderButtons = () => {
    

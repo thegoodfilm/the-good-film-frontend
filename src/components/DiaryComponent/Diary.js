@@ -1,13 +1,18 @@
 import React from "react";
 
 import DiaryService from "../../services/DiaryService";
+import { Form, Button, Col } from "react-bootstrap";
 
 class Diary extends React.Component {
-  state = {
-    diary: [],
-    allDiary: [],
-    allMovies: [],
-    fullDiary: [],
+  constructor(props){
+    super(props)
+    this.state = {
+      diary: [],
+      allDiary: [],
+      allMovies: [],
+      fullDiary: [],
+  }
+
   };
 
   service = new DiaryService();
@@ -90,10 +95,12 @@ class Diary extends React.Component {
       console.log(diaryArr[i]);
     }
     console.log(fullDiaryMovies);
+    console.log(this.state.allDiary.id)
     this.setState({ fullDiary: fullDiaryMovies });
   };
 
-  renderMyDiary = () => {
+
+  renderMyDiary = (props) => {
     return this.state.fullDiary.map((fullDiary, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${fullDiary.poster_path}`;
 
@@ -108,11 +115,16 @@ class Diary extends React.Component {
             <p>{fullDiary.place}</p>
             <p>{fullDiary.people}</p>
             <p>{fullDiary.notes}</p>
+            <div>
+          
+        </div>
+
           </div>
         </div>
       );
     });
   };
+
 
   render() {
     return (

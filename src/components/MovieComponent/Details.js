@@ -1,14 +1,14 @@
 import React from "react";
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../../styles/Details.css";
+import { Card, Nav, Col, Row, Container, Media } from "react-bootstrap";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import MyAccountService from "../../services/MyAccountService";
 import DiaryService from "../../services/DiaryService";
+import ReviewService from "../../services/ReviewService";
 
-import {
-  Button
- 
-} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 class Details extends React.Component {
   state = {
@@ -20,11 +20,13 @@ class Details extends React.Component {
     providers: [],
     providerDefaultURL: "",
     defaultMessage: "No information available",
-    message: ""
+    message: "",
+    allReviews: [],
   };
 
   service = new MyAccountService();
   serviceDiary = new DiaryService();
+  serviceReview = new ReviewService();
 
   addToMyFavourites = () => {
     this.service
@@ -65,8 +67,6 @@ class Details extends React.Component {
       });
   };
 
-
-
   addToMyDiary = () => {
     this.serviceDiary
       .diary(this.props.match.params.id, this.props.isLogged._id)
@@ -80,17 +80,15 @@ class Details extends React.Component {
       });
   };
 
-  
-
-
-
   renderButtons = () => {
     if (this.props.isLogged._id) {
       return (
-        <div>
+        <div class="details-box">
           <button onClick={() => this.addToMyFavourites()}>Favourites</button>
           <button onClick={() => this.addToMyWatchlist()}>Watchlist</button>
-          <Button href= {`/myaccount/diary/${this.state.details.id}/form`}>Add to Diary</Button>
+          <Button href={`/myaccount/diary/${this.state.details.id}/form`}>
+            Add to Diary
+          </Button>
         </div>
       );
     } else {
@@ -107,7 +105,53 @@ class Details extends React.Component {
     }
   };
 
+  addReviewBtn = () => {
+    if (this.props.isLogged._id) {
+      return (
+        <div>
+          <Button href={`/review/${this.state.details.id}/form`}>
+            Add review
+          </Button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <span>You have to be logged to add a review</span>
+          <br />
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link>
+          <Link to="/login">
+            <button>Log In</button>{" "}
+          </Link>
+        </div>
+      );
+    }
+  };
+
   componentDidMount() {
+    console.log(this.props.match.params.id);
+    console.log(this.state.details);
+
+    this.serviceReview
+      .getReview(this.props.match.params.id)
+      .then((response) => {
+        console.log(this.props.match.params.id);
+        console.log(response);
+        this.setState({
+          allReviews: [...response],
+        });
+        // const movieIDOnly = response.map(function (diary) {
+        //   return diary.movieID;
+        // });
+        // this.setState({ allDiary: movieIDOnly });
+
+        // this.myDiaryMovies();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     fetch(
       `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
     )
@@ -170,7 +214,6 @@ class Details extends React.Component {
         console.log(err);
       });
 
- 
     fetch(
       `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
     )
@@ -255,58 +298,82 @@ class Details extends React.Component {
   }
 
   renderDetailsTitle = () => {
-    return (
-      <div>
-        <p>Title: {this.state.details.title}</p>
-      </div>
-    );
-  };
-
-  renderDetailsPoster = () => {
     const poster = `${process.env.REACT_APP_BASEURLPOSTER}${this.state.details.poster_path}`;
 
     return (
-      <div>
-      <img src={poster} alt={this.state.details.original_title} />
+
+      
+      <div class="details-box">
+     
+ <div>
+ <Media>
+  <img
+    width={187}
+    height={286}
+    className="mr-3"
+    src={poster}
+    alt="Generic placeholder"
+  />
+  <Media.Body>
+    <h5>{this.state.details.title}</h5>
+    <p>Release date: <span>{this.state.details.release_date}</span></p>
+            <p>Overview: {this.state.details.overview}</p>
+            <p>Score: {this.state.details.vote_average}</p>
+            <p>Genre: {this.state.genre}</p>
+ 
+  </Media.Body>
+</Media>
+ </div>
+       
       </div>
     );
   };
 
+  // renderDetailsPoster = () => {
+  //   const poster = `${process.env.REACT_APP_BASEURLPOSTER}${this.state.details.poster_path}`;
 
-  renderDetailsReleaseDate = () => {
-    return (
-      <div>
-        <p>Release date: {this.state.details.release_date}</p>
-      </div>
-    );
-  };
+  //   return (
+  //     <div>
+  //       <img src={poster} alt={this.state.details.original_title} />
+  //     </div>
+  //   );
+  // };
 
-  renderDetailsOverview = () => {
-    return (
-      <div>
-        <p>Overview: {this.state.details.overview}</p>
-      </div>
-    );
-  };
-  renderDetailsScore = () => {
-    return (
-      <div>
-        <p>Score: {this.state.details.vote_average}</p>
-      </div>
-    );
-  };
+  // renderDetailsReleaseDate = () => {
+  //   return (
+  //     <div>
+  //       <p>Release date: {this.state.details.release_date}</p>
+  //     </div>
+  //   );
+  // };
 
-  renderDetailsGenre = () => {
-    return (
-      <div>
-        <p>Genre: {this.state.genre}</p>{" "}
-      </div>
-    );
-  };
+  // renderDetailsOverview = () => {
+  //   return (
+  //     <div>
+  //       <p>Overview: {this.state.details.overview}</p>
+  //     </div>
+  //   );
+  // };
+  // renderDetailsScore = () => {
+  //   return (
+  //     <div>
+  //       <p>Score: {this.state.details.vote_average}</p>
+  //     </div>
+  //   );
+  // };
+
+  // renderDetailsGenre = () => {
+  //   return (
+  //     <div>
+  //       <p>Genre: {this.state.genre}</p>{" "}
+  //     </div>
+  //   );
+  // };
 
   renderDetailsVideoName = () => {
+    console.log(this.state.key);
     return (
-      <div>
+      <div class="details-box video-container">
         <p>{this.state.videoName}</p>
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${this.state.key}`}
@@ -320,8 +387,24 @@ class Details extends React.Component {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${cast.profile_path}`;
       return (
         <Link to={`/details/actors/${cast.id}`} key={index}>
-          <div>
-            <img src={poster} alt={cast.name} />
+          <div class="details-box">
+
+          <Media>
+  <img
+    width={64}
+    height={84}
+    className="mr-3"
+    src={poster}
+    alt="Generic placeholder"
+  />
+  <Media.Body>
+    <h5>{cast.name}</h5>
+    <p>
+    {cast.character}
+    </p>
+  </Media.Body>
+</Media>
+            {/* <img src={poster} alt={cast.name} /> */}
           </div>
         </Link>
       );
@@ -371,10 +454,9 @@ class Details extends React.Component {
   render() {
     return (
       <div name="top">
-       
         {this.renderDetailsTitle()}
 
-        {this.renderDetailsPoster()}
+        {/* {this.renderDetailsPoster()}
 
         {this.renderDetailsReleaseDate()}
 
@@ -382,7 +464,7 @@ class Details extends React.Component {
 
         {this.renderDetailsScore()}
 
-        {this.renderDetailsGenre()}
+        {this.renderDetailsGenre()} */}
         <span>{this.state.message}</span>
 
         {this.renderButtons()}
@@ -390,12 +472,19 @@ class Details extends React.Component {
         {this.state.providers} */}
 
         {this.renderDetailsVideoName()}
+<div class="details-box">
+<h2>Reviews:</h2>
+
+{this.addReviewBtn()}
+
+</div>
+      
 
         {this.renderCastPoster()}
 
-        {this.renderCastName()}
+        {/* {this.renderCastName()}
 
-        {this.renderCastCharacter()}
+        {this.renderCastCharacter()} */}
         <div></div>
       </div>
     );

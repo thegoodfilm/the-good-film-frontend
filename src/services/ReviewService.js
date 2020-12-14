@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class DiaryService {
+class ReviewService {
   constructor() {
     let service = axios.create({
       baseURL: "http://localhost:3000",
@@ -9,29 +9,28 @@ class DiaryService {
     this.service = service;
   }
 
-  diary = (movieID, date, place, people, notes, userID) => {
-    console.log("soy service diary");
+  review = (movieID, reviewText, userID) => {
+    console.log("soy service review");
     return this.service
-      .post(`/myaccount/diary/:id/form`, {
+      .post(`/review/:id/form`, {
         movieID,
-        date,
-        place,
-        people,
-        notes,
+
+        reviewText,
         userID,
       })
       .then((response) => response.data)
       .catch((err) => console.error(err));
   };
 
-  getDiary = () => {
+  getReview = (movieID) => {
+    console.log('soy getreview holiii')
+    console.log(movieID)
+
     return this.service
-      .get(`/myaccount/diary/`, {})
+      .get(`/review/:id`, {movieID})
       .then((response) => response.data)
       .catch((err) => console.error(err));
   };
-
-
 }
 
-export default DiaryService;
+export default ReviewService;
