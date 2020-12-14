@@ -4,7 +4,6 @@ import "../../styles/Forms.css";
 import { Form, Button, Col } from "react-bootstrap";
 
 const DiaryForm = (props) => {
-
   return (
     <div className="form-container">
       <span>{props.message}</span>

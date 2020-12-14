@@ -33,9 +33,11 @@ class Favourites extends React.Component {
         `${process.env.REACT_APP_BASEURL}/${_id}?api_key=${process.env.REACT_APP_KEY}&language=en-US`
       )
       .then((data)=>{
+        console.log(data)
         return data.json()
       })
       .then((dataJSON)=>{
+        console.log(dataJSON)
         return dataJSON
       })
     })

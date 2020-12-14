@@ -10,7 +10,6 @@ import Upcomings from "./components/MovieComponent/Upcomings";
 import NowOnCinemas from "./components/MovieComponent/NowOnCinemas";
 import TopRated from "./components/MovieComponent/TopRated";
 import Details from "./components/MovieComponent/Details";
-import UserService from "./services/UserService";
 import Trendings from "./components/MovieComponent/Trendings";
 import ActorsDetails from "./components/MovieComponent/ActorsDetails";
 import SearchResult from "./components/SearchbarComponent/SearchResult";
@@ -20,6 +19,12 @@ import Watchlist from "./components/MyAccountComponent/Watchlist";
 import DetailsProf from "./components/MyAccountComponent/DetailsProf";
 import DiaryForm from "./components/DiaryComponent/DiaryForm";
 import Diary from "./components/DiaryComponent/Diary";
+
+
+
+import UserService from "./services/UserService";
+import DiaryService from "./services/DiaryService";
+
 
 class App extends React.Component {
   constructor(props) {
@@ -51,6 +56,7 @@ class App extends React.Component {
       loginResult: "",
     };
     this.service = new UserService();
+    this.serviceDiary= new DiaryService
   }
 
   // AUTH CONFIG
@@ -131,7 +137,7 @@ class App extends React.Component {
   submitDiaryForm = (event) => {
     event.preventDefault();
 
-    this.service
+    this.serviceDiary
       .diary(
         this.state.newDiary.movieID,
         this.state.newDiary.date,
