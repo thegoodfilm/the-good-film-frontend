@@ -1,5 +1,6 @@
 .details-box{
     padding-top: 20px;
+    padding-bottom: 20px;
     margin: 0 auto;
     max-width: 1000px;
 
@@ -17,8 +18,8 @@
 	height: auto;  
 }
 
-.details-basic-info-container h2, p{
-    font-size: 0.8rem;
+.details-box h2, p{
+    font-size: 1rem;
 }
 
 .video-container {
@@ -35,3 +36,29 @@
 	width:100%;
 	height:100%;
 }
+
+.bg-buttons {
+    background-color: rgb(38, 208, 75);
+  }
+
+
+  .info-message{
+    margin: 0 auto;
+    max-width: 1000px;
+    color: rgb(119, 0, 255);
+    font-weight: 300;
+    height: 5px;
+
+}
+
+.review-box{
+    margin: 0 auto;
+      max-width: 1000px;
+      padding: 60px 0;
+
+
+}
+
+.accordion-reviews{
+    min-height: 100vh}
+

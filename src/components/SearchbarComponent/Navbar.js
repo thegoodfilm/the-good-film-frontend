@@ -5,6 +5,7 @@ import "../../styles/Navbar.css";
 import {
   Button,
   Navbar,
+  ButtonGroup,
   Nav,
   NavDropdown,
   FormControl,
@@ -68,6 +69,8 @@ const MyNavBar = (props) => {
               </Button>
             </Form>
           </Nav>
+
+
           <Nav>
             {props.isLogged.username && (
               <NavDropdown title={welcome} id="basic-nav-dropdown">
@@ -84,13 +87,15 @@ const MyNavBar = (props) => {
                 Sign up
               </Button>
             )}
-            {""}
+            {" "}
             {!props.isLogged.username && (
               <Button href="/login" variant="light">
                 Log in
               </Button>
             )}
-            {""}
+            {" "}
+
+     
           </div>
         </Navbar.Collapse>
       </Navbar>

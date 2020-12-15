@@ -7,4 +7,24 @@
       margin: 0 auto;
       max-width: 320px;
     }
+
+    .form-align{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+
+
+    }
+
+    .info-message{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      color: rgb(119, 0, 255);
+     padding-bottom: 18px;
+     padding-top: 10px;
+      
   }
+}

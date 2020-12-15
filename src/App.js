@@ -6,6 +6,8 @@ import MyNavBar from "./components/SearchbarComponent/Navbar";
 import SignUp from "./components/AuthComponent/SignUp";
 import LogIn from "./components/AuthComponent/LogIn";
 import Home from "./components/LayoutComponent/Home";
+import Footer from "./components/LayoutComponent/Footer";
+
 import Upcomings from "./components/MovieComponent/Upcomings";
 import NowOnCinemas from "./components/MovieComponent/NowOnCinemas";
 import TopRated from "./components/MovieComponent/TopRated";
@@ -16,7 +18,6 @@ import SearchResult from "./components/SearchbarComponent/SearchResult";
 import MyAccount from "./components/MyAccountComponent/MyAccount";
 import Favourites from "./components/MyAccountComponent/Favourites";
 import Watchlist from "./components/MyAccountComponent/Watchlist";
-import DetailsProf from "./components/MyAccountComponent/DetailsProf";
 import DiaryForm from "./components/DiaryComponent/DiaryForm";
 import Diary from "./components/DiaryComponent/Diary";
 import ReviewForm from "./components/ReviewComponent/ReviewForm";
@@ -340,7 +341,7 @@ console.log('soy review submit')
             exact
             path="/myaccount/watchlist/:id"
             render={(props) => {
-              return <DetailsProf {...props} isLogged={this.state.isLogged} />;
+              return <Details {...props} isLogged={this.state.isLogged} />;
             }}
           />
 
@@ -403,7 +404,7 @@ console.log('soy review submit')
             exact
             path="/myaccount/favourites/:id"
             render={(props) => {
-              return <DetailsProf {...props} isLogged={this.state.isLogged} />;
+              return <Details {...props} isLogged={this.state.isLogged} />;
             }}
           />
 
@@ -480,9 +481,11 @@ console.log('soy review submit')
             />
           )}
         </Switch>
+        <Footer />
       </div>
     );
   }
+ 
 }
 
 export default App;

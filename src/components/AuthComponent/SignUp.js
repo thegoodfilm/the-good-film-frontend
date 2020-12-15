@@ -6,7 +6,7 @@ import { Form, Button } from "react-bootstrap";
 const SignUp = (props) => {
   return (
     <div className="form-container">
-      <span>{props.message}</span>
+   
       <Form onSubmit={props.submitSignUp}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
@@ -63,9 +63,15 @@ const SignUp = (props) => {
             onChange={(event) => props.changeHandlerSignUp(event.target)}
           />
         </Form.Group>
+        <div class="info-message"> 
+      <span>{props.message}</span>
+      </div>
+        <div class="form-align"> 
+
         <Button variant="secondary" type="submit">
           Sign up
         </Button>{" "}
+        </div>
       </Form>
     </div>
   );
