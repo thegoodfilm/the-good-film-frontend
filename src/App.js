@@ -107,7 +107,7 @@ class App extends React.Component {
       .then((result) => {
         this.setState({ isLogged: result});
         this.setState({ message: result.message, isLoggedIn: true });
-        this.checkIfLoggedIn();
+        // this.checkIfLoggedIn();
       })
 
       .catch((err) => {
