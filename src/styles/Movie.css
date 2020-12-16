@@ -1,4 +1,4 @@
-.details-box{
+.movie-box{
     padding-top: 20px;
     padding-bottom: 20px;
     margin: 0 auto;
@@ -27,6 +27,7 @@
     -webkit-border-radius: 7px 7px 7px 7px;
     -moz-border-radius: 7px 7px 7px 7px;
     border-radius: 7px 7px 7px 7px;
+  width: 100%;
 }
 
 body {
@@ -42,10 +43,51 @@ background-position: center center;
 
 
 .jumbotron { 
-    background-color:rgb(185, 34, 59) !important;
+    background-color:rgba(253, 59, 59, 0.589) !important;
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
     margin: 0 auto;
-    max-width: 1000px;
+    margin-bottom: 20px;
+    max-width: auto;
+   
+    -webkit-border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
+    
  } 
+
+ .movie-box > div{
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     align-content: center;
+ }
+
+ @media (min-width: 30px) {
+    .jumbotron h1 {
+        font-size: 1em;
+    }
+}
+
+
+@media (min-width: 767px) {
+    .jumbotron h1 {
+        font-size: 2em;
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .jumbotron h1 {
+        font-size: 3em;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .jumbotron h1 {
+        font-size: 4em;
+    }
+} 

@@ -30,7 +30,7 @@ class Trendings extends React.Component {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${trendings.poster_path}`;
       return (
         <Link to={`/trendings/${trendings.id}`} key={index} name="top">
-          <Col class="details-box ">
+          <Col>
             {/* <h3>{trendings.original_title}</h3>
               <p>{trendings.release_date}</p> */}
             <img
@@ -47,21 +47,21 @@ class Trendings extends React.Component {
 
   render() {
     return (
-      <div name="top">
-        <div>
-          <Jumbotron fluid>
-            <Container>
-              <h1>UPCOMINGS</h1>
-              {/* <p>
-              This is a modified jumbotron that occupies the entire horizontal
-              space of its parent.
-            </p> */}
-            </Container>
-          </Jumbotron>
-        </div>
+      <div name="top" className="movie-box">
         <div>
           <Container>
-            <Row> {this.renderTrendings()}</Row>
+            <Row className="justify-content-md-center">
+              <Col>
+                <Jumbotron fluid>
+                  <Container>
+                    <h1>WEEK TRENDINGS</h1>
+                  </Container>
+                </Jumbotron>
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              {this.renderTrendings()}
+            </Row>
           </Container>
         </div>
       </div>
