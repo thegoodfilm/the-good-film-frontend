@@ -12,7 +12,7 @@ class DiaryService {
   diary = (movieID, date, place, people, notes, userID) => {
     console.log("soy service diary");
     return this.service
-      .post(`/myaccount/diary/:id/form`, {
+      .post(`/myaccount/diary/${movieID} `, {
         movieID,
         date,
         place,

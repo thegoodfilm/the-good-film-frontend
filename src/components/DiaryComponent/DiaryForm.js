@@ -9,7 +9,7 @@ const DiaryForm = (props) => {
       <span>{props.message}</span>
       <Form onSubmit={props.submitDiaryForm}>
       <span>Please, type this code {props.match.params.id} in MovieID to confirm this movie</span>
-      {/* <Form.Group controlId="formGridAddress2">
+      <Form.Group controlId="formGridAddress2">
           <Form.Label>Movie ID:</Form.Label>
           <Form.Control
            type="text"
@@ -18,7 +18,7 @@ const DiaryForm = (props) => {
             onChange={(event) => props.changeHandlerDiary(event.target)}
             placeholder="Type code"
           />
-        </Form.Group> */}
+        </Form.Group>
         <Form.Row>
           <Form.Group as={Col} controlId="formGridPassword">
             <Form.Label>Date:</Form.Label>

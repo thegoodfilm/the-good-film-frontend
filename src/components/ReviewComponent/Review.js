@@ -1,38 +1,38 @@
+import React from "react";
 
+import ReviewService from "../../services/ReviewService";
 
+class Review extends React.Component {
+  state = {
+    review: [],
+    allReview: []
+    // allMovies: [],
+    // fullDiary: [],
+  };
 
-// import React from "react";
+  service = new ReviewService();
 
-// import ReviewService from "../../services/ReviewService";
+  componentDidMount() {
+    this.service
+     
+      .getReviewNoOnCinemas(this.props.match)
+      .then((response) => {
+          console.log('hola soy el then')
+          
+        this.setState({
+          allReview: [...response],
+        });
+        // const movieIDOnly = response.map(function (diary) {
+        //   return diary.movieID;
+        // });
+        // this.setState({ allDiary: movieIDOnly });
 
-// class Review extends React.Component {
-//   state = {
-//     review: [],
-//     allReview: [],
-//     // allMovies: [],
-//     // fullDiary: [],
-//   };
-
-//   service = new ReviewService();
-
-//   componentDidMount() {
-//     this.service
-//       .getReview(this.props.isLogged._id)
-//       .then((response) => {
-//         this.setState({
-//           diary: [...response],
-//         });
-//         const movieIDOnly = response.map(function (diary) {
-//           return diary.movieID;
-//         });
-//         this.setState({ allDiary: movieIDOnly });
-
-//         this.myDiaryMovies();
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   }
+        // this.myDiaryMovies();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 //   myDiaryMovies = () => {
 //     const myDiaryMoviesMap = this.state.allDiary.map((_id) => {
 //       return fetch(
@@ -117,19 +117,19 @@
 //     });
 //   };
 
-//   render() {
-//     return (
-//       <div>
-//         <h2>Welcome, {this.props.isLogged.username}</h2>
-//         {/* {this.renderMyDiaryMovies()} */}
-//         {this.renderMyDiary()}
-//         {/* {this.renderDetails()} */}
-//         {/* {this.state.allFavourites.length > 0 && this.renderMyFavourites()}
-//         {/* {this.state.allWatchlist.length > 0 && this.renderMyWatchlist()}
-//         {this.state.allActivity.length > 0 && this.renderMyActivity()} */}
-//       </div>
-//     );
-//   }
-// }
+  render() {
+    return (
+      <div>
+        <h2>Hola soy una review de alfonso</h2>
+        {/* {this.renderMyDiaryMovies()} */}
+        {/* {this.renderMyDiary()} */}
+        {/* {this.renderDetails()} */}
+        {/* {this.state.allFavourites.length > 0 && this.renderMyFavourites()}
+        {/* {this.state.allWatchlist.length > 0 && this.renderMyWatchlist()}
+        {this.state.allActivity.length > 0 && this.renderMyActivity()} */}
+      </div>
+    );
+  }
+}
 
-// export default Review;
+export default Review;

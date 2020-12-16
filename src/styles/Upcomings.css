@@ -1,0 +1,22 @@
+.details-box{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+
+}
+
+.details-box img{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+
+}
+
+.details-basic-info-container{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+
+}

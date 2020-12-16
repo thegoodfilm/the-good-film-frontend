@@ -1,7 +1,7 @@
 import React from "react";
 
 import DiaryService from "../../services/DiaryService";
-import { Form, Button, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 class Diary extends React.Component {
   constructor(props){
@@ -115,6 +115,12 @@ class Diary extends React.Component {
             <p>{fullDiary.place}</p>
             <p>{fullDiary.people}</p>
             <p>{fullDiary.notes}</p>
+            <Button
+            href={`/myaccount/diary/:id/remove`}
+            variant="outline-success"
+          >
+         Remove
+          </Button>{" "}
             <div>
           
         </div>

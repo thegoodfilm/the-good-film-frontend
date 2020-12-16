@@ -1,7 +1,7 @@
 import "./styles/App.css";
-import React from "react";
-import { Route, Switch } from "react-router-dom";
 
+import React from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import MyNavBar from "./components/SearchbarComponent/Navbar";
 import SignUp from "./components/AuthComponent/SignUp";
 import LogIn from "./components/AuthComponent/LogIn";
@@ -22,6 +22,7 @@ import DiaryForm from "./components/DiaryComponent/DiaryForm";
 import Diary from "./components/DiaryComponent/Diary";
 import ReviewForm from "./components/ReviewComponent/ReviewForm";
 
+
 import UserService from "./services/UserService";
 import DiaryService from "./services/DiaryService";
 import ReviewService from "./services/ReviewService";
@@ -31,7 +32,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      isLogged: {},
+      isLogged: "",
       isLoggedIn: false,
       newUser: {
         name: "",
@@ -51,7 +52,8 @@ class App extends React.Component {
       newReview: {
         movieID: "",
         reviewText: "",
-        userId: ""
+        username: "",
+        userId: "",
       },
       loggingUser: { email: "", password: "" },
       searchedWord: "",
@@ -59,6 +61,7 @@ class App extends React.Component {
       searchURL: "",
       searchResult: [],
       loginResult: "",
+      submitDiaryCheck: false
     };
     this.service = new UserService();
     this.serviceDiary = new DiaryService();
@@ -105,6 +108,7 @@ class App extends React.Component {
         this.setState({ message: result.message, isLoggedIn: true });
         this.checkIfLoggedIn();
       })
+
       .catch((err) => {
         console.log(err);
       });
@@ -154,6 +158,7 @@ class App extends React.Component {
       .then((result) => {
         this.setState({ message: result.message });
         this.checkIfLoggedIn();
+        this.setState({submitDiaryCheck: true})
       })
       .catch((err) => {
         console.log(err);
@@ -169,20 +174,19 @@ class App extends React.Component {
     });
   };
 
-
   // REVIEW FORM CONFIG
   submitReviewForm = (event) => {
     event.preventDefault();
-console.log('soy review submit')
+    console.log("soy review submit");
     this.serviceReview
       .review(
         this.state.newReview.movieID,
         this.state.newReview.reviewText,
+        this.state.newReview.username,
         this.state.newReview.userID
-
-     
       )
       .then((result) => {
+        console.log(result);
         this.setState({ message: result.message });
         this.checkIfLoggedIn();
       })
@@ -243,32 +247,42 @@ console.log('soy review submit')
             )}
           />
 
-          <Route
-            path="/signup"
-            render={() => (
-              <SignUp
-                submitSignUp={this.submitSignUp}
-                newUser={this.state.newUser}
-                changeHandlerSignUp={this.changeHandlerSignUp}
-                isLogged={this.state.isLogged}
-                message={this.state.message}
-              />
-            )}
-          />
+          {!this.state.isLogged._id ? (
+            <Route
+              path="/signup"
+              render={() => (
+                <SignUp
+                  submitSignUp={this.submitSignUp}
+                  newUser={this.state.newUser}
+                  changeHandlerSignUp={this.changeHandlerSignUp}
+                  isLogged={this.state.isLogged}
+                  message={this.state.message}
+                  redirect={this.redirect}
+                />
+              )}
+            />
+          ) : (
+            <Route path="/signup" render={() => <Redirect to="/" />} />
+          )}
 
-          <Route
-            path="/login"
-            render={() => (
-              <LogIn
-                submitLogIn={this.submitLogIn}
-                newUser={this.state.newUser}
-                isLogged={this.state.isLogged}
-                loggingUser={this.state.loggingUser}
-                changeHandlerLogIn={this.changeHandlerLogIn}
-                message={this.state.message}
-              />
-            )}
-          />
+          {!this.state.isLoggedIn ? (
+            <Route
+              path="/login"
+              render={() => (
+                <LogIn
+                  submitLogIn={this.submitLogIn}
+                  newUser={this.state.newUser}
+                  isLogged={this.state.isLogged}
+                  loggingUser={this.state.loggingUser}
+                  changeHandlerLogIn={this.changeHandlerLogIn}
+                  message={this.state.message}
+                />
+              )}
+            />
+          ) : (
+            <Route path="/login" render={() => <Redirect to="/" />} />
+          )}
+     
 
           {/* MOVIE ROUTES */}
 
@@ -278,7 +292,16 @@ console.log('soy review submit')
             exact
             path="/nowoncinemas/:id"
             render={(props) => {
-              return <Details {...props} isLogged={this.state.isLogged} />;
+              return (
+                <Details
+                  {...props}
+                  isLogged={this.state.isLogged}
+                  submitReviewForm={this.submitReviewForm}
+                  newReview={this.state.newReview}
+                  changeHandlerReview={this.changeHandlerReview}
+                  message={this.state.message}
+                />
+              );
             }}
           />
 
@@ -428,10 +451,15 @@ console.log('soy review submit')
             />
           )}
 
-          {this.state.isLogged._id && (
+
+         
+
+
+
+          {!this.state.submitDiaryCheck ? (
             <Route
               exact
-              path="/myaccount/diary/:id/form"
+              path="/myaccount/diary/:id"
               render={(props) => (
                 <DiaryForm
                   {...props}
@@ -443,9 +471,13 @@ console.log('soy review submit')
                 />
               )}
             />
-          )}
+          ) :  <Route
+              exact
+              path="/myaccount/diary/:id"
+              render={() => <Redirect to="/myaccount/diary"/>}
+            />
+          }
 
-     
           {/* REVIEW ROUTH */}
 
           {this.state.isLogged._id && (
@@ -485,7 +517,6 @@ console.log('soy review submit')
       </div>
     );
   }
- 
 }
 
 export default App;

@@ -1,15 +1,8 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/Details.css";
-import {
-  Card,
-  Nav,
-  Col,
-  Row,
-  Container,
-  Media,
-  Accordion,
-} from "react-bootstrap";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Media, Form } from "react-bootstrap";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import MyAccountService from "../../services/MyAccountService";
@@ -19,22 +12,37 @@ import ReviewService from "../../services/ReviewService";
 import { Button } from "react-bootstrap";
 
 class Details extends React.Component {
-  state = {
-    details: [],
-    key: "",
-    genre: "",
-    videoName: "",
-    cast: [],
-    providers: [],
-    providerDefaultURL: "",
-    defaultMessage: "No information available",
-    message: "",
-    allReviews: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      details: [],
+      key: "",
+      genre: "",
+      videoName: "",
+      cast: [],
+      providers: [],
+      providerDefaultURL: "",
+      defaultMessage: "No information available",
+      message: "",
+      allReviews: [],
+      showForm: false,
+      showReviews: false,
+      reviews: [],
+    };
+  }
 
   service = new MyAccountService();
   serviceDiary = new DiaryService();
   serviceReview = new ReviewService();
+
+  getUpdatedReviews = (_eventTarget) => {
+    this.setState({
+      reviews: {
+        ...this.state.reviews,
+        [_eventTarget.name]: _eventTarget.value,
+      },
+    });
+  };
 
   addToMyFavourites = () => {
     this.service
@@ -105,7 +113,7 @@ class Details extends React.Component {
             Watchlist
           </Button>{" "}
           <Button
-            href={`/myaccount/diary/${this.state.details.id}/form`}
+            href={`/myaccount/diary/${this.props.match.params.id}`}
             variant="outline-success"
           >
             Add to Diary
@@ -130,9 +138,15 @@ class Details extends React.Component {
     if (this.props.isLogged._id) {
       return (
         <div>
-          <Button href={`/review/${this.state.details.id}/form`}>
+          <Button onClick={() => this.setState({ showReviews: true })}>
+            Show reviews
+          </Button>{" "}
+          <Button onClick={() => this.setState({ showReviews: false })}>
+            Close
+          </Button>{" "}
+          <Button onClick={() => this.setState({ showForm: true })}>
             Add review
-          </Button>
+          </Button>{" "}
         </div>
       );
     } else {
@@ -153,24 +167,33 @@ class Details extends React.Component {
     }
   };
 
-  componentDidMount() {
-    console.log(this.props.match.params.id);
-    console.log(this.state.details);
+  // showReviewsBtn = () => {
+  // return(
+  //       <div>
+  //         <Button onClick={() => this.setState({ showReviews: true })}>
+  //           Show
+  //         </Button>
+  //       </div>
+  // )
+  // };
 
+  closeReviewsBtn = () => {
+    return (
+      <div>
+        <Button onClick={() => this.setState({ showReviews: false })}>
+          Close
+        </Button>
+      </div>
+    );
+  };
+
+  componentDidMount() {
     this.serviceReview
-      .getReview(this.props.match.params.id)
+      .getReviewNoOnCinemas(this.props.match.params.id)
       .then((response) => {
-        console.log(this.props.match.params.id);
-        console.log(response);
         this.setState({
           allReviews: [...response],
         });
-        // const movieIDOnly = response.map(function (diary) {
-        //   return diary.movieID;
-        // });
-        // this.setState({ allDiary: movieIDOnly });
-
-        // this.myDiaryMovies();
       })
       .catch((err) => {
         console.log(err);
@@ -320,12 +343,79 @@ class Details extends React.Component {
       });
   }
 
+  renderNowOnCinemasReviews = () => {
+    return this.state.allReviews.map((allReviews, index) => {
+      const formatDate = allReviews.date.slice(0, 10);
+      return (
+        <div>
+          <div key={index}>
+            <p>Username: {allReviews.username}</p>
+            <p>Date: {formatDate}</p>
+            <p>{allReviews.reviewText}</p>
+          </div>
+        </div>
+      );
+    });
+  };
+
+  formReview = () => {
+    return (
+      <div>
+        <p>HOLA SOY TU FORMULARIO</p>
+        <div className="form-container">
+          <span>{this.props.message}</span>
+          <Form onSubmit={this.props.submitReviewForm}>
+            <span>
+              Please, type this code {this.props.match.params.id} in MovieID to
+              confirm this movie
+            </span>
+            {/* <Form.Group controlId="formGridAddress2">
+        <Form.Label>Movie ID:</Form.Label>
+        <Form.Control
+         type="text"
+          value={props.newReview.movieID}
+          name="movieID"
+          onChange={(event) => props.changeHandlerReview(event.target)}
+          placeholder="Type code"
+        />
+      </Form.Group> */}
+            <Form.Group controlId="formGridAddress2">
+              <Form.Label>Review:</Form.Label>
+              <Form.Control
+                type="text"
+                value={this.props.newReview.reviewText}
+                name="reviewText"
+                onChange={(event) =>
+                  this.props.changeHandlerReview(event.target)
+                }
+                placeholder="Type code"
+              />
+            </Form.Group>
+            <Button
+              onClick={() => this.setState({ showForm: false })}
+              type="submit"
+            >
+              Submit
+            </Button>{" "}
+            <Button onClick={() => this.setState({ showForm: false })}>
+              Cancel
+            </Button>
+          </Form>
+        </div>
+      </div>
+    );
+  };
   renderDetailsTitle = () => {
     const poster = `${process.env.REACT_APP_BASEURLPOSTER}${this.state.details.poster_path}`;
 
     return (
       <div class="details-box">
         <div>
+
+
+
+
+        
           <Media>
             <img
               width={187}
@@ -349,10 +439,6 @@ class Details extends React.Component {
     );
   };
 
- 
-
- 
-
   renderDetailsVideoName = () => {
     console.log(this.state.key);
     return (
@@ -375,27 +461,27 @@ class Details extends React.Component {
   renderCastPoster = () => {
     return this.state.cast.map((cast, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${cast.profile_path}`;
-      if(cast.profile_path === null){
+      if (cast.profile_path === null) {
         return (
-          <Link to={`/details/actors/${cast.id}`} key={index} >
-          <div class="details-box">
-            <Media>
-              <img
-                width={74}
-                height={84}
-                className="mr-3"
-                src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw4QDxAPEBAQFQ8ODQ0PDxAPDQ8QDhAQFRIXFhUSExMYHiggGBolGxMTITEhJSkrLi4uFx8zODMsNygtLisBCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAOEA4QMBIgACEQEDEQH/xAAaAAEAAwEBAQAAAAAAAAAAAAAAAwQFAgEH/8QAMRABAQABAQUGBAYDAQEAAAAAAAECAwQRITFBBVFhcYGREqGx0SIyQlJiwZLh8RUU/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APsgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOM9THHnZPOg7FXPb9Od98p90d7Sn7b7wF4UZ2lj1xvvKlw27TvWzzgLI5xyl4yyzw4ugAAAAAAAAAAAAAAAAAAAAEerq44zflfvXG07RMJ328oydTUuV328QWdfbsrwx4T5qlu/m8AAAAAdYZ2XfLZfCruh2heWf+U5+sUAG9jlLN8u+XrHTF2faMsLw5dZ0rX0dXHOb5/uXuB2AAAAAAAAAAAAAAAAj19WYY3K9OU773JGTt+t8WW6cseHr1BBqalytt51wAAAAAAAAAPUuza9wy39OsQgN/Gy8Zys3yih2brc8L54/3GgAAAAAAAAAAAAAACLaNT4cMr3Th5sRp9qZ/hxnfd/t/wBZgAAAAAAAAAAAAO9LP4cpl3WVuS7+PewGzsWW/Tx8Ju9gTgAAAAAAAAAAAAAze1bxx8r9VFf7VnHHyv1UAAAAAAAAAAAAAGp2ZfweWd+kZbU7Mn4L45X6QFwAAAAAAAAAAAAAFLtTHfjL3Xd7/wDGY29o0/iwyx75w9OMYgAAAAAAAAAAAADZ2LHdp4+M3+/Fk6WHxZTHvu5uTlPIHoAAAAAAAAAAAAADJ2/R+HLf0y4+vWNZHr6UzxuN9L3UGGOtTC42y845AAAAAAAAABNs2hc8t3SfmvdAWuzNH9d8p/daDzHGSSTlOT0AAAAAAAAAAAAAAB49AQbVs0zn8pyv9Vk6mFxu6zdW441tLHObsp955Awxb19hyx448Z8/ZVsB4AAAAOsMbbuktvgu7PsF55+0vH1oKuhoZZ3dOXW9I19HSmE3T18fF1hjJN0nB0AAAAAAAAAAAAAAAAAAAPKhz2vTn6t/lxBO41NLHLnJfTj7qefaU6Y31u5Fl2jn0mM9wWcuz8Ly3zy/24vZs/ff8Va7bqd/yjn/AOvU/dfkC3OzZ1yvpJEmnsOnOct879lCbXqfuvtHU27U757QGrhhJwk3Tu3OmZj2jl1mN8t8TYdo49ZZ8wXRDp7ThlyynleF+aYAAAAAAAAAAAAAAAc55zGb7d0Z+vt9vDDhO/r6dwLurrY4/mvp19lLW7Rt4Yzd43jfZSt38/m8B3nqZZc7a4AAAAAAAAABLpa+ePK+nOeyIBo6PaE/VN3jj9l3DUmU3yysF1hnZd8tl8AbwobPt85Z8P5Tl6r2N38ZyB6AAAAAAAAg2naccPHLpPuj2za/g4T83082XlbbvvOg71tXLO77fLunkjAAAAAAAAAAAAAAAAABPs205YcuM6y8kADb0dbHOb56zrErC0tS43fLxa+zbRM5v6znATAAAAK22bT8E3T815eHil19WYY3K+k76xdTO5W286Dy3fxeAAAAAAAAAAAAAAAAAAAAAA70tS42ZTnHADb0NaZzfPWd1SsXZta4Zb+nWd8bOOUslnKzgD0AGTt2v8WW6flx4TxvWqoAAAAAAAAAAAAAAAAAAAAAAAAAL/Zuv+i+eP2UHWOVllnOXfAbr1n/APo/x+YDPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k="
-                alt="Generic placeholder"
-              />
-              <Media.Body>
-                <h5 >{cast.name}</h5>
-                <p>{cast.character}</p>
-              </Media.Body>
-            </Media>
-            {/* <img src={poster} alt={cast.name} /> */}
-          </div>
-        </Link>
-        )
+          <Link to={`/details/actors/${cast.id}`} key={index}>
+            <div class="details-box">
+              <Media>
+                <img
+                  width={74}
+                  height={84}
+                  className="mr-3"
+                  src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw4QDxAPEBAQFQ8ODQ0PDxAPDQ8QDhAQFRIXFhUSExMYHiggGBolGxMTITEhJSkrLi4uFx8zODMsNygtLisBCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAOEA4QMBIgACEQEDEQH/xAAaAAEAAwEBAQAAAAAAAAAAAAAAAwQFAgEH/8QAMRABAQABAQUGBAYDAQEAAAAAAAECAwQRITFBBVFhcYGREqGx0SIyQlJiwZLh8RUU/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APsgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOM9THHnZPOg7FXPb9Od98p90d7Sn7b7wF4UZ2lj1xvvKlw27TvWzzgLI5xyl4yyzw4ugAAAAAAAAAAAAAAAAAAAAEerq44zflfvXG07RMJ328oydTUuV328QWdfbsrwx4T5qlu/m8AAAAAdYZ2XfLZfCruh2heWf+U5+sUAG9jlLN8u+XrHTF2faMsLw5dZ0rX0dXHOb5/uXuB2AAAAAAAAAAAAAAAAj19WYY3K9OU773JGTt+t8WW6cseHr1BBqalytt51wAAAAAAAAAPUuza9wy39OsQgN/Gy8Zys3yih2brc8L54/3GgAAAAAAAAAAAAAACLaNT4cMr3Th5sRp9qZ/hxnfd/t/wBZgAAAAAAAAAAAAO9LP4cpl3WVuS7+PewGzsWW/Tx8Ju9gTgAAAAAAAAAAAAAze1bxx8r9VFf7VnHHyv1UAAAAAAAAAAAAAGp2ZfweWd+kZbU7Mn4L45X6QFwAAAAAAAAAAAAAFLtTHfjL3Xd7/wDGY29o0/iwyx75w9OMYgAAAAAAAAAAAADZ2LHdp4+M3+/Fk6WHxZTHvu5uTlPIHoAAAAAAAAAAAAADJ2/R+HLf0y4+vWNZHr6UzxuN9L3UGGOtTC42y845AAAAAAAAABNs2hc8t3SfmvdAWuzNH9d8p/daDzHGSSTlOT0AAAAAAAAAAAAAAB49AQbVs0zn8pyv9Vk6mFxu6zdW441tLHObsp955Awxb19hyx448Z8/ZVsB4AAAAOsMbbuktvgu7PsF55+0vH1oKuhoZZ3dOXW9I19HSmE3T18fF1hjJN0nB0AAAAAAAAAAAAAAAAAAAPKhz2vTn6t/lxBO41NLHLnJfTj7qefaU6Y31u5Fl2jn0mM9wWcuz8Ly3zy/24vZs/ff8Va7bqd/yjn/AOvU/dfkC3OzZ1yvpJEmnsOnOct879lCbXqfuvtHU27U757QGrhhJwk3Tu3OmZj2jl1mN8t8TYdo49ZZ8wXRDp7ThlyynleF+aYAAAAAAAAAAAAAAAc55zGb7d0Z+vt9vDDhO/r6dwLurrY4/mvp19lLW7Rt4Yzd43jfZSt38/m8B3nqZZc7a4AAAAAAAAABLpa+ePK+nOeyIBo6PaE/VN3jj9l3DUmU3yysF1hnZd8tl8AbwobPt85Z8P5Tl6r2N38ZyB6AAAAAAAAg2naccPHLpPuj2za/g4T83082XlbbvvOg71tXLO77fLunkjAAAAAAAAAAAAAAAAABPs205YcuM6y8kADb0dbHOb56zrErC0tS43fLxa+zbRM5v6znATAAAAK22bT8E3T815eHil19WYY3K+k76xdTO5W286Dy3fxeAAAAAAAAAAAAAAAAAAAAAA70tS42ZTnHADb0NaZzfPWd1SsXZta4Zb+nWd8bOOUslnKzgD0AGTt2v8WW6flx4TxvWqoAAAAAAAAAAAAAAAAAAAAAAAAAL/Zuv+i+eP2UHWOVllnOXfAbr1n/APo/x+YDPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k="
+                  alt="Generic placeholder"
+                />
+                <Media.Body>
+                  <h5>{cast.name}</h5>
+                  <p>{cast.character}</p>
+                </Media.Body>
+              </Media>
+              {/* <img src={poster} alt={cast.name} /> */}
+            </div>
+          </Link>
+        );
       } else {
         return (
           <Link to={`/details/actors/${cast.id}`} key={index}>
@@ -418,7 +504,6 @@ class Details extends React.Component {
           </Link>
         );
       }
-      
     });
   };
 
@@ -467,74 +552,25 @@ class Details extends React.Component {
       <div name="top">
         {this.renderDetailsTitle()}
 
-        {/* {this.renderDetailsPoster()}
-
-        {this.renderDetailsReleaseDate()}
-
-        {this.renderDetailsOverview()}
-
-        {this.renderDetailsScore()}
-
-        {this.renderDetailsGenre()} */}
-
         <div class="info-message">
           <p>{this.state.message}</p>
         </div>
 
         {this.renderButtons()}
-        {/* {this.renderProvidersLogo()}
-        {this.state.providers} */}
 
         {this.renderDetailsVideoName()}
-        {/* <div class="details-box">
+        <div class="details-box">
           <h2>Reviews:</h2>
 
-          {this.addReviewBtn()}
-        </div> */}
+          {this.state.showForm && this.formReview()}
 
-        <div class="review-box">
-          <Accordion defaultActiveKey="0">
-            <Card>
-              <Accordion.Toggle as={Card.Header} eventKey="0">
-                Reviews
-              </Accordion.Toggle>
-              <Accordion.Collapse class="accordion-reviews" eventKey="0">
-                <Card.Body>
-                  <div class="info-message">
-                    <p>{this.state.message}</p>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the simply dummy text
-                      of the printing simply dummy text of the printing simply
-                      dummy text of the printing simply dummy text of the
-                      printing simply dummy text of the printing simply dummy
-                      text of the printing simply dummy text of the printing
-                      simply dummy text of the printing simply dummy text of the
-                      printing printing and typesetting industry. Lorem Ipsum
-                      has been the industry's standard dummy text ever since the
-                      1500s, when an unknown printer took a galley of type and
-                      scrambled it to make a type specimen book. It has survived
-                      not only five centuries, but also the leap into electronic
-                      typesetting, remaining essentially unchanged. It was
-                      popularised in the 1960s with the release of Letraset
-                      sheets containing Lorem Ipsum passages, and more recently
-                      with desktop publishing software like Aldus PageMaker
-                      including versions of Lorem Ipsum.
-                    </p>
-                  </div>
+          {!this.state.showForm && this.addReviewBtn()}
+          {this.state.showReviews && this.renderNowOnCinemasReviews()}
 
-                  {this.addReviewBtn()}
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
+          {this.state.showReviews && this.closeReviewsBtn()}
         </div>
 
         {this.renderCastPoster()}
-
-        {/* {this.renderCastName()}
-
-        {this.renderCastCharacter()} */}
-     
       </div>
     );
   }

@@ -9,26 +9,34 @@ class ReviewService {
     this.service = service;
   }
 
-  review = (movieID, reviewText, userID) => {
+  review = (movieID, reviewText, username, userID) => {
     console.log("soy service review");
+
     return this.service
       .post(`/review/:id/form`, {
         movieID,
 
         reviewText,
+        username,
         userID,
       })
-      .then((response) => response.data)
+      .then((response) => { 
+        console.log(response.data)
+        return response.data })
+      
       .catch((err) => console.error(err));
   };
 
-  getReview = (movieID) => {
+  getReviewNoOnCinemas = (movieID) => {
     console.log('soy getreview holiii')
     console.log(movieID)
+ 
 
     return this.service
-      .get(`/review/:id`, {movieID})
-      .then((response) => response.data)
+
+      .get(`/nowoncinemas/${movieID}`, {movieID})
+      .then((response) => response.data )
+      
       .catch((err) => console.error(err));
   };
 }
