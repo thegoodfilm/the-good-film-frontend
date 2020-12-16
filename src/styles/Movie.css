@@ -1,0 +1,51 @@
+.details-box{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+
+}
+
+/* .details-box img{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+
+} */
+
+.details-basic-info-container{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.posters-style{
+    max-width: 100%;
+	height: auto;    
+    -webkit-border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
+}
+
+body {
+  background: #000000;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to top, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to top, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  color: white;
+}
+
+
+.jumbotron { 
+    background-color:rgb(185, 34, 59) !important;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    max-width: 1000px;
+ } 

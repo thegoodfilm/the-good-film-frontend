@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import "../../styles/Upcomings.css";
+import "../../styles/Movie.css";
 import { Col, Container, Row, Jumbotron } from "react-bootstrap";
 class Upcomings extends React.Component {
   state = {
@@ -33,8 +33,8 @@ class Upcomings extends React.Component {
         <Link to={`/upcomings/${upcoming.id}`} key={index} name="top">
           {/* <h3>{upcoming.original_title}</h3>
               <p>{upcoming.release_date}</p> */}
-          <Col xs={6} md={4} class="details-box ">
-            <img src={poster} alt={upcoming.original_title} />
+          <Col class="details-box ">
+            <img class="posters-style" src={poster} alt={upcoming.original_title} />
           </Col>
           <br></br>
         </Link>

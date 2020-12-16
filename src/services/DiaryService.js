@@ -9,6 +9,7 @@ class DiaryService {
     this.service = service;
   }
 
+
   diary = (movieID, date, place, people, notes, userID) => {
     console.log("soy service diary");
     return this.service
