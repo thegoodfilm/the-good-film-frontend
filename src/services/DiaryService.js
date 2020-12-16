@@ -3,7 +3,7 @@ import axios from "axios";
 class DiaryService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:3000",
+      baseURL: "https://thegoodfilm.herokuapp.com",
       withCredentials: true,
     });
     this.service = service;

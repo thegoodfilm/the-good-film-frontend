@@ -8,7 +8,7 @@ import {
   Nav,
   NavDropdown,
   FormControl,
-  Form,
+  Form
 } from "react-bootstrap";
 
 const MyNavBar = (props) => {
