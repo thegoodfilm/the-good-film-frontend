@@ -332,11 +332,15 @@ class App extends React.Component {
             exact
             path="/upcomings/:id"
             render={(props) => {
-              return <Details {...props} isLogged={this.state.isLogged} />;
+              return <Details {...props} isLogged={this.state.isLogged} 
+              newReview={this.state.newReview}
+              changeHandlerReview={this.changeHandlerReview}
+              />;
             }}
           />
 
           <Route exact path="/details/actors/:id" component={ActorsDetails} />
+
 
           <Route
             path="/details/actors/:id/:title"
@@ -491,6 +495,7 @@ class App extends React.Component {
                     {...props}
                     message={this.state.message}
                     isLogged={this.state.isLogged}
+                    newReview={this.state.newReview}
                   />
                 );
               }}
@@ -500,9 +505,9 @@ class App extends React.Component {
           {this.state.isLogged._id && (
             <Route
               exact
-              path="/review/:id/form"
+              path="/review/:id"
               render={(props) => (
-                <ReviewForm
+                <Details
                   {...props}
                   submitReviewForm={this.submitReviewForm}
                   newReview={this.state.newReview}
@@ -510,6 +515,7 @@ class App extends React.Component {
                   isLogged={this.state.isLogged}
                   message={this.state.message}
                 />
+          
               )}
             />
           )}

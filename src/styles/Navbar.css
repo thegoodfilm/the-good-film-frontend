@@ -1,4 +1,9 @@
 .wellcome-user {
     color: white;
   }
-  
+
+
+.bg-navbar {
+  background-color: rgb(109, 38, 208);
+  width: 100% !important;
+}

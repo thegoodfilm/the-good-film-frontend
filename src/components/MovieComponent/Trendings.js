@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/Movie.css";
-import { Col, Container, Row, Jumbotron } from "react-bootstrap";
+import { Col, Container, Row, Jumbotron, Card, Spinner } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
 
@@ -29,15 +29,27 @@ class Trendings extends React.Component {
       console.log(this.state.trendings[0].original_title);
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${trendings.poster_path}`;
       return (
-        <Link to={`/trendings/${trendings.id}`} key={index} name="top">
+        <Link
+          className="text-link"
+          style={{ textDecoration: "none" }}
+          to={`/trendings/${trendings.id}`}
+          key={index}
+          name="top"
+        >
           <Col>
-            {/* <h3>{trendings.original_title}</h3>
-              <p>{trendings.release_date}</p> */}
-            <img
-              class="posters-style"
-              src={poster}
-              alt={trendings.original_title}
-            />
+            <Card className="bg-dark text-white">
+              <Card.ImgOverlay class="img-overlay">
+                <Card.Title className="main-text">{trendings.title}</Card.Title>
+                <Card.Text className="main-text">
+                  <img
+                    class="star"
+                    src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
+                  />{" "}
+                  {trendings.vote_average}
+                </Card.Text>
+              </Card.ImgOverlay>
+              <Card.Img src={poster} alt="Card image" />
+            </Card>
           </Col>
           <br></br>
         </Link>
@@ -45,45 +57,40 @@ class Trendings extends React.Component {
     });
   };
 
+  renderSpinner = () => {
+    return (
+      <div className="loader loader-container">
+        <Spinner animation="grow" />{" "}
+      </div>
+    );
+  };
+
   render() {
     return (
-      <div name="top" className="movie-box">
-        <div>
-          <Container>
-            <Row className="justify-content-md-center">
-              <Col>
-                <Jumbotron fluid>
-                  <Container>
-                    <h1>WEEK TRENDINGS</h1>
-                  </Container>
-                </Jumbotron>
-              </Col>
-            </Row>
-            <Row className="justify-content-md-center">
-              {this.renderTrendings()}
-            </Row>
-          </Container>
-        </div>
-      </div>
-
-      /* <div>
-          <div class="jumbotron-style">
-            <Jumbotron fluid>
+      <div>
+        {this.state.trendings.length === 0 ? (
+          this.renderSpinner()
+        ) : (
+          <div name="top" className="movie-box">
+            <div>
               <Container>
-                <h1>UPCOMINGS</h1>
-                {/* <p>
-              This is a modified jumbotron that occupies the entire horizontal
-              space of its parent.
-            </p> */
-      //         </Container>
-      //       </Jumbotron>
-      //     </div>
-
-      //     <Container>
-      //       <Row> {this.renderTrendings()}</Row>
-      //     </Container>
-      //   </div>
-      // </div> */}
+                <Row className="justify-content-md-center">
+                  <Col>
+                    <Jumbotron fluid>
+                      <Container>
+                        <h1>WEEK TRENDINGS</h1>
+                      </Container>
+                    </Jumbotron>
+                  </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                  {this.renderTrendings()}
+                </Row>
+              </Container>
+            </div>
+          </div>
+        )}
+      </div>
     );
   }
 }

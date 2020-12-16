@@ -1,15 +1,13 @@
 import React from "react";
+import "../../styles/Movie.css";
+import { Col, Container, Row, Jumbotron, Card, Spinner} from "react-bootstrap";
 
 import { Link } from "react-router-dom";
-import "../../styles/Movie.css";
-import { Col, Container, Row, Jumbotron } from "react-bootstrap";
+
 class Upcomings extends React.Component {
   state = {
     upcomings: [],
   };
-
-
-
 
   componentDidMount() {
     fetch(
@@ -30,11 +28,27 @@ class Upcomings extends React.Component {
     return this.state.upcomings.map((upcoming, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${upcoming.poster_path}`;
       return (
-        <Link to={`/upcomings/${upcoming.id}`} key={index} name="top">
-          {/* <h3>{upcoming.original_title}</h3>
-              <p>{upcoming.release_date}</p> */}
-          <Col class="details-box ">
-            <img class="posters-style" src={poster} alt={upcoming.original_title} />
+        <Link
+          className="text-link"
+          to={`/upcomings/${upcoming.id}`}
+          style={{ textDecoration: "none" }}
+          key={index}
+          name="top"
+        >
+          <Col>
+            <Card className="bg-dark text-white">
+              <Card.ImgOverlay class="img-overlay">
+                <Card.Title className="main-text">{upcoming.title}</Card.Title>
+                <Card.Text className="main-text">
+                  <img
+                    class="star"
+                    src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
+                  />{" "}
+                  {upcoming.vote_average}
+                </Card.Text>
+              </Card.ImgOverlay>
+              <Card.Img src={poster} alt="Card image" />
+            </Card>
           </Col>
           <br></br>
         </Link>
@@ -42,27 +56,39 @@ class Upcomings extends React.Component {
     });
   };
 
+  renderSpinner = () => {
+    return (
+      <div className="loader loader-container">
+        <Spinner animation="grow" />{" "}
+      </div>
+    );
+  };
+
   render() {
     return (
-      <div name="top" >
-      <div class="details-box">
-      <Jumbotron fluid >
-          <Container>
-            <h1>Upcomings</h1>
-            <p>
-              This is a modified jumbotron that occupies the entire horizontal
-              space of its parent.
-            </p>
-          </Container>
-        </Jumbotron>
-      </div>
-     <div class="details-box-img">
-
-     <Container>
-          <Row>{this.renderUpcomings()}</Row>
-        </Container>
-     </div>
-     
+      <div>
+        {this.state.upcomings.length === 0 ? (
+          this.renderSpinner()
+        ) : (
+          <div name="top" className="movie-box">
+            <div>
+              <Container>
+                <Row className="justify-content-md-center">
+                  <Col>
+                    <Jumbotron fluid>
+                      <Container>
+                        <h1>UPCOMINGS</h1>
+                      </Container>
+                    </Jumbotron>
+                  </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                  {this.renderUpcomings()}
+                </Row>
+              </Container>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

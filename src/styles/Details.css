@@ -1,11 +1,11 @@
 
-
+/* 
 .details-box {
   padding-top: 20px;
   padding-bottom: 20px;
   margin: 0 auto;
   max-width: 1000px;
-}
+} */
 
 .details-basic-info-container {
   padding-top: 20px;
@@ -22,6 +22,10 @@
 p {
   font-size: 1rem;
 }
+.intro {
+  margin-top: 50px;
+}
+
 
 .video-container {
   position: relative;
@@ -42,13 +46,7 @@ p {
   background-color: rgb(38, 208, 75);
 }
 
-.info-message {
-  margin: 0 auto;
-  max-width: 1000px;
-  color: rgb(119, 0, 255);
-  font-weight: 300;
-  height: 5px;
-}
+
 
 .review-box {
   margin: 0 auto;
@@ -56,4 +54,91 @@ p {
   padding: 60px 0;
 }
 
+.buttons-section{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin: 0 auto;
+  align-items: flex-start;
+ 
+}
 
+.info-message {
+  color: rgb(119, 0, 255);
+  font-weight: 300;
+  height: 5px;
+  padding-top: 30px;
+}
+
+.main-details-style{
+  padding-top: 0px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.movieID-code{
+  color: rgb(38, 208, 75);
+}
+
+.main-details-style-video{
+  padding-top: 45px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.main-details-style-video h2{
+  padding-bottom: 15px;
+
+}
+
+.render-btns{
+  margin-top: 0;
+}
+
+
+.main-details-style-reviews{
+  padding-top: 0px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+}
+.link {
+color: gainsboro;
+font-size: 0.6rem;
+}
+
+.link:hover {
+  color: rgb(0, 138, 0);
+  font-size: 0.6rem;
+  }
+
+.list-unstyled h5{
+  color: rgb(38, 208, 75);
+  font-size: 0.9rem;}
+
+  .list-unstyled p{
+    color: gainsboro;
+    font-size: 0.9rem;}
+
+    .date{
+font-style: oblique;   
+font-size: 0.8rem; }
+
+.formGridAddress2{
+  margin-top: 0%;
+}
+
+.info-message-review{
+margin-top: 0;
+
+}
+
+.text-gainsboro{
+  color: gainsboro;
+}
