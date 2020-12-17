@@ -1,5 +1,7 @@
 import React from "react";
 import "../../styles/Diary.css";
+import { Col, Container, Row, Jumbotron, Card, Spinner } from "react-bootstrap";
+import "../../styles/MyAccount.css";
 
 import DiaryService from "../../services/DiaryService";
 import { Media } from "react-bootstrap";
@@ -13,6 +15,7 @@ class Diary extends React.Component {
       allDiary: [],
       allMovies: [],
       fullDiary: [],
+      recommendations: [],
     };
   }
 
@@ -35,7 +38,66 @@ class Diary extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+    
   }
+
+  renderRecommendations = () => {
+    return this.state.recomendations.map((recomendations, index) => {
+      const poster = `${process.env.REACT_APP_BASEURLPOSTER}${recomendations.poster_path}`;
+      return (
+        <Link
+          className="text-link"
+          style={{ textDecoration: "none" }}
+          to={`/details/${recomendations.id}`}
+          key={index}
+          name="top"
+        >
+          <Col>
+            <Card className="bg-dark text-white">
+              <Card.ImgOverlay class="img-overlay">
+                <Card.Title className="main-text">
+                  {recomendations.title}
+                </Card.Title>
+                <Card.Text className="main-text">
+                  <img
+                    className="star"
+                    src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
+                  />{" "}
+                  {recomendations.vote_average}
+                </Card.Text>
+              </Card.ImgOverlay>
+              <Card.Img src={poster} alt="Card image" />
+            </Card>
+          </Col>
+          <br></br>
+        </Link>
+      );
+    });
+  };
+
+  recommenadationsGet = () => {
+    const recomendationsMap = this.state.recomendations.map((_id) => {
+      return fetch(
+        `${process.env.REACT_APP_BASEURL}/recommendations?api_key=${process.env.REACT_APP_KEY}&language=en-US&page=1`
+      )
+        .then((data) => {
+          return data.json();
+        })
+        .then((dataJSON) => {
+          console.log(dataJSON);
+
+          return dataJSON;
+        });
+    });
+
+    Promise.all(recomendationsMap).then((result) => {
+      console.log(result);
+      this.setState({ recommendations: result });
+      this.getFullDiaryMovies();
+    });
+  };
+
+
   myDiaryMovies = () => {
     const myDiaryMoviesMap = this.state.allDiary.map((_id) => {
       return fetch(
@@ -108,70 +170,113 @@ class Diary extends React.Component {
         fullDiary.poster_path === undefined
       ) {
         return (
-          <Link
-            className="link-diary"
-            style={{ textDecoration: "none" }}
-            to={`/details/${fullDiary.movieID}`}
-            key={index}
-            name="top"
-          >
-            <Media>
-              <img
-                width={264}
-                height={364}
-                className="mr-3"
-                src="../../../poster_default.png"
-                alt={fullDiary.original_title}
-              />
-              <Media.Body>
-                <h5>{fullDiary.title}</h5>
-                <p>Date: {fullDiary.date} </p>
-                <p>Place: {fullDiary.place}</p>
-                <p>Watched with: {fullDiary.people}</p>
-                <p>Notes: {fullDiary.date}</p>
-              </Media.Body>
-            </Media>
-          </Link>
+          <div className="diary-details-style details-box-diary ">
+            <Link
+              className="link-diary"
+              style={{ textDecoration: "none" }}
+              to={`/details/${fullDiary.movieID}`}
+              key={index}
+              name="top"
+            >
+              <Media>
+                <img
+                  width={264}
+                  height={364}
+                  className="mr-3"
+                  src="../../../poster_default.png"
+                  alt={fullDiary.original_title}
+                />
+                <Media.Body>
+                  <h5>{fullDiary.title}</h5>
+                  <p>Date: {fullDiary.date} </p>
+                  <p>Place: {fullDiary.place}</p>
+                  <p>Watched with: {fullDiary.people}</p>
+                  <p>Notes: {fullDiary.notes}</p>
+                  {this.recomendations()}
+                </Media.Body>
+              </Media>
+            </Link>
+          </div>
         );
       } else {
         return (
-          <Link
-            className="link-diary"
-            style={{ textDecoration: "none" }}
-            to={`/details/${fullDiary.movieID}`}
-            key={index}
-            name="top"
-          >
-            <Media>
-              <img
-                width={264}
-                height={364}
-                className="mr-3"
-                src={poster}
-                alt={fullDiary.original_title}
-              />
-              <Media.Body>
-                <h5>{fullDiary.title}</h5>
-                <p>Date: {fullDiary.date} </p>
-                <p>Place: {fullDiary.place}</p>
-                <p>Watched with: {fullDiary.people}</p>
-                <p>Notes: {fullDiary.date}</p>
-              </Media.Body>
-            </Media>
-          </Link>
+          <div className="diary-details-style details-box-diary ">
+            <Link
+              className="link-diary"
+              style={{ textDecoration: "none" }}
+              to={`/details/${fullDiary.movieID}`}
+              key={index}
+              name="top"
+            >
+              <Media>
+                <img
+                  width={264}
+                  height={364}
+                  className="mr-3"
+                  src={poster}
+                  alt={fullDiary.original_title}
+                />
+                <Media.Body>
+                  <h5>{fullDiary.title}</h5>
+                  <p>Date: {fullDiary.date} </p>
+                  <p>Place: {fullDiary.place}</p>
+                  <p>Watched with: {fullDiary.people}</p>
+                  <p>Notes: {fullDiary.notes}</p>
+                </Media.Body>
+              </Media>
+            </Link>
+          </div>
         );
       }
     });
   };
 
-  render() {
+  messageIfAnyDiaryFind = () => {
     return (
       <div className="diary-details-style details-box-diary ">
         <div className="welcome">
-          <h1 >Welcome to your diary {this.props.isLogged.username}</h1>
+          <h1>Welcome to your diary {this.props.isLogged.username}</h1>
+          <br></br>
+          <p>You don't have any diary log.</p>
         </div>
+      </div>
+    );
+  };
 
-        {this.renderMyDiary()}
+  render() {
+    return (
+      <div name="top" className="myaccount-box">
+        {this.state.diary.length !== 0 ? (
+          <div>
+            <Container>
+              <Row className="justify-content-md-center">
+                <Col>
+                  <Jumbotron fluid>
+                    <Container>
+                      <h1>MY DIARY</h1>
+                    </Container>
+                  </Jumbotron>
+                </Col>
+              </Row>
+              {this.renderMyDiary()}{" "}
+            </Container>
+          </div>
+        ) : (
+          <div>
+            <Container>
+              <Row className="justify-content-md-center">
+                <Col>
+                  <Jumbotron fluid>
+                    <Container>
+                      <h1>MY DIARY</h1>
+                    </Container>
+                  </Jumbotron>
+                </Col>
+              </Row>
+              {this.messageIfAnyDiaryFind()}{" "}
+            </Container>
+          </div>
+        )}
       </div>
     );
   }

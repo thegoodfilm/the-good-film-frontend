@@ -45,10 +45,7 @@ const MyNavBar = (props) => {
                   Watchlist
                 </NavDropdown.Item>
 
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="/myaccount/myprofile">
-                  My profile
-                </NavDropdown.Item>
+           
               </NavDropdown>
             )}
           </Nav>

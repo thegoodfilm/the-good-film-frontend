@@ -136,6 +136,10 @@ class Details extends React.Component {
     }
   };
 
+numberOfReviews=()=>{
+  return this.state.allReviews.length
+}
+
   addReviewBtn = () => {
     if (this.props.isLogged._id) {
       return (
@@ -148,7 +152,7 @@ class Details extends React.Component {
                 this.setState({ showReviews: true, closeReviewButton: true });
               }}
             >
-              Show reviews
+              {this.numberOfReviews()} reviews
             </Button>
           )}{" "}
           {this.state.showReviews && (
@@ -545,7 +549,7 @@ class Details extends React.Component {
   renderCastPoster = () => {
     return this.state.cast.map((cast, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${cast.profile_path}`;
-      if (cast.profile_path === null) {
+      if (cast.profile_path === null || cast.profile_path === undefined) {
         return (
           <Link
            name="top"

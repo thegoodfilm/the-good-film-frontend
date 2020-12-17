@@ -105,8 +105,11 @@ class App extends React.Component {
     this.service
       .login(this.state.loggingUser.email, this.state.loggingUser.password)
       .then((result) => {
-        this.setState({ isLogged: result});
-        this.setState({ message: result.message, isLoggedIn: true });
+        console.log(result.message)
+           this.setState({ message: result.message, isLoggedIn: true, isLogged: result});
+
+        // this.setState({ isLogged: result});
+        // this.setState({ message: result.message, isLoggedIn: true });
         // this.checkIfLoggedIn();
       })
 
@@ -266,7 +269,7 @@ class App extends React.Component {
             <Route path="/signup" render={() => <Redirect to="/" />} />
           )}
 
-          {!this.state.isLoggedIn ? (
+          {!this.state.isLogged._id ? (
             <Route
               path="/login"
               render={() => (

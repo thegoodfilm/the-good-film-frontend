@@ -57,3 +57,39 @@
           padding-top: 20px;
           padding-bottom: 20px;
       }
+
+      .movieID-code{
+        color: rgb(38, 208, 75);
+      }
+      
+    .form-align{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+
+
+    }
+
+    @media all and (min-width: 480px) {
+      .form-container {
+        padding: 60px 0;
+      }
+    
+      .form-container form {
+        margin: 0 auto;
+        max-width: 320px;
+      }
+
+  
+      .info-message{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        color: rgb(119, 0, 255);
+       padding-bottom: 18px;
+       padding-top: 10px;
+        
+    }
+  }

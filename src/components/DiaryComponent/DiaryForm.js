@@ -8,7 +8,7 @@ const DiaryForm = (props) => {
     <div className="form-container">
       <span>{props.message}</span>
       <Form onSubmit={props.submitDiaryForm}>
-      <span>Please, type this code {props.match.params.id} in MovieID to confirm this movie</span>
+      <p>Please, type this code <span className="movieID-code">{props.match.params.id}</span> in MovieID to confirm this movie</p>
       <Form.Group controlId="formGridAddress2">
           <Form.Label>Movie ID:</Form.Label>
           <Form.Control
@@ -51,40 +51,23 @@ const DiaryForm = (props) => {
           />
         </Form.Group>
 
-        {/* <Form.Row>
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>Mood:</Form.Label>
-            <Form.Control
-              as="select"
-              name="mood"
-              value={props.newDiary.mood}
-              onChange={(event) => props.changeHandlerDiary(event.target)}
-              defaultValue="Choose..."
-            >
-              <option>Angry</option>
-              <option>Excited</option>
-              <option>Happy</option>
-              <option>Sad</option>
-              <option>Tender</option>
-              <option>Scared</option>
-            </Form.Control>
-          </Form.Group>
-        </Form.Row> */}
 
         <Form.Group controlId="formGridAddress2">
           <Form.Label>Notes:</Form.Label>
           <Form.Control
-            type="textarea"
+                as="textarea"
+                rows={5}
             name="notes"
             value={props.newDiary.notes}
             onChange={(event) => props.changeHandlerDiary(event.target)}
             placeholder="Insert some notes here"
           />
         </Form.Group>
-
-        <Button variant="primary" type="submit">
+        <div class="form-align"> 
+        <Button variant="outline-secondary" type="submit">
           Submit
         </Button>
+        </div>
       </Form>
     </div>
   );
