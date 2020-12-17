@@ -7,16 +7,16 @@
   max-width: 1000px;
 } */
 
-.details-basic-info-container {
+/* .details-basic-info-container {
   padding-top: 20px;
   display: flex;
   flex-direction: row;
-}
+} */
 
-.details-basic-info-container img {
+/* .details-basic-info-container img {
   max-width: 70%;
   height: auto;
-}
+} */
 
 .details-box h2,
 p {
@@ -62,7 +62,10 @@ p {
   align-items: flex-start;
  
 }
-
+.message-only-color{
+  color:gainsboro;
+  font-size: 0.9rem;
+}
 .info-message {
   color: rgb(119, 0, 255);
   font-weight: 300;
@@ -136,9 +139,15 @@ font-size: 0.8rem; }
 
 .info-message-review{
 margin-top: 0;
+color: rgb(119, 0, 255);
+
 
 }
 
 .text-gainsboro{
   color: gainsboro;
+}
+.review-section{
+  display: flex;
+  flex-direction: column;
 }

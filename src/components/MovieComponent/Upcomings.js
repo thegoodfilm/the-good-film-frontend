@@ -30,7 +30,7 @@ class Upcomings extends React.Component {
       return (
         <Link
           className="text-link"
-          to={`/upcomings/${upcoming.id}`}
+          to={`/details/${upcoming.id}`}
           style={{ textDecoration: "none" }}
           key={index}
           name="top"
@@ -66,11 +66,11 @@ class Upcomings extends React.Component {
 
   render() {
     return (
-      <div>
+      <div name="top">
         {this.state.upcomings.length === 0 ? (
           this.renderSpinner()
         ) : (
-          <div name="top" className="movie-box">
+          <div  className="movie-box">
             <div>
               <Container>
                 <Row className="justify-content-md-center">

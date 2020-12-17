@@ -31,7 +31,7 @@ class NowOnCinemas extends React.Component {
         <Link
           className="text-link"
           style={{ textDecoration: "none" }}
-          to={`/nowoncinemas/${nowOnCinemas.id}`}
+          to={`/details/${nowOnCinemas.id}`}
           key={index}
           name="top"
         >

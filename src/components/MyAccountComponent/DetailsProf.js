@@ -285,7 +285,7 @@ class Details extends React.Component {
     return this.state.cast.map((cast, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${cast.profile_path}`;
       return (
-        <Link to={`/details/actors/${cast.id}`} key={index}>
+        <Link  name="top" to={`/details/actors/${cast.id}`} key={index}>
           <div>
             <img src={poster} alt={cast.name} />
           </div>
@@ -297,7 +297,7 @@ class Details extends React.Component {
   renderCastName = () => {
     return this.state.cast.map((cast, index) => {
       return (
-        <Link to={`/details/actors/${cast.id}`} key={index}>
+        <Link  name="top" to={`/details/actors/${cast.id}`} key={index}>
           <div>
             <h3>{cast.name}</h3>
           </div>
@@ -309,7 +309,7 @@ class Details extends React.Component {
   renderCastCharacter = () => {
     return this.state.cast.map((cast, index) => {
       return (
-        <Link to={`/details/actors/${cast.id}`} key={index}>
+        <Link  name="top" to={`/details/actors/${cast.id}`} key={index}>
           <div>
             <p>{cast.character}</p>
           </div>
@@ -324,6 +324,7 @@ class Details extends React.Component {
       return (
         <div>
           <Link
+           name="top"
             to={{ pathname: `${this.state.providerDefaultURL}` }}
             target="_blank"
           >

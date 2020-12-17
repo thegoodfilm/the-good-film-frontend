@@ -124,6 +124,7 @@ class Details extends React.Component {
     } else {
       return (
         <div class="details-box">
+        <p className="message-only-color">You have to be register to access this section</p>
           <Button href="/signup" variant="secondary">
             Sign up
           </Button>{" "}
@@ -168,17 +169,45 @@ class Details extends React.Component {
       );
     } else {
       return (
-        <div class="info-message">
-          <span>You have to be logged to add a review</span>
-
-          <div>
-            <Button href="/signup" variant="secondary">
-              Sign up
-            </Button>{" "}
-            <Button href="/login" variant="secondary">
-              Log in
-            </Button>{" "}
-          </div>
+        <div class="review-section">
+     
+        <div>
+        <span className="message-only-color">You have to be logged to add a review</span>
+            <div>
+              <Button href="/signup" variant="secondary">
+                Sign up
+              </Button>{" "}
+              <Button href="/login" variant="secondary">
+                Log in
+              </Button>{" "}
+            </div>
+        </div>
+        <br></br>
+        <div>
+        {!this.state.showReviews && (
+              <Button
+                variant="outline-secondary"
+                onClick={() => {
+                  this.handleReviews();
+                  this.setState({ showReviews: true, closeReviewButton: true });
+                }}
+              >
+                Show reviews
+              </Button>
+            )}{" "}
+            {this.state.showReviews && (
+              <Button
+                variant="outline-secondary"
+                onClick={() => this.setState({ showReviews: false })}
+              >
+                Close
+              </Button>
+            )}{" "}
+        </div>
+     
+         
+        
+         
         </div>
       );
     }
@@ -372,7 +401,7 @@ class Details extends React.Component {
   };
 
   handleReviews = () => {
-    // this.setState({ showForm: false });
+    this.setState({ showForm: false });
     console.log("soy before handle");
     this.serviceReview
       .getReviewNoOnCinemas(this.props.match.params.id)
@@ -483,9 +512,12 @@ class Details extends React.Component {
               <p className="text-gainsboro">
                 Release date: <span>{this.state.details.release_date}</span>
               </p>
-              <p className="text-gainsboro">Overview: {this.state.details.overview}</p>
+              <p className="text-gainsboro">
+                Overview: {this.state.details.overview}
+              </p>
 
               <p className="text-gainsboro">Genre: {this.state.genre}</p>
+
             </Media.Body>
           </Media>
         </div>
@@ -515,7 +547,13 @@ class Details extends React.Component {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${cast.profile_path}`;
       if (cast.profile_path === null) {
         return (
-          <Link className="link" style={{ textDecoration: "none"}}  to={`/details/actors/${cast.id}`} key={index}>
+          <Link
+           name="top"
+            className="link"
+            style={{ textDecoration: "none" }}
+            to={`/details/actors/${cast.id}`}
+            key={index}
+          >
             <div class="details-box">
               <Media>
                 <img
@@ -538,7 +576,13 @@ class Details extends React.Component {
         );
       } else {
         return (
-          <Link className="link" style={{ textDecoration: "none" }} to={`/details/actors/${cast.id}`} key={index}>
+          <Link
+           name="top"
+            className="link"
+            style={{ textDecoration: "none" }}
+            to={`/details/actors/${cast.id}`}
+            key={index}
+          >
             <div class="details-box">
               <Media>
                 <img
@@ -566,7 +610,12 @@ class Details extends React.Component {
   renderCastName = () => {
     return this.state.cast.map((cast, index) => {
       return (
-        <Link style={{ textDecoration: "none", color: "white" }} to={`/details/actors/${cast.id}`} key={index}>
+        <Link
+         name="top"
+          style={{ textDecoration: "none", color: "white" }}
+          to={`/details/actors/${cast.id}`}
+          key={index}
+        >
           <div>
             <h3>{cast.name}</h3>
           </div>
@@ -578,7 +627,12 @@ class Details extends React.Component {
   renderCastCharacter = () => {
     return this.state.cast.map((cast, index) => {
       return (
-        <Link style={{ textDecoration: "none" }} to={`/details/actors/${cast.id}`} key={index}>
+        <Link
+         name="top"
+          style={{ textDecoration: "none" }}
+          to={`/details/actors/${cast.id}`}
+          key={index}
+        >
           <div>
             <p>{cast.character}</p>
           </div>
@@ -593,6 +647,7 @@ class Details extends React.Component {
       return (
         <div>
           <Link
+           name="top"
             to={{ pathname: `${this.state.providerDefaultURL}` }}
             style={{ textDecoration: "none" }}
             target="_blank"
@@ -615,7 +670,7 @@ class Details extends React.Component {
           </div>
           <div className="render-btns">{this.renderButtons()}</div>
         </div>
-        {this.renderDetailsVideoName()}
+        {this.state.key.length === 0 ? <p>No video available</p> : this.renderDetailsVideoName()}
 
         <div class="main-details-style-reviews">
           {/* {this.state.showReviews && this.closeReviewsBtn()} */}
@@ -623,10 +678,7 @@ class Details extends React.Component {
           {!this.state.showForm && this.addReviewBtn()}
         </div>
         {this.state.showReviews && this.renderNowOnCinemasReviews()}
-<div>
-{this.renderCastPoster()}
-</div>
-       
+        <div>{this.renderCastPoster()}</div>
       </div>
     );
   }

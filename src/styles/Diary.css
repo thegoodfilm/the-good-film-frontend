@@ -1,0 +1,59 @@
+.diary-style{
+    display: flex;
+    flex-direction: column;
+}
+
+.link-diary h5{
+    color: gainsboro;
+   
+    }
+
+    .link-diary p{
+        color: gainsboro;
+        font-size: 0.9rem;
+        }
+    
+    .link-diary:hover {
+      color: rgb(76, 0, 138);
+      font-size: 0.9rem;
+      }
+
+      .diary-details-style{
+        padding-top: 47px;
+        padding-bottom: 20px;
+        margin: 0 auto;
+        max-width: 1000px;
+      }
+      .details-box-diary {
+        margin-top: 20px;
+        padding-top: 20px;
+      
+        margin: 0 auto;
+        max-width: 1000px;
+      } 
+      
+
+      @media (min-width: 30px) {
+        .welcome-user h1 {
+          font-size: 5em;
+        }
+      }
+      
+      /* Medium devices (desktops, 992px and up) */
+      @media (min-width: 992px) {
+        .welcome-user h1 {
+          font-size: 6em;
+        }
+      }
+      
+      /* Large devices (large desktops, 1200px and up) */
+      @media (min-width: 1200px) {
+        .welcome-user h1 {
+          font-size: 6em;
+        }
+      }
+
+      .welcome{
+          padding-top: 20px;
+          padding-bottom: 20px;
+      }

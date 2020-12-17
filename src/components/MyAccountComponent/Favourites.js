@@ -89,7 +89,7 @@ renderMyFavourites = () => {
     return this.state.allFavourites.map((allFavourites, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${allFavourites.poster_path}`;
       return (
- <Link to={`/myaccount/favourites/${allFavourites.id}`} key={index} name="top">
+ <Link  name="top" to={`/myaccount/favourites/${allFavourites.id}`} key={index} name="top">
           <div>
             <div key={index}>
               <h3>{allFavourites.original_title}</h3>

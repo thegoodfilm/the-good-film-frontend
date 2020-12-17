@@ -1,19 +1,20 @@
 import React from "react";
+import "../../styles/Diary.css";
 
 import DiaryService from "../../services/DiaryService";
-import { Button } from "react-bootstrap";
+import { Media } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 class Diary extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       diary: [],
       allDiary: [],
       allMovies: [],
       fullDiary: [],
+    };
   }
-
-  };
 
   service = new DiaryService();
 
@@ -95,53 +96,82 @@ class Diary extends React.Component {
       console.log(diaryArr[i]);
     }
     console.log(fullDiaryMovies);
-    console.log(this.state.allDiary.id)
+    console.log(this.state.allDiary.id);
     this.setState({ fullDiary: fullDiaryMovies });
   };
-
 
   renderMyDiary = (props) => {
     return this.state.fullDiary.map((fullDiary, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${fullDiary.poster_path}`;
-
-      return (
-        <div key={index}>
-          <div key={index}>
-            <img src={poster} alt={fullDiary.original_title} />
-
-            <p>{fullDiary.title}</p>
-            <p>{fullDiary.movieID}</p>
-            <p>{fullDiary.date}</p>
-            <p>{fullDiary.place}</p>
-            <p>{fullDiary.people}</p>
-            <p>{fullDiary.notes}</p>
-            <Button
-            href={`/myaccount/diary/:id/remove`}
-            variant="outline-success"
+      if (
+        fullDiary.poster_path === null ||
+        fullDiary.poster_path === undefined
+      ) {
+        return (
+          <Link
+            className="link-diary"
+            style={{ textDecoration: "none" }}
+            to={`/details/${fullDiary.movieID}`}
+            key={index}
+            name="top"
           >
-         Remove
-          </Button>{" "}
-            <div>
-          
-        </div>
-
-          </div>
-        </div>
-      );
+            <Media>
+              <img
+                width={264}
+                height={364}
+                className="mr-3"
+                src="../../../poster_default.png"
+                alt={fullDiary.original_title}
+              />
+              <Media.Body>
+                <h5>{fullDiary.title}</h5>
+                <p>Date: {fullDiary.date} </p>
+                <p>Place: {fullDiary.place}</p>
+                <p>Watched with: {fullDiary.people}</p>
+                <p>Notes: {fullDiary.date}</p>
+              </Media.Body>
+            </Media>
+          </Link>
+        );
+      } else {
+        return (
+          <Link
+            className="link-diary"
+            style={{ textDecoration: "none" }}
+            to={`/details/${fullDiary.movieID}`}
+            key={index}
+            name="top"
+          >
+            <Media>
+              <img
+                width={264}
+                height={364}
+                className="mr-3"
+                src={poster}
+                alt={fullDiary.original_title}
+              />
+              <Media.Body>
+                <h5>{fullDiary.title}</h5>
+                <p>Date: {fullDiary.date} </p>
+                <p>Place: {fullDiary.place}</p>
+                <p>Watched with: {fullDiary.people}</p>
+                <p>Notes: {fullDiary.date}</p>
+              </Media.Body>
+            </Media>
+          </Link>
+        );
+      }
     });
   };
 
-
   render() {
     return (
-      <div>
-        <h2>Welcome, {this.props.isLogged.username}</h2>
-        {/* {this.renderMyDiaryMovies()} */}
+      <div className="diary-details-style details-box-diary ">
+        <div className="welcome">
+          <h1 >Welcome to your diary {this.props.isLogged.username}</h1>
+        </div>
+
         {this.renderMyDiary()}
-        {/* {this.renderDetails()} */}
-        {/* {this.state.allFavourites.length > 0 && this.renderMyFavourites()}
-        {/* {this.state.allWatchlist.length > 0 && this.renderMyWatchlist()}
-        {this.state.allActivity.length > 0 && this.renderMyActivity()} */}
       </div>
     );
   }

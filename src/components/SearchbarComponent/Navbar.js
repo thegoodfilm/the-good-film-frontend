@@ -8,7 +8,7 @@ import {
   Nav,
   NavDropdown,
   FormControl,
-  Form
+  Form,
 } from "react-bootstrap";
 
 const MyNavBar = (props) => {
@@ -34,15 +34,17 @@ const MyNavBar = (props) => {
             </NavDropdown>
             {props.isLogged.username && (
               <NavDropdown title="My account" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/myaccount/diary">Diary</NavDropdown.Item>
+                <NavDropdown.Item href="/myaccount/diary">
+                  Diary
+                </NavDropdown.Item>
 
-                <NavDropdown.Item href="/myaccount/favourites">Favourites</NavDropdown.Item>
+                <NavDropdown.Item href="/myaccount/favourites">
+                  Favourites
+                </NavDropdown.Item>
                 <NavDropdown.Item href="/myaccount/watchlist">
                   Watchlist
                 </NavDropdown.Item>
-               
-              
-  
+
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/myaccount/myprofile">
                   My profile
@@ -69,7 +71,6 @@ const MyNavBar = (props) => {
             </Form>
           </Nav>
 
-
           <Nav>
             {props.isLogged.username && (
               <NavDropdown title={welcome} id="basic-nav-dropdown">
@@ -85,16 +86,12 @@ const MyNavBar = (props) => {
               <Button href="/signup" variant="light">
                 Sign up
               </Button>
-            )}
-            {" "}
+            )}{" "}
             {!props.isLogged.username && (
               <Button href="/login" variant="light">
                 Log in
               </Button>
-            )}
-            {" "}
-
-     
+            )}{" "}
           </div>
         </Navbar.Collapse>
       </Navbar>

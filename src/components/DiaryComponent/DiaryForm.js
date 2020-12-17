@@ -42,7 +42,7 @@ const DiaryForm = (props) => {
         </Form.Group>
 
         <Form.Group controlId="formGridAddress2">
-          <Form.Label>People:</Form.Label>
+          <Form.Label>Watched with:</Form.Label>
           <Form.Control
             value={props.newDiary.people}
             name="people"

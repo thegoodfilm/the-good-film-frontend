@@ -30,7 +30,7 @@ class TopRated extends React.Component {
       return (
         <Link
           className="text-link"
-          to={`/toprated/${topRated.id}`}
+          to={`/details/${topRated.id}`}
           style={{ textDecoration: "none" }}
           key={index}
           name="top"

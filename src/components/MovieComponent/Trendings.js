@@ -32,7 +32,7 @@ class Trendings extends React.Component {
         <Link
           className="text-link"
           style={{ textDecoration: "none" }}
-          to={`/trendings/${trendings.id}`}
+          to={`/details/${trendings.id}`}
           key={index}
           name="top"
         >
@@ -67,11 +67,11 @@ class Trendings extends React.Component {
 
   render() {
     return (
-      <div>
+      <div name="top">
         {this.state.trendings.length === 0 ? (
           this.renderSpinner()
         ) : (
-          <div name="top" className="movie-box">
+          <div  className="movie-box">
             <div>
               <Container>
                 <Row className="justify-content-md-center">

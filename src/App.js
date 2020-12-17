@@ -291,7 +291,7 @@ class App extends React.Component {
 
           <Route
             exact
-            path="/nowoncinemas/:id"
+            path="/details/:id"
             render={(props) => {
               return (
                 <Details
@@ -310,7 +310,7 @@ class App extends React.Component {
 
           <Route
             exact
-            path="/toprated/:id"
+            path="/details/:id"
             render={(props) => {
               return <Details {...props} isLogged={this.state.isLogged} />;
             }}
@@ -320,7 +320,7 @@ class App extends React.Component {
 
           <Route
             exact
-            path="/trendings/:id"
+            path="/details/:id"
             render={(props) => {
               return <Details {...props} isLogged={this.state.isLogged} />;
             }}
@@ -330,7 +330,7 @@ class App extends React.Component {
 
           <Route
             exact
-            path="/upcomings/:id"
+            path="/details/:id"
             render={(props) => {
               return <Details {...props} isLogged={this.state.isLogged} 
               newReview={this.state.newReview}
@@ -488,7 +488,7 @@ class App extends React.Component {
           {this.state.isLogged._id && (
             <Route
               exact
-              path="/nowoncinemas/:id"
+              path="/details/:id"
               render={(props) => {
                 return (
                   <Diary

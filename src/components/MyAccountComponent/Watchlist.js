@@ -89,7 +89,7 @@ renderMyWatchlist = () => {
     return this.state.allWatchlist.map((allWatchlist, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${allWatchlist.poster_path}`;
       return (
- <Link to={`/myaccount/watchlist/${allWatchlist.id}`} key={index} name="top">
+ <Link name="top" to={`/myaccount/watchlist/${allWatchlist.id}`} key={index} name="top">
           <div>
             <div key={index}>
               <h3>{allWatchlist.title}</h3>

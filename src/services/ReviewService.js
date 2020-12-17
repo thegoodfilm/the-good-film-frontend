@@ -3,8 +3,8 @@ import axios from "axios";
 class ReviewService {
   constructor() {
     let service = axios.create({
-      baseURL: "https://thegoodfilm.herokuapp.com",
-      // baseURL: "http://localhost:3000",
+      // baseURL: "https://thegoodfilm.herokuapp.com",
+      baseURL: "http://localhost:3000",
       withCredentials: true,
     });
     this.service = service;
@@ -17,7 +17,7 @@ class ReviewService {
     console.log("soy service review");
 
     return this.service
-      .post(`/nowoncinemas/${movieID}`, {
+      .post(`/details/${movieID}`, {
         movieID,
 
         reviewText,
@@ -38,7 +38,7 @@ class ReviewService {
 
     return this.service
 
-      .get(`/nowoncinemas/${movieID}`, {movieID})
+      .get(`/details/${movieID}`, {movieID})
       .then((response) => response.data )
       
       .catch((err) => console.error(err));
