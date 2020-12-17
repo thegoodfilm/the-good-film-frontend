@@ -15,7 +15,6 @@ class Diary extends React.Component {
       allDiary: [],
       allMovies: [],
       fullDiary: [],
-      recommendations: [],
     };
   }
 
@@ -38,66 +37,8 @@ class Diary extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-    
+      
   }
-
-  renderRecommendations = () => {
-    return this.state.recomendations.map((recomendations, index) => {
-      const poster = `${process.env.REACT_APP_BASEURLPOSTER}${recomendations.poster_path}`;
-      return (
-        <Link
-          className="text-link"
-          style={{ textDecoration: "none" }}
-          to={`/details/${recomendations.id}`}
-          key={index}
-          name="top"
-        >
-          <Col>
-            <Card className="bg-dark text-white">
-              <Card.ImgOverlay class="img-overlay">
-                <Card.Title className="main-text">
-                  {recomendations.title}
-                </Card.Title>
-                <Card.Text className="main-text">
-                  <img
-                    className="star"
-                    src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
-                  />{" "}
-                  {recomendations.vote_average}
-                </Card.Text>
-              </Card.ImgOverlay>
-              <Card.Img src={poster} alt="Card image" />
-            </Card>
-          </Col>
-          <br></br>
-        </Link>
-      );
-    });
-  };
-
-  recommenadationsGet = () => {
-    const recomendationsMap = this.state.recomendations.map((_id) => {
-      return fetch(
-        `${process.env.REACT_APP_BASEURL}/recommendations?api_key=${process.env.REACT_APP_KEY}&language=en-US&page=1`
-      )
-        .then((data) => {
-          return data.json();
-        })
-        .then((dataJSON) => {
-          console.log(dataJSON);
-
-          return dataJSON;
-        });
-    });
-
-    Promise.all(recomendationsMap).then((result) => {
-      console.log(result);
-      this.setState({ recommendations: result });
-      this.getFullDiaryMovies();
-    });
-  };
-
-
   myDiaryMovies = () => {
     const myDiaryMoviesMap = this.state.allDiary.map((_id) => {
       return fetch(
@@ -192,7 +133,6 @@ class Diary extends React.Component {
                   <p>Place: {fullDiary.place}</p>
                   <p>Watched with: {fullDiary.people}</p>
                   <p>Notes: {fullDiary.notes}</p>
-                  {this.recomendations()}
                 </Media.Body>
               </Media>
             </Link>
@@ -243,43 +183,43 @@ class Diary extends React.Component {
     );
   };
 
+  
   render() {
     return (
       <div name="top" className="myaccount-box">
-        {this.state.diary.length !== 0 ? (
-          <div>
+        {this.state.diary.length !== 0
+          ? <div>
             <Container>
-              <Row className="justify-content-md-center">
-                <Col>
-                  <Jumbotron fluid>
-                    <Container>
-                      <h1>MY DIARY</h1>
-                    </Container>
-                  </Jumbotron>
-                </Col>
-              </Row>
+            <Row className="justify-content-md-center">
+                  <Col>
+                    <Jumbotron fluid>
+                      <Container>
+                        <h1>MY DIARY</h1>
+                      </Container>
+                    </Jumbotron>
+                  </Col>
+                </Row>
               {this.renderMyDiary()}{" "}
             </Container>
-          </div>
-        ) : (
-          <div>
+            </div>
+          : <div>
             <Container>
-              <Row className="justify-content-md-center">
-                <Col>
-                  <Jumbotron fluid>
-                    <Container>
-                      <h1>MY DIARY</h1>
-                    </Container>
-                  </Jumbotron>
-                </Col>
-              </Row>
-              {this.messageIfAnyDiaryFind()}{" "}
+            <Row className="justify-content-md-center">
+                  <Col>
+                    <Jumbotron fluid>
+                      <Container>
+                        <h1>MY DIARY</h1>
+                      </Container>
+                    </Jumbotron>
+                  </Col>
+                </Row>
+             {this.messageIfAnyDiaryFind()}{" "}
             </Container>
-          </div>
-        )}
+            </div>}
       </div>
     );
   }
 }
 
 export default Diary;
+
