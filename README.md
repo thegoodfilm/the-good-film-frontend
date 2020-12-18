@@ -1,3 +1,58 @@
+# MERN Web Application || theGoodFilm
+
+Este es el último proyecto de mi paso por el bootcamp de Ironhack en Madrid. En esta ocasión, se ha desarrollado una MERN Web Application. 
+
+Esta App nos permite adentrarnos en el mundo de las películas. No solo podemos acceder a contenido ya creado y suministrado por themoviedb.org sino que también podemos disponer de nuestra propia area personal como usuarios para poder guardar nuestras películas favoritas, las que tenemos pendientes de ver así como crear un registro a modo de diario para dejar anotadas nuestras impresiones además de registrar cuando, donde y con quién vimos la película para poder conservar el recuero.  
+
+Se trata de una primera versión y ha sido pensada para poder ser escalable por lo que con el tiempo se le irán añadiendo nuevas funcionalidades.
+
+Netlify URL https://thegoodfilm.netlify.app
+
+![ScreenShot](https://raw.githubusercontent.com/thegoodfilm/the-good-film-frontend/main/public/Screenshot.png)
+
+
+## Comenzando 🚀
+
+Sigue estas instrucciones para poder obtener una copia del proyecto en funcionamiento con el fin de posibles nuevos desarrollos y pruebas:
+
+- Fork this repo
+- Clone this repo
+
+## Despliegue 📦
+
+Consulta la documentación oficial de Netlify para obtener toda la información:
+
+* [Netlify](https://www.netlify.com/) 
+
+* [REACT](https://es.reactjs.org/) - Consulta la documentación que figura al final
+
+## Construido con 🛠️
+
+* [REACT](https://es.reactjs.org/) - Libreria 
+* [themoviedb](https://www.themoviedb.org/) - API
+* [React Bootstrap](https://react-bootstrap.github.io/) - Diseño
+
+## Autor✒️
+
+* **Sara Palacios** - [sarapalacioss](https://github.com/sarapalacioss)
+
+
+## Licencia 📄
+
+Este proyecto no está sujeto a licencia.
+
+## Expresiones de Gratitud 🎁
+
+* Comparte este proyecto 📢
+* Da las gracias públicamente 🤓
+
+---
+⌨️ con ❤️ por [sarapalacioss](https://github.com/sarapalacioss) #Ironhacker 😊
+
+----------------
+
+# REACT INFO
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
