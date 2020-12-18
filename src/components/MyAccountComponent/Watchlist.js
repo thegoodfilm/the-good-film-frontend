@@ -49,7 +49,7 @@ class Watchlist extends React.Component {
       return (
         <Link
           name="top"
-          to={`/myaccount/watchlist/${allWatchlist.id}`}
+          to={`/details/${allWatchlist.id}`}
           className="text-link-myaccount"
           style={{ textDecoration: "none" }}
           key={index}

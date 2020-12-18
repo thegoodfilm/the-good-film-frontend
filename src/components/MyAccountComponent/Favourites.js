@@ -51,7 +51,7 @@ class Favourites extends React.Component {
           className="text-link-myaccount"
           style={{ textDecoration: "none" }}
           name="top"
-          to={`/myaccount/favourites/${allFavourites.id}`}
+          to={`/details/${allFavourites.id}`}
           key={index}
         >
           <Col>
