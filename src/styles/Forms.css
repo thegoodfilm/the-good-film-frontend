@@ -24,4 +24,8 @@
     padding-bottom: 18px;
     padding-top: 10px;
   }
+
+  .color {
+    color: rgb(119, 0, 255);
+  }
 }

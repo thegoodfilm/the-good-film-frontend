@@ -18,8 +18,9 @@ class SearchResult extends React.Component {
     if (this.state.callFromNextBtn === false) {
       fetch(
         `
-     ${process.env.REACT_APP_SEARCH}${process.env.REACT_APP_KEY}&language=en-US&query=${this.props.match.params.id}&${this.state.currentPage}`
+     ${process.env.REACT_APP_SEARCH}${process.env.REACT_APP_KEY}&language=en-US&query=${this.props.match.params.id}&page=${this.state.currentPage}`
       )
+
         .then((data) => {
           return data.json();
         })
@@ -41,6 +42,7 @@ class SearchResult extends React.Component {
         return data.json();
       })
       .then((dataJSON) => {
+        console.log(dataJSON.results)
         this.setState({
           searchResults: dataJSON.results,
         });
@@ -80,7 +82,7 @@ class SearchResult extends React.Component {
                     {searchResults.vote_average}
                   </Card.Text>
                 </Card.ImgOverlay>
-                <Card.Img src="../../../poster_default.png" alt="Card image" />
+                <Card.Img className="size_default_poster" src="../../../poster_default.png" alt="Card image" />
               </Card>
             </Col>
             <br></br>

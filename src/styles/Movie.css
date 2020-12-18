@@ -8,6 +8,10 @@
   max-width: 1200px;
 }
 
+.size_default_poster {
+  width: 500px;
+  height: auto;
+}
 .movie-box {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -81,6 +85,28 @@ body {
 @media (min-width: 30px) {
   .jumbotron h1 {
     font-size: 2em;
+  }
+  .size_default_poster {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (min-width: 283px) {
+ 
+  .size_default_poster {
+    width: 360px;
+    height: auto;
+  }
+}
+
+@media (min-width: 460px) {
+  .jumbotron h1 {
+    font-size: 3em;
+  }
+  .size_default_poster {
+    width: 500px;
+    height: auto;
   }
 }
 

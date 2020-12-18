@@ -61,8 +61,8 @@ const SignUp = (props) => {
             onChange={(event) => props.changeHandlerSignUp(event.target)}
           />
         </Form.Group>
-        <div className="info-message">
-          <span>{props.message}</span>
+        <div className="form-align">
+          <p>{props.message}</p>
         </div>
         <div className="form-align">
           <Button variant="secondary" type="submit">
