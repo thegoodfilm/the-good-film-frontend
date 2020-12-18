@@ -4,11 +4,11 @@ Este es el último proyecto de mi paso por el bootcamp de Ironhack en Madrid. En
 
 Esta App nos permite adentrarnos en el mundo de las películas. No solo podemos acceder a contenido ya creado y suministrado por themoviedb.org sino que también podemos disponer de nuestra propia area personal como usuarios para poder guardar nuestras películas favoritas, las que tenemos pendientes de ver así como crear un registro a modo de diario para dejar anotadas nuestras impresiones además de registrar cuando, donde y con quién vimos la película para poder conservar el recuero.  
 
-Se trata de una primera versión y ha sido pensada para poder ser escalable por lo que con el tiempo se le irán añadiendo nuevas funcionalidades.
+Se trata de una primera versión y ha sido pensada para poder ser escalable por lo que, con el tiempo, se le irán añadiendo nuevas funcionalidades.
 
 Netlify URL https://thegoodfilm.netlify.app
 
-![ScreenShot](https://raw.githubusercontent.com/thegoodfilm/the-good-film-frontend/main/public/Screenshot.png)
+![ScreenShot](https://raw.githubusercontent.com/thegoodfilm/the-good-film-frontend/main/public/Screenshot_.png)
 
 
 ## Comenzando 🚀
