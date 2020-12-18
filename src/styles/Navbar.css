@@ -21,7 +21,7 @@
   width: inherit;
 }
 
-.navbar-wrapper .navbar {
+.navbar-wrapper .navbar .navbarwidth {
   width: 100% !important;
 }
 

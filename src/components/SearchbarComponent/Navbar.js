@@ -14,7 +14,7 @@ const MyNavBar = (props) => {
   const welcome = `Welcome, ${props.isLogged.name}`;
   return (
     <div>
-      <Navbar className="bg-navbar" variant="dark" expand="lg">
+      <Navbar className="bg-navbar navbarwidth" variant="dark" expand="lg">
         <Navbar.Brand href="/">theGoodFilm</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

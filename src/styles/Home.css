@@ -63,18 +63,43 @@
 @media (min-width: 30px) {
   .jumbotron h1 {
     font-size: 2em;
+    
+  }
+  .imagen {
+    width: 100%;
+    height: auto;
   }
 }
+
+@media (min-width: 400px) {
+  .jumbotron h1 {
+    font-size: 3em;
+  }
+  .imagen{
+    width: 300px;
+    height: auto;
+  }
+  
+}
+
 
 @media (min-width: 992px) {
   .jumbotron h1 {
     font-size: 3em;
+  }
+  .imagen{
+    width: 300px;
+    height: auto;
   }
 }
 
 @media (min-width: 1200px) {
   .jumbotron h1 {
     font-size: 3em;
+  }
+  .imagen{
+    width: 300px;
+    height: auto;
   }
 }
 
