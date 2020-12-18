@@ -505,7 +505,7 @@ numberOfReviews=()=>{
                 {this.state.details.vote_average}
               </p>
               <p className="text-gainsboro">
-                Release date: <span>{this.state.details.release_date}</span>
+                <span>{this.state.details.release_date}</span>
               </p>
               <p className="text-gainsboro">
                 Overview: {this.state.details.overview}
