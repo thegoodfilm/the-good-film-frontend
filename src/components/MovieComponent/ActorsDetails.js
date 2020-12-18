@@ -57,7 +57,7 @@ class ActorsDetails extends React.Component {
             <div className="details-box-actors">
               <Media as="li">
                 <img
-                  width={114}
+                  width={98}
                   height={140}
                   className="mr-3"
                   src="../../../poster_default.png"
@@ -92,7 +92,7 @@ class ActorsDetails extends React.Component {
             <div className="details-box-actors">
               <Media as="li">
                 <img
-                  width={114}
+                  width={98}
                   height={140}
                   className="mr-3"
                   src={poster}
