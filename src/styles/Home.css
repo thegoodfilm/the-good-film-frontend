@@ -71,7 +71,7 @@
   }
 }
 
-@media (min-width: 400px) {
+@media (min-width: 460px) {
   .jumbotron h1 {
     font-size: 3em;
   }
