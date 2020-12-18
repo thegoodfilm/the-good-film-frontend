@@ -37,7 +37,7 @@ class TopRated extends React.Component {
         >
           <Col>
             <Card className="bg-dark text-white">
-              <Card.ImgOverlay className="img-overlay">
+              <Card.ImgOverlay class="img-overlay">
                 <Card.Title className="main-text">{topRated.title}</Card.Title>
                 <Card.Text className="main-text">
                   <img
