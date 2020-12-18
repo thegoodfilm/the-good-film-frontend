@@ -29,6 +29,7 @@ class Details extends React.Component {
       showReviews: false,
       reviews: [],
       closeReviewButton: false,
+      counterReviews: 0
     };
   }
 
@@ -51,7 +52,6 @@ class Details extends React.Component {
       .then((result) => {
         this.setState({ message: result.message });
 
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -64,7 +64,6 @@ class Details extends React.Component {
       .then((result) => {
         this.setState({ message: result.message });
 
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -77,7 +76,6 @@ class Details extends React.Component {
       .then((result) => {
         this.setState({ message: result.message });
 
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -90,7 +88,6 @@ class Details extends React.Component {
       .then((result) => {
         this.setState({ message: result.message });
 
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -100,7 +97,7 @@ class Details extends React.Component {
   renderButtons = () => {
     if (this.props.isLogged._id) {
       return (
-        <div class="details-box">
+        <div className="details-box">
           <Button
             onClick={() => this.addToMyFavourites()}
             variant="outline-success"
@@ -123,7 +120,7 @@ class Details extends React.Component {
       );
     } else {
       return (
-        <div class="details-box">
+        <div className="details-box">
         <p className="message-only-color">You have to be register to access this section</p>
           <Button href="/signup" variant="secondary">
             Sign up
@@ -149,7 +146,7 @@ numberOfReviews=()=>{
               variant="outline-secondary"
               onClick={() => {
                 this.handleReviews();
-                this.setState({ showReviews: true, closeReviewButton: true });
+                this.setState({ counterReviews: this.state.reviews.length + 1, showReviews: true, closeReviewButton: true });
               }}
             >
               {this.numberOfReviews()} reviews
@@ -158,7 +155,7 @@ numberOfReviews=()=>{
           {this.state.showReviews && (
             <Button
               variant="outline-secondary"
-              onClick={() => this.setState({ showReviews: false })}
+              onClick={() => this.setState({ showReviews: false, counterReviews: this.state.reviews.length -1 })}
             >
               Close
             </Button>
@@ -173,7 +170,7 @@ numberOfReviews=()=>{
       );
     } else {
       return (
-        <div class="review-section">
+        <div className="review-section">
      
         <div>
         <span className="message-only-color">You have to be logged to add a review</span>
@@ -196,7 +193,7 @@ numberOfReviews=()=>{
                   this.setState({ showReviews: true, closeReviewButton: true });
                 }}
               >
-                Show reviews
+                  {this.numberOfReviews()} reviews
               </Button>
             )}{" "}
             {this.state.showReviews && (
@@ -242,12 +239,10 @@ numberOfReviews=()=>{
       `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}?api_key=${process.env.REACT_APP_KEY}&append_to_response=videos`
     )
       .then((data) => {
-        console.log(this.props.match.params.id);
 
         return data.json();
       })
       .then((dataJSON) => {
-        console.log(dataJSON);
 
         this.setState({
           details: dataJSON,
@@ -326,7 +321,6 @@ numberOfReviews=()=>{
       `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}/credits?api_key=${process.env.REACT_APP_KEY}&language=en-US`
     )
       .then((dataCast) => {
-        //console.log(dataCast.json())
         return dataCast.json();
       })
       .then((dataJSON) => {
@@ -364,7 +358,6 @@ numberOfReviews=()=>{
       `${process.env.REACT_APP_BASEURL}/${this.props.match.params.id}/watch/providers?api_key=${process.env.REACT_APP_KEY}`
     )
       .then((dataProviderDefault) => {
-        //console.log(dataCast.json())
         return dataProviderDefault.json();
       })
       .then((dataJSON) => {
@@ -405,12 +398,10 @@ numberOfReviews=()=>{
   };
 
   handleReviews = () => {
-    this.setState({ showForm: false });
-    console.log("soy before handle");
+    // this.setState({ showForm: false });
     this.serviceReview
       .getReviewNoOnCinemas(this.props.match.params.id)
       .then((response) => {
-        console.log("soy handleReviews");
         this.setState({
           allReviews: [...response],
         });
@@ -510,7 +501,7 @@ numberOfReviews=()=>{
                 <img
                   className="star"
                   src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
-                />{" "}
+                  alt ={this.state.details.title}/>{" "}
                 {this.state.details.vote_average}
               </p>
               <p className="text-gainsboro">
@@ -530,7 +521,6 @@ numberOfReviews=()=>{
   };
 
   renderDetailsVideoName = () => {
-    console.log(this.state.key);
     return (
       <div className="main-details-style-video">
         <div class="details-box">
@@ -652,6 +642,7 @@ numberOfReviews=()=>{
         <div>
           <Link
            name="top"
+           key={index}
             to={{ pathname: `${this.state.providerDefaultURL}` }}
             style={{ textDecoration: "none" }}
             target="_blank"
@@ -676,7 +667,7 @@ numberOfReviews=()=>{
         </div>
         {this.state.key.length === 0 ? <p>No video available</p> : this.renderDetailsVideoName()}
 
-        <div class="main-details-style-reviews">
+        <div className="main-details-style-reviews">
           {/* {this.state.showReviews && this.closeReviewsBtn()} */}
           {this.state.showForm && this.formReview()}
           {!this.state.showForm && this.addReviewBtn()}

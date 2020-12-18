@@ -1,17 +1,11 @@
 import React from "react";
 import "../../styles/Forms.css";
-
 import { Form, Button } from "react-bootstrap";
 
 const LogIn = (props) => {
   return (
     <div className="form-container">
-  
-     
-      
-      
       <Form onSubmit={props.submitLogIn}>
-    
         <Form.Group controlId="username">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -34,16 +28,15 @@ const LogIn = (props) => {
             onChange={(event) => props.changeHandlerLogIn(event.target)}
           />
         </Form.Group>
-        <div class="info-message">
-    <span>{props.message}</span>
-    </div>
-        <div class="form-align"> 
-        <Button variant="secondary" type="submit" >
-          Log in
-        </Button>{" "}
+        <div className="info-message">
+          <span>{props.message}</span>
+        </div>
+        <div className="form-align">
+          <Button variant="secondary" type="submit">
+            Log in
+          </Button>{" "}
         </div>
       </Form>
-    
     </div>
   );
 };

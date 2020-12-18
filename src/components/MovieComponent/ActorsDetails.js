@@ -1,7 +1,6 @@
 import React from "react";
-import { Media } from "react-bootstrap";
 import "../../styles/ActorsDetails.css";
-
+import { Media } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 class ActorsDetails extends React.Component {
@@ -33,7 +32,6 @@ class ActorsDetails extends React.Component {
         return dataBio.json();
       })
       .then((dataJSON) => {
-        console.log(dataJSON);
         this.setState({
           actorsBio: dataJSON,
         });
@@ -45,8 +43,6 @@ class ActorsDetails extends React.Component {
 
   renderActorsDetails = () => {
     return this.state.actorsDetails.map((actorsDetails, index) => {
-      console.log("renderActorsDetails");
-      console.log(actorsDetails);
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${actorsDetails.poster_path}`;
 
       if (actorsDetails.poster_path === null) {
@@ -54,28 +50,31 @@ class ActorsDetails extends React.Component {
           <Link
             className="link-actor"
             style={{ textDecoration: "none" }}
-            to={`/details/actors/${actorsDetails.id}/${actorsDetails.title}`}
+            to={`/details/${actorsDetails.id}`}
             key={index}
             name="top"
-           
           >
-            <div class="details-box-actors">
+            <div className="details-box-actors">
               <Media as="li">
                 <img
                   width={114}
                   height={140}
                   className="mr-3"
-                  src='../../../poster_default.png'
+                  src="../../../poster_default.png"
                   alt={actorsDetails.name}
                 />
                 <Media.Body>
                   <h5>{actorsDetails.name}</h5>
                   <p>{actorsDetails.title}</p>
                   <p>Character: {actorsDetails.character}</p>
-                  <p><img
-                  className="star"
-                  src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
-                />{actorsDetails.vote_average}</p>
+                  <p>
+                    <img
+                      className="star"
+                      src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
+                      alt={actorsDetails.name}
+                    />
+                    {actorsDetails.vote_average}
+                  </p>
                 </Media.Body>
               </Media>
             </div>
@@ -83,15 +82,14 @@ class ActorsDetails extends React.Component {
         );
       } else {
         return (
-          <Link className="link-actor"
+          <Link
+            className="link-actor"
             name="top"
-            to={`/details/actors/${actorsDetails.id}/${actorsDetails.title}`}
+            to={`/details/${actorsDetails.id}`}
             key={index}
             style={{ textDecoration: "none" }}
-
-           
           >
-            <div class="details-box-actors">
+            <div className="details-box-actors">
               <Media as="li">
                 <img
                   width={114}
@@ -104,10 +102,14 @@ class ActorsDetails extends React.Component {
                   <h5>{actorsDetails.name}</h5>
                   <p>{actorsDetails.title}</p>
                   <p className="character-style">{actorsDetails.character}</p>
-                  <p><img
-                  className="star"
-                  src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
-                />{actorsDetails.vote_average}</p>
+                  <p>
+                    <img
+                      className="star"
+                      src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
+                      alt={actorsDetails.name}
+                    />
+                    {actorsDetails.vote_average}
+                  </p>
                 </Media.Body>
               </Media>
             </div>
@@ -119,9 +121,8 @@ class ActorsDetails extends React.Component {
 
   render() {
     return (
-      <div> 
-      <div  name="top" className="actor-details-style">
-       
+      <div>
+        <div name="top" className="actor-details-style">
           <Media>
             <img
               width={187}
@@ -130,17 +131,16 @@ class ActorsDetails extends React.Component {
               src={`${process.env.REACT_APP_BASEURLPOSTER}${this.state.actorsBio.profile_path}`}
               alt={this.state.actorsBio.name}
             />
-
             <Media.Body>
-              <h5 className="text-gainsboro-actors">{this.state.actorsBio.name}</h5>
-
+              <h5 className="text-gainsboro-actors">
+                {this.state.actorsBio.name}
+              </h5>
               <p className="text-gainsboro">
                 Birthday: <span>{this.state.actorsBio.birthday}</span>
               </p>
               <p className="text-gainsboro">
                 Place of birth: {this.state.actorsBio.place_of_birth}
               </p>
-
               <p className="text-gainsboro">
                 Biography: {this.state.actorsBio.biography}
               </p>
@@ -148,7 +148,7 @@ class ActorsDetails extends React.Component {
           </Media>
           <ul className="list-unstyled">{this.renderActorsDetails()}</ul>
         </div>
-        </div>
+      </div>
     );
   }
 }

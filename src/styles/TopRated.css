@@ -1,27 +1,21 @@
-.top-rated-box{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin: 0 auto;
-    max-width: 1000px;
-
+.top-rated-box {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
 }
-
-
 
 .top-rated-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-
-
-.top-rated-poster{
-display: flex;
-flex-direction: row;
-    max-width: 30%;
-    height: auto;  
-    border: 1px solid black
+.top-rated-poster {
+  display: flex;
+  flex-direction: row;
+  max-width: 30%;
+  height: auto;
+  border: 1px solid black;
 }

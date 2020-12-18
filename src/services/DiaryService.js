@@ -10,9 +10,7 @@ class DiaryService {
     this.service = service;
   }
 
-
   diary = (movieID, date, place, people, notes, userID) => {
-    console.log("soy service diary");
     return this.service
       .post(`/myaccount/diary/${movieID} `, {
         movieID,
@@ -32,8 +30,6 @@ class DiaryService {
       .then((response) => response.data)
       .catch((err) => console.error(err));
   };
-
-
 }
 
 export default DiaryService;

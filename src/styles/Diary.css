@@ -1,95 +1,93 @@
-.diary-style{
-    display: flex;
-    flex-direction: column;
+.diary-style {
+  display: flex;
+  flex-direction: column;
 }
 
-.link-diary h5{
-    color: gainsboro;
-   
-    }
+.link-diary h5 {
+  color: gainsboro;
+}
 
-    .link-diary p{
-        color: gainsboro;
-        font-size: 0.9rem;
-        }
-    
-    .link-diary:hover {
-      color: rgb(76, 0, 138);
-      font-size: 0.9rem;
-      }
+.link-diary p {
+  color: gainsboro;
+  font-size: 0.9rem;
+}
 
-      .diary-details-style{
-        padding-top: 47px;
-        padding-bottom: 20px;
-        margin: 0 auto;
-        max-width: 1000px;
-      }
-      .details-box-diary {
-        margin-top: 20px;
-        padding-top: 20px;
-      
-        margin: 0 auto;
-        max-width: 1000px;
-      } 
-      
+.link-diary:hover {
+  color: rgb(76, 0, 138);
+  font-size: 0.9rem;
+}
 
-      @media (min-width: 30px) {
-        .welcome-user h1 {
-          font-size: 5em;
-        }
-      }
-      
-      /* Medium devices (desktops, 992px and up) */
-      @media (min-width: 992px) {
-        .welcome-user h1 {
-          font-size: 6em;
-        }
-      }
-      
-      /* Large devices (large desktops, 1200px and up) */
-      @media (min-width: 1200px) {
-        .welcome-user h1 {
-          font-size: 6em;
-        }
-      }
+.diary-details-style {
+  padding-top: 47px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
+}
 
-      .welcome{
-          padding-top: 20px;
-          padding-bottom: 20px;
-      }
+.details-box-diary {
+  margin-top: 20px;
+  padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
+}
 
-      .movieID-code{
-        color: rgb(38, 208, 75);
-      }
-      
-    .form-align{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      align-content: center;
-
-
-    }
-
-    @media all and (min-width: 480px) {
-      .form-container {
-        padding: 60px 0;
-      }
-    
-      .form-container form {
-        margin: 0 auto;
-        max-width: 320px;
-      }
-
-  
-      .info-message{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        color: rgb(119, 0, 255);
-       padding-bottom: 18px;
-       padding-top: 10px;
-        
-    }
+@media (min-width: 30px) {
+  .welcome-user h1 {
+    font-size: 5em;
   }
+}
+
+@media (min-width: 992px) {
+  .welcome-user h1 {
+    font-size: 6em;
+  }
+}
+
+@media (min-width: 1200px) {
+  .welcome-user h1 {
+    font-size: 6em;
+  }
+}
+
+.welcome {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.movieID-code {
+  color: rgb(38, 208, 75);
+}
+
+.form-align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+@media all and (min-width: 480px) {
+  .form-container {
+    padding: 60px 0;
+  }
+
+  .form-container form {
+    margin: 0 auto;
+    max-width: 320px;
+    height: auto;
+  }
+
+  .info-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    color: rgb(119, 0, 255);
+    padding-bottom: 18px;
+    padding-top: 10px;
+  }
+}
+
+.info-message-review {
+  margin-top: 0;
+  color: rgb(119, 0, 255);
+}

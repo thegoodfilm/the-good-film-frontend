@@ -1,10 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Roboto&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&family=Roboto&display=swap');
-
-
-.spinner{
+.spinner {
   padding-top: 20px;
   padding-bottom: 20px;
   margin: 0 auto;
@@ -18,14 +15,9 @@
   max-width: 1200px;
 }
 
-.main-text-myaccount{
-    font-family: 'Roboto', sans-serif;
-
+.main-text-myaccount {
+  font-family: "Roboto", sans-serif;
 }
-
-
-
-
 
 .myaccount-box > div {
   display: flex;
@@ -34,7 +26,6 @@
   justify-content: center;
   align-content: center;
 }
-
 
 .img-overlay-myaccount {
   background-color: rgba(36, 22, 22, 0.651);
@@ -46,12 +37,10 @@
 }
 
 @media all and (min-width: 480px) {
-    .loader-container {
-      margin: 0 auto;
-  
-     
+  .loader-container {
+    margin: 0 auto;
   }
-  
+
   .loader,
   .loader:before,
   .loader:after {
@@ -61,6 +50,7 @@
     width: 1em;
     height: 4em;
   }
+
   .loader {
     color: #ffffff;
     text-indent: -9999em;
@@ -73,20 +63,24 @@
     -webkit-animation-delay: -0.16s;
     animation-delay: -0.16s;
   }
+
   .loader:before,
   .loader:after {
     position: absolute;
     top: 0;
     content: "";
   }
+
   .loader:before {
     left: -1.5em;
     -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
   }
+
   .loader:after {
     left: 1.5em;
   }
+
   @-webkit-keyframes load1 {
     0%,
     80%,
@@ -99,6 +93,7 @@
       height: 5em;
     }
   }
+
   @keyframes load1 {
     0%,
     80%,
@@ -111,47 +106,44 @@
       height: 5em;
     }
   }
-  
-  }
+}
+
 .jumbotron {
-    background-color: rgba(253, 59, 59, 0.589) !important;
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    max-width: 1000;
-  
-    -webkit-border-radius: 7px 0px 7px 0px;
-    -moz-border-radius: 7px 0px 7px 0px;
-    border-radius: 7px 0px 7px 0px;
-    font-family: 'Julius Sans One', sans-serif;
+  background-color: rgba(253, 59, 59, 0.589) !important;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  max-width: 1000;
+  -webkit-border-radius: 7px 0px 7px 0px;
+  -moz-border-radius: 7px 0px 7px 0px;
+  border-radius: 7px 0px 7px 0px;
+  font-family: "Julius Sans One", sans-serif;
+}
+
+.movie-box > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+@media (min-width: 30px) {
+  .jumbotron h1 {
+    font-size: 2em;
   }
-  
-  .movie-box > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
+}
+
+@media (min-width: 992px) {
+  .jumbotron h1 {
+    font-size: 3em;
   }
-  
-  @media (min-width: 30px) {
-    .jumbotron h1 {
-      font-size: 2em;
-    }
+}
+
+@media (min-width: 1200px) {
+  .jumbotron h1 {
+    font-size: 3em;
   }
-  
-  /* Medium devices (desktops, 992px and up) */
-  @media (min-width: 992px) {
-    .jumbotron h1 {
-      font-size: 3em;
-    }
-  }
-  
-  /* Large devices (large desktops, 1200px and up) */
-  @media (min-width: 1200px) {
-    .jumbotron h1 {
-      font-size: 3em;
-    }
-  }
+}

@@ -41,9 +41,9 @@ class Upcomings extends React.Component {
                 <Card.Title className="main-text">{upcoming.title}</Card.Title>
                 <Card.Text className="main-text">
                   <img
-                    class="star"
+                    className="star"
                     src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
-                  />{" "}
+                    alt={upcoming.title}/>{" "}
                   {upcoming.vote_average}
                 </Card.Text>
               </Card.ImgOverlay>

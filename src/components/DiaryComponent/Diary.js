@@ -1,10 +1,8 @@
 import React from "react";
 import "../../styles/Diary.css";
-import { Col, Container, Row, Jumbotron, Card, Spinner } from "react-bootstrap";
+import { Col, Container, Row, Jumbotron, Media } from "react-bootstrap";
 import "../../styles/MyAccount.css";
-
 import DiaryService from "../../services/DiaryService";
-import { Media } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 class Diary extends React.Component {
@@ -37,7 +35,6 @@ class Diary extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-      
   }
   myDiaryMovies = () => {
     const myDiaryMoviesMap = this.state.allDiary.map((_id) => {
@@ -48,14 +45,11 @@ class Diary extends React.Component {
           return data.json();
         })
         .then((dataJSON) => {
-          console.log(dataJSON);
-
           return dataJSON;
         });
     });
 
     Promise.all(myDiaryMoviesMap).then((result) => {
-      console.log(result);
       this.setState({ allMovies: result });
       this.getFullDiaryMovies();
     });
@@ -68,7 +62,6 @@ class Diary extends React.Component {
         <div>
           <div key={index}>
             <h3>{allMovies.original_title}</h3>
-
             <img src={poster} alt={allMovies.original_title} />
           </div>
         </div>
@@ -82,9 +75,7 @@ class Diary extends React.Component {
     let fullDiaryMovies = [];
     diaryArr = diaryArr.sort((a, b) => a._id - b._id);
     movieArr = movieArr.sort((a, b) => a._id - b._id);
-    console.log(diaryArr);
-    console.log(movieArr);
-    console.log(diaryArr.length);
+
     for (let i = 0; i < diaryArr.length; i++) {
       fullDiaryMovies[i] = {
         date: diaryArr[i].date,
@@ -96,10 +87,8 @@ class Diary extends React.Component {
         original_title: movieArr[i].original_title,
         poster_path: movieArr[i].poster_path,
       };
-      console.log(diaryArr[i]);
     }
-    console.log(fullDiaryMovies);
-    console.log(this.state.allDiary.id);
+
     this.setState({ fullDiary: fullDiaryMovies });
   };
 
@@ -183,43 +172,43 @@ class Diary extends React.Component {
     );
   };
 
-  
   render() {
     return (
       <div name="top" className="myaccount-box">
-        {this.state.diary.length !== 0
-          ? <div>
+        {this.state.diary.length !== 0 ? (
+          <div>
             <Container>
-            <Row className="justify-content-md-center">
-                  <Col>
-                    <Jumbotron fluid>
-                      <Container>
-                        <h1>MY DIARY</h1>
-                      </Container>
-                    </Jumbotron>
-                  </Col>
-                </Row>
+              <Row className="justify-content-md-center">
+                <Col>
+                  <Jumbotron fluid>
+                    <Container>
+                      <h1>MY DIARY</h1>
+                    </Container>
+                  </Jumbotron>
+                </Col>
+              </Row>
               {this.renderMyDiary()}{" "}
             </Container>
-            </div>
-          : <div>
+          </div>
+        ) : (
+          <div>
             <Container>
-            <Row className="justify-content-md-center">
-                  <Col>
-                    <Jumbotron fluid>
-                      <Container>
-                        <h1>MY DIARY</h1>
-                      </Container>
-                    </Jumbotron>
-                  </Col>
-                </Row>
-             {this.messageIfAnyDiaryFind()}{" "}
+              <Row className="justify-content-md-center">
+                <Col>
+                  <Jumbotron fluid>
+                    <Container>
+                      <h1>MY DIARY</h1>
+                    </Container>
+                  </Jumbotron>
+                </Col>
+              </Row>
+              {this.messageIfAnyDiaryFind()}{" "}
             </Container>
-            </div>}
+          </div>
+        )}
       </div>
     );
   }
 }
 
 export default Diary;
-

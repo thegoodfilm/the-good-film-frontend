@@ -1,31 +1,11 @@
-
-/* 
-.details-box {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin: 0 auto;
-  max-width: 1000px;
-} */
-
-/* .details-basic-info-container {
-  padding-top: 20px;
-  display: flex;
-  flex-direction: row;
-} */
-
-/* .details-basic-info-container img {
-  max-width: 70%;
-  height: auto;
-} */
-
 .details-box h2,
 p {
   font-size: 1rem;
 }
+
 .intro {
   margin-top: 50px;
 }
-
 
 .video-container {
   position: relative;
@@ -34,6 +14,7 @@ p {
   height: 0;
   overflow: hidden;
 }
+
 .video-container iframe {
   position: absolute;
   top: 0;
@@ -46,27 +27,26 @@ p {
   background-color: rgb(38, 208, 75);
 }
 
-
-
 .review-box {
   margin: 0 auto;
   max-width: 1000px;
   padding: 60px 0;
 }
 
-.buttons-section{
+.buttons-section {
   display: flex;
   flex-direction: column;
   justify-content: left;
   margin: 0 auto;
   align-items: flex-start;
   padding-bottom: 20px;
- 
 }
-.message-only-color{
-  color:gainsboro;
+
+.message-only-color {
+  color: gainsboro;
   font-size: 0.9rem;
 }
+
 .info-message {
   color: rgb(119, 0, 255);
   font-weight: 300;
@@ -75,35 +55,33 @@ p {
   padding-top: 30px;
 }
 
-.main-details-style{
+.main-details-style {
   padding-top: 0px;
   padding-bottom: 20px;
   margin: 0 auto;
   max-width: 1000px;
 }
 
-.movieID-code{
+.movieID-code {
   color: rgb(38, 208, 75);
 }
 
-.main-details-style-video{
+.main-details-style-video {
   padding-top: 45px;
   padding-bottom: 20px;
   margin: 0 auto;
   max-width: 1000px;
 }
 
-.main-details-style-video h2{
+.main-details-style-video h2 {
   padding-bottom: 15px;
-
 }
 
-.render-btns{
+.render-btns {
   margin-top: 0;
 }
 
-
-.main-details-style-reviews{
+.main-details-style-reviews {
   padding-top: 0px;
   padding-bottom: 20px;
   margin: 0 auto;
@@ -111,45 +89,47 @@ p {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
 }
+
 .link {
-color: gainsboro;
-font-size: 0.6rem;
+  color: gainsboro;
+  font-size: 0.6rem;
 }
 
 .link:hover {
   color: rgb(0, 138, 0);
   font-size: 0.6rem;
-  }
+}
 
-.list-unstyled h5{
+.list-unstyled h5 {
   color: rgb(38, 208, 75);
-  font-size: 0.9rem;}
+  font-size: 0.9rem;
+}
 
-  .list-unstyled p{
-    color: gainsboro;
-    font-size: 0.9rem;}
+.list-unstyled p {
+  color: gainsboro;
+  font-size: 0.9rem;
+}
 
-    .date{
-font-style: oblique;   
-font-size: 0.8rem; }
+.date {
+  font-style: oblique;
+  font-size: 0.8rem;
+}
 
-.formGridAddress2{
+.formGridAddress2 {
   margin-top: 0%;
 }
 
-.info-message-review{
-margin-top: 0;
-color: rgb(119, 0, 255);
-
-
+.info-message-review {
+  margin-top: 0;
+  color: rgb(119, 0, 255);
 }
 
-.text-gainsboro{
+.text-gainsboro {
   color: gainsboro;
 }
-.review-section{
+
+.review-section {
   display: flex;
   flex-direction: column;
 }

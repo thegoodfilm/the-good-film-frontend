@@ -26,7 +26,6 @@ class Trendings extends React.Component {
 
   renderTrendings = () => {
     return this.state.trendings.map((trendings, index) => {
-      console.log(this.state.trendings[0].original_title);
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${trendings.poster_path}`;
       return (
         <Link
@@ -42,9 +41,9 @@ class Trendings extends React.Component {
                 <Card.Title className="main-text">{trendings.title}</Card.Title>
                 <Card.Text className="main-text">
                   <img
-                    class="star"
+                    className="star"
                     src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
-                  />{" "}
+                    alt ={trendings.title}/>{" "}
                   {trendings.vote_average}
                 </Card.Text>
               </Card.ImgOverlay>

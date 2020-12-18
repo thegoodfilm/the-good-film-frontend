@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Col, Container, Row, Jumbotron, Card, Spinner } from "react-bootstrap";
 import "../../styles/MyAccount.css";
+import { Link } from "react-router-dom";
+import { Col, Container, Row, Jumbotron, Card } from "react-bootstrap";
 import MyAccountService from "../../services/MyAccountService";
 
 class Watchlist extends React.Component {
@@ -17,11 +17,9 @@ class Watchlist extends React.Component {
       .getUser(this.props.isLogged._id)
       .then((response) => {
         this.setState({
-          watchlist: [...response.watchlist]
-         
+          watchlist: [...response.watchlist],
         });
         this.myWatchlist();
-       
       })
       .catch((err) => {
         console.log(err);
@@ -33,33 +31,30 @@ class Watchlist extends React.Component {
       return fetch(
         `${process.env.REACT_APP_BASEURL}/${_id}?api_key=${process.env.REACT_APP_KEY}&language=en-US`
       )
-      .then((data)=>{
-        return data.json()
-      })
-      .then((dataJSON)=>{
-        return dataJSON
-      })
-    })
-
+        .then((data) => {
+          return data.json();
+        })
+        .then((dataJSON) => {
+          return dataJSON;
+        });
+    });
     Promise.all(watchlistMap).then((result) => {
-        console.log(result)
       this.setState({ allWatchlist: result });
     });
   };
 
-
-
-  
-
-renderMyWatchlist = () => {
+  renderMyWatchlist = () => {
     return this.state.allWatchlist.map((allWatchlist, index) => {
       const poster = `${process.env.REACT_APP_BASEURLPOSTER}${allWatchlist.poster_path}`;
       return (
- <Link name="top" to={`/myaccount/watchlist/${allWatchlist.id}`}  className="text-link-myaccount"
- style={{ textDecoration: "none" }} key={index} name="top">
-
-
-<Col>
+        <Link
+          name="top"
+          to={`/myaccount/watchlist/${allWatchlist.id}`}
+          className="text-link-myaccount"
+          style={{ textDecoration: "none" }}
+          key={index}
+        >
+          <Col>
             <Card className="bg-dark text-white">
               <Card.ImgOverlay class="img-overlay-myaccount">
                 <Card.Title className="main-text-myaccount">
@@ -67,8 +62,9 @@ renderMyWatchlist = () => {
                 </Card.Title>
                 <Card.Text className="main-text-myaccount">
                   <img
-                    class="star-myaccount"
+                    className="star-myaccount"
                     src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
+                    alt={allWatchlist.title}
                   />{" "}
                   {allWatchlist.vote_average}
                 </Card.Text>
@@ -77,13 +73,10 @@ renderMyWatchlist = () => {
             </Card>
           </Col>
           <br></br>
-
-
-       </Link>
+        </Link>
       );
     });
   };
-
 
   messageIfAnyWatchlistFind = () => {
     return (
@@ -100,10 +93,10 @@ renderMyWatchlist = () => {
   render() {
     return (
       <div name="top" className="myaccount-box">
-      {this.state.watchlist.length !== 0
-        ? <div>
-          <Container>
-          <Row className="justify-content-md-center">
+        {this.state.watchlist.length !== 0 ? (
+          <div>
+            <Container>
+              <Row className="justify-content-md-center">
                 <Col>
                   <Jumbotron fluid>
                     <Container>
@@ -112,12 +105,16 @@ renderMyWatchlist = () => {
                   </Jumbotron>
                 </Col>
               </Row>
-            <Row className="justify-content-md-center"> {this.renderMyWatchlist()} </Row>{" "}
-          </Container>
+              <Row className="justify-content-md-center">
+                {" "}
+                {this.renderMyWatchlist()}{" "}
+              </Row>{" "}
+            </Container>
           </div>
-        : <div>
-          <Container>
-          <Row className="justify-content-md-center">
+        ) : (
+          <div>
+            <Container>
+              <Row className="justify-content-md-center">
                 <Col>
                   <Jumbotron fluid>
                     <Container>
@@ -126,10 +123,14 @@ renderMyWatchlist = () => {
                   </Jumbotron>
                 </Col>
               </Row>
-            <Row className="justify-content-md-center"> {this.messageIfAnyWatchlistFind()} </Row>{" "}
-          </Container>
-          </div>}
-    </div>
+              <Row className="justify-content-md-center">
+                {" "}
+                {this.messageIfAnyWatchlistFind()}{" "}
+              </Row>{" "}
+            </Container>
+          </div>
+        )}
+      </div>
     );
   }
 }

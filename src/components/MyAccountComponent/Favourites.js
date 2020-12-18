@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Col, Container, Row, Jumbotron, Card, Spinner } from "react-bootstrap";
-import "../../styles/MyAccount.css";
-
+import { Col, Container, Row, Jumbotron, Card } from "react-bootstrap";
 import MyAccountService from "../../services/MyAccountService";
 
 class Favourites extends React.Component {
@@ -41,7 +39,6 @@ class Favourites extends React.Component {
     });
 
     Promise.all(favouritesMap).then((result) => {
-      console.log(result);
       this.setState({ allFavourites: result });
     });
   };
@@ -56,7 +53,6 @@ class Favourites extends React.Component {
           name="top"
           to={`/myaccount/favourites/${allFavourites.id}`}
           key={index}
-          name="top"
         >
           <Col>
             <Card className="bg-dark text-white">
@@ -66,9 +62,9 @@ class Favourites extends React.Component {
                 </Card.Title>
                 <Card.Text className="main-text-myaccount">
                   <img
-                    class="star-myaccount"
+                    className="star-myaccount"
                     src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
-                  />{" "}
+                    alt ={allFavourites.title}/>{" "}
                   {allFavourites.vote_average}
                 </Card.Text>
               </Card.ImgOverlay>
@@ -76,8 +72,6 @@ class Favourites extends React.Component {
             </Card>
           </Col>
           <br></br>
-
-     
         </Link>
       );
     });

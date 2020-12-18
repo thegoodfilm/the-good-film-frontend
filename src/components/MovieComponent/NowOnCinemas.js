@@ -45,7 +45,7 @@ class NowOnCinemas extends React.Component {
                   <img
                     className="star"
                     src="../../../kisspng-star-yellow-clip-art-football-star-5b1a130d853403.5302780815284354695456.png"
-                  />{" "}
+                    alt ={nowOnCinemas.title}/>{" "}
                   {nowOnCinemas.vote_average}
                 </Card.Text>
               </Card.ImgOverlay>

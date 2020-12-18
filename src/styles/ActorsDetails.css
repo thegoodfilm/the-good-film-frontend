@@ -1,50 +1,42 @@
+.actor-details-style {
+  padding-top: 47px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
+}
 
+.details-box-actors {
+  margin-top: 20px;
+  padding-top: 20px;
 
-  
-  .actor-details-style{
-    padding-top: 47px;
-    padding-bottom: 20px;
-    margin: 0 auto;
-    max-width: 1000px;
-  }
-  
-  .details-box-actors {
-    margin-top: 20px;
-    padding-top: 20px;
-  
-    margin: 0 auto;
-    max-width: 1000px;
-  } 
-  
+  margin: 0 auto;
+  max-width: 1000px;
+}
 
-    .character-style{
-font-style: oblique;   
- }
+.character-style {
+  font-style: oblique;
+}
 
-
-  .link-actor {
+.link-actor {
   color: gainsboro;
   font-size: 0.6rem;
-  }
-  
-  .link-actor:hover {
-    color: rgb(0, 138, 0);
-    font-size: 0.6rem;
-    }
-  
-  .list-unstyled h5{
-    color: rgb(38, 208, 75);
-    font-size: 0.9rem;}
-  
-    .list-unstyled p{
-      color: gainsboro;
-      font-size: 0.9rem;}
-  
-      
-  
+}
 
-  
-  .text-gainsboro-actors{
-    color: gainsboro;
-  }
- 
+.link-actor:hover {
+  color: rgb(0, 138, 0);
+  font-size: 0.6rem;
+}
+
+.list-unstyled h5 {
+  color: rgb(38, 208, 75);
+  font-size: 0.9rem;
+}
+
+.list-unstyled p {
+  color: gainsboro;
+  font-size: 0.9rem;
+}
+
+.text-gainsboro-actors {
+  color: gainsboro;
+}

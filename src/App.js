@@ -1,13 +1,12 @@
-import "./styles/App.css";
-
 import React from "react";
+import "./styles/App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
+
 import MyNavBar from "./components/SearchbarComponent/Navbar";
 import SignUp from "./components/AuthComponent/SignUp";
 import LogIn from "./components/AuthComponent/LogIn";
 import Home from "./components/LayoutComponent/Home";
 import Footer from "./components/LayoutComponent/Footer";
-
 import Upcomings from "./components/MovieComponent/Upcomings";
 import NowOnCinemas from "./components/MovieComponent/NowOnCinemas";
 import TopRated from "./components/MovieComponent/TopRated";
@@ -20,8 +19,6 @@ import Favourites from "./components/MyAccountComponent/Favourites";
 import Watchlist from "./components/MyAccountComponent/Watchlist";
 import DiaryForm from "./components/DiaryComponent/DiaryForm";
 import Diary from "./components/DiaryComponent/Diary";
-import ReviewForm from "./components/ReviewComponent/ReviewForm";
-
 
 import UserService from "./services/UserService";
 import DiaryService from "./services/DiaryService";
@@ -61,7 +58,7 @@ class App extends React.Component {
       searchURL: "",
       searchResult: [],
       loginResult: "",
-      submitDiaryCheck: false
+      submitDiaryCheck: false,
     };
     this.service = new UserService();
     this.serviceDiary = new DiaryService();
@@ -105,14 +102,15 @@ class App extends React.Component {
     this.service
       .login(this.state.loggingUser.email, this.state.loggingUser.password)
       .then((result) => {
-        console.log(result.message)
-           this.setState({ message: result.message, isLoggedIn: true, isLogged: result});
-
+        this.setState({
+          message: result.message,
+          isLoggedIn: true,
+          isLogged: result,
+        });
         // this.setState({ isLogged: result});
         // this.setState({ message: result.message, isLoggedIn: true });
         // this.checkIfLoggedIn();
       })
-
       .catch((err) => {
         console.log(err);
       });
@@ -138,7 +136,6 @@ class App extends React.Component {
     this.service
       .logout()
       .then((result) => {
-        console.log(result);
         this.checkIfLoggedIn();
       })
       .catch((err) => {
@@ -162,7 +159,7 @@ class App extends React.Component {
       .then((result) => {
         this.setState({ message: result.message });
         this.checkIfLoggedIn();
-        this.setState({submitDiaryCheck: true})
+        this.setState({ submitDiaryCheck: true });
       })
       .catch((err) => {
         console.log(err);
@@ -181,7 +178,6 @@ class App extends React.Component {
   // REVIEW FORM CONFIG
   submitReviewForm = (event) => {
     event.preventDefault();
-    console.log("soy review submit");
     this.serviceReview
       .review(
         this.state.newReview.movieID,
@@ -190,7 +186,6 @@ class App extends React.Component {
         this.state.newReview.userID
       )
       .then((result) => {
-        console.log(result);
         this.setState({ message: result.message });
         this.checkIfLoggedIn();
       })
@@ -219,6 +214,7 @@ class App extends React.Component {
     window.location.href = `/search/${this.state.searchedWord}/results`;
   };
 
+  // COMPONENTDIDMOUNT
   componentDidMount() {
     this.checkIfLoggedIn();
   }
@@ -286,7 +282,6 @@ class App extends React.Component {
           ) : (
             <Route path="/login" render={() => <Redirect to="/" />} />
           )}
-     
 
           {/* MOVIE ROUTES */}
 
@@ -335,17 +330,20 @@ class App extends React.Component {
             exact
             path="/details/:id"
             render={(props) => {
-              return <Details {...props} isLogged={this.state.isLogged} 
-              newReview={this.state.newReview}
-              changeHandlerReview={this.changeHandlerReview}
-              />;
+              return (
+                <Details
+                  {...props}
+                  isLogged={this.state.isLogged}
+                  newReview={this.state.newReview}
+                  changeHandlerReview={this.changeHandlerReview}
+                />
+              );
             }}
           />
 
           <Route exact path="/details/actors/:id" component={ActorsDetails} />
 
-
-          <Route
+          {/* <Route
             path="/details/actors/:id/:title"
             render={(props) => (
               <Details
@@ -358,23 +356,7 @@ class App extends React.Component {
                 message={this.state.message}
               />
             )}
-          />
-
-          {this.state.isLogged._id && (
-            <Route
-              exact
-              path="/myaccount/watchlist"
-              render={() => <Watchlist isLogged={this.state.isLogged} />}
-            />
-          )}
-
-          <Route
-            exact
-            path="/myaccount/watchlist/:id"
-            render={(props) => {
-              return <Details {...props} isLogged={this.state.isLogged} />;
-            }}
-          />
+          /> */}
 
           {/* SEARCHBAR ROUTES */}
 
@@ -399,6 +381,7 @@ class App extends React.Component {
               );
             }}
           />
+
           <Route
             exact
             path="/search/:id/results/:page"
@@ -439,7 +422,21 @@ class App extends React.Component {
             }}
           />
 
-          {/* DIARY ROUTES */}
+          {this.state.isLogged._id && (
+            <Route
+              exact
+              path="/myaccount/watchlist"
+              render={() => <Watchlist isLogged={this.state.isLogged} />}
+            />
+          )}
+
+          <Route
+            exact
+            path="/myaccount/watchlist/:id"
+            render={(props) => {
+              return <Details {...props} isLogged={this.state.isLogged} />;
+            }}
+          />
 
           {this.state.isLogged._id && (
             <Route
@@ -459,11 +456,6 @@ class App extends React.Component {
             />
           )}
 
-
-         
-
-
-
           {!this.state.submitDiaryCheck ? (
             <Route
               exact
@@ -479,12 +471,13 @@ class App extends React.Component {
                 />
               )}
             />
-          ) :  <Route
+          ) : (
+            <Route
               exact
               path="/myaccount/diary/:id"
-              render={() => <Redirect to="/myaccount/diary"/>}
+              render={() => <Redirect to="/myaccount/diary" />}
             />
-          }
+          )}
 
           {/* REVIEW ROUTH */}
 
@@ -518,7 +511,6 @@ class App extends React.Component {
                   isLogged={this.state.isLogged}
                   message={this.state.message}
                 />
-          
               )}
             />
           )}

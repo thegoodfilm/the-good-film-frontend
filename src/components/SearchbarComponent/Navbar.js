@@ -1,7 +1,6 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/Navbar.css";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Button,
   Navbar,
@@ -16,7 +15,7 @@ const MyNavBar = (props) => {
   return (
     <div>
       <Navbar className="bg-navbar" variant="dark" expand="lg">
-        <Navbar.Brand href="#home">theGoodFilm</Navbar.Brand>
+        <Navbar.Brand href="/">theGoodFilm</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
@@ -27,7 +26,6 @@ const MyNavBar = (props) => {
               </NavDropdown.Item>
               <NavDropdown.Item href="/upcomings">Upcomings</NavDropdown.Item>
               <NavDropdown.Item href="/toprated">Top rated</NavDropdown.Item>
-
               <NavDropdown.Item href="/trendings">
                 Trending this week{" "}
               </NavDropdown.Item>
@@ -37,15 +35,12 @@ const MyNavBar = (props) => {
                 <NavDropdown.Item href="/myaccount/diary">
                   Diary
                 </NavDropdown.Item>
-
                 <NavDropdown.Item href="/myaccount/favourites">
                   Favourites
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/myaccount/watchlist">
                   Watchlist
                 </NavDropdown.Item>
-
-           
               </NavDropdown>
             )}
           </Nav>
@@ -67,7 +62,6 @@ const MyNavBar = (props) => {
               </Button>
             </Form>
           </Nav>
-
           <Nav>
             {props.isLogged.username && (
               <NavDropdown title={welcome} id="basic-nav-dropdown">
@@ -77,7 +71,6 @@ const MyNavBar = (props) => {
               </NavDropdown>
             )}
           </Nav>
-
           <div>
             {!props.isLogged.username && (
               <Button href="/signup" variant="light">
