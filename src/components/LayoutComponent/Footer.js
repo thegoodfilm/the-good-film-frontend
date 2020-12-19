@@ -9,21 +9,21 @@ const Footer = () => {
       <footer className="page-footer font-small blue">
         <div className="footer-copyright text-center py-3">
           © 2020 Created by{" "}
-          <Link
+          <a
             className="color-footer"
             style={{ textDecoration: "none" }}
-            to="https://www.linkedin.com/in/sara-palaciosdepedro/"
+            href="https://www.linkedin.com/in/sara-palaciosdepedro/"
           >
             Sara Palacios{" "}
-          </Link>
+          </a>
           || Powered by{" "}
-          <Link
+          <a
             className="color-footer"
             style={{ textDecoration: "none" }}
-            to="https://www.themoviedb.org/"
+            href="https://www.themoviedb.org/"
           >
             themoviedb.com{" "}
-          </Link>
+          </a>
         </div>
       </footer>
     </div>
